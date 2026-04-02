@@ -1,3 +1,4 @@
+// حساب الـ vh الحقيقي للأجهزة المحمولة
 function setRealHeight() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -5,6 +6,7 @@ function setRealHeight() {
 
 window.addEventListener('load', setRealHeight);
 window.addEventListener('resize', setRealHeight);
+window.addEventListener('orientationchange', setRealHeight);
 
 // 1. التحكم في شاشة التحميل (Splash Screen)
 window.addEventListener('load', function() {
@@ -14,38 +16,56 @@ window.addEventListener('load', function() {
     }
     
     loadEventsFromStorage();
+    renderReminders();
+    renderFavorites();
 
-setTimeout(function() {
-    const splash = document.getElementById('splash-screen');
-    const container = document.querySelector('.app-container');
+    setTimeout(function() {
+        const splash = document.getElementById('splash-screen');
+        const container = document.querySelector('.app-container');
 
-    if (splash) {
-        splash.style.opacity = '0';
-        splash.style.visibility = 'hidden';
-    }
+        if (splash) {
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+            setTimeout(() => {
+                splash.classList.add('hidden');
+            }, 500);
+        }
 
-    if (container) {
-        container.classList.remove('hidden');
-    }
+        if (container) {
+            container.classList.remove('hidden');
+        }
 
-    // 🔥 إعادة حساب الارتفاع بعد ظهور التطبيق
-    setTimeout(() => {
-        setRealHeight();
-    }, 300);
-
-}, 2000);
+        setTimeout(() => {
+            setRealHeight();
+        }, 300);
+    }, 2000);
 });
 
 // 2. التنقل بين الصفحات
 function showScreen(screenId, element) {
+    // إخفاء جميع الشاشات
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+    
+    // إظهار الشاشة المطلوبة
     const target = document.getElementById(screenId);
     if (target) {
         target.classList.remove('hidden');
     }
+    
+    // تحديث حالة الأزرار في شريط التنقل
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     if (element) {
         element.classList.add('active');
+    }
+    
+    // تحديث التذكيرات إذا كانت الشاشة المطلوبة هي صفحة التذكيرات
+    if (screenId === 'reminders-page') {
+        renderReminders();
+    }
+    
+    // تحديث المفضلات إذا كانت الشاشة المطلوبة هي صفحة البحث
+    if (screenId === 'search-page') {
+        renderFavorites();
     }
 }
 
@@ -55,7 +75,7 @@ const defaultRooms = {
     "101": {
         floor: "Floor 1",
         building: "Building A",
-        image: "room101.jpg",
+        image: "https://via.placeholder.com/400x200?text=Room+101",
         desc: "Located near the North Elevator. Perfect for group studies and lectures.",
         nearby: { cafe: "1m", print: "30s" }
     }
@@ -66,37 +86,25 @@ let customRooms = JSON.parse(localStorage.getItem('pmu_custom_rooms')) || {};
 function searchRoom() {
     const input = document.getElementById('roomInput').value.trim();
     const resultsArea = document.getElementById('search-results-area');
+    const inputArea = document.getElementById('search-input-area');
     
     const allRooms = { ...defaultRooms, ...customRooms };
     const roomData = allRooms[input];
 
     if (roomData) {
-        resultsArea.innerHTML = `
-            <div class="result-card" style="animation: fadeIn 0.5s ease;">
-                
-                <img src="${roomData.image}" id="roomImage" style="width:100%; border-radius:15px; margin-bottom:15px;">
-                <h2 id="roomTitleDisplay" style="color:var(--pmu-orange);">Room ${input}</h2>
-                <p id="roomDesc" style="color:#ccc; font-size:14px; line-height:1.6;">${roomData.desc}</p>
-                <div class="result-header">
-                    <span class="badge">${roomData.floor}</span>
-                    <span class="badge highlight">${roomData.building}</span>
-                </div>
-                <div class="nearby-info" style="display:flex; gap:10px; margin-top:15px;">
-                    <small><i class="fa-solid fa-coffee"></i> Cafeteria (${roomData.nearby ? roomData.nearby.cafe : 'Nearby'})</small>
-                    <small><i class="fa-solid fa-print"></i> Printer (${roomData.nearby ? roomData.nearby.print : 'Available'})</small>
-                </div>
-
-                <div class="action-buttons" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:20px;">
-                    <button class="btn-secondary" onclick="saveToFav('${input}')"><i class="fa-regular fa-heart"></i> Favorite</button>
-                    <button class="btn-primary" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                </div>
-            </div>
-        `;
+        // عرض النتائج
+        document.getElementById('roomImage').src = roomData.image;
+        document.getElementById('roomTitleDisplay').innerHTML = `Room ${input}`;
+        document.getElementById('roomDesc').innerHTML = roomData.desc;
+        document.getElementById('roomTitle').innerHTML = `Room ${input}`;
         
-        document.getElementById('search-input-area').classList.add('hidden');
+        // تخزين رقم الغرفة الحالي للمفضلة
+        window.currentRoomNumber = input;
+        
+        inputArea.classList.add('hidden');
         resultsArea.classList.remove('hidden');
     } else {
-        alert("Room not found! Try 101 or check Admin additions.");
+        showToast("Room not found! Try 101 or check Admin additions.", true);
     }
 }
 
@@ -107,40 +115,44 @@ function addNewRoom() {
     const desc = document.getElementById('newRoomDesc').value.trim();
     const imageFile = document.getElementById('newRoomImage').files[0];
 
-    if (!number || !building || !imageFile) {
-     // داخل وظيفة addNewRoom عند النجاح:
-// بدلاً من: alert(`Room ${number} added successfully!`);
-showToast(`Room ${number} has been published! 🚀`);
+    if (!number || !building) {
+        showToast("Please fill Room Number and Building!", true);
         return;
     }
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const imageData = e.target.result; 
-
+    const saveRoom = (imageData) => {
         customRooms[number] = {
             floor: floor || "N/A",
             building: building,
-            image: imageData,
+            image: imageData || "https://via.placeholder.com/400x200?text=New+Room",
             desc: desc || "No description provided.",
             nearby: { cafe: "Nearby", print: "Available" }
         };
 
         localStorage.setItem('pmu_custom_rooms', JSON.stringify(customRooms));
         
-        // --- التعديل هنا: تحديث القائمة والإحصائيات فوراً ---
-        refreshAdminRooms(); 
+        refreshAdminRooms();
         updateAdminStats();
         
-        alert(`Room ${number} added successfully!`);
+        showToast(`Room ${number} has been published! 🚀`);
         
+        // تنظيف الحقول
         document.getElementById('newRoomNumber').value = '';
         document.getElementById('newRoomBuilding').value = '';
         document.getElementById('newRoomFloor').value = '';
         document.getElementById('newRoomDesc').value = '';
         document.getElementById('newRoomImage').value = '';
     };
-    reader.readAsDataURL(imageFile);
+
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            saveRoom(e.target.result);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        saveRoom(null);
+    }
 }
 
 function goBack() {
@@ -157,17 +169,19 @@ function checkAdminLogin() {
         showScreen('admin-dashboard');
         refreshAdminEvents(); 
         refreshAdminRooms(); 
-        updateAdminStats(); // تحديث الإحصائيات عند الدخول
+        updateAdminStats();
         
         document.getElementById('adminUser').value = '';
         document.getElementById('adminPass').value = '';
+        showToast("Welcome Admin!");
     } else {
-        alert('Wrong username or password!');
+        showToast("Wrong username or password!", true);
     }
 }
 
 function logoutAdmin() {
     showScreen('home-page');
+    showToast("Logged out successfully");
 }
 
 // 5. إدارة الألوان
@@ -187,7 +201,7 @@ function saveAllEvents() {
         });
     });
     localStorage.setItem('pmu_calendar_events', JSON.stringify(events));
-    updateAdminStats(); // تحديث الأرقام عند الحفظ
+    updateAdminStats();
 }
 
 function loadEventsFromStorage() {
@@ -196,7 +210,10 @@ function loadEventsFromStorage() {
         const events = JSON.parse(saved);
         const calendarSection = document.querySelector('.calendar-section');
         const sectionTitle = calendarSection.querySelector('.section-title');
-        document.querySelectorAll('#home-page .event-card').forEach(el => el.remove());
+        
+        // حذف الأحداث القديمة مع الاحتفاظ بالعنوان
+        const oldEvents = document.querySelectorAll('#home-page .event-card');
+        oldEvents.forEach(el => el.remove());
 
         events.forEach(ev => {
             const html = `
@@ -225,12 +242,13 @@ function addNewEvent() {
         sectionTitle.insertAdjacentHTML('afterend', newEventHTML);
         saveAllEvents();
         refreshAdminEvents();
-        alert('Event Added!');
+        showToast("Event Added!");
+        
         document.getElementById('eventMonth').value = '';
         document.getElementById('eventDay').value = '';
         document.getElementById('eventTitle').value = '';
     } else {
-        alert('Please fill all fields!');
+        showToast("Please fill all fields!", true);
     }
 }
 
@@ -239,7 +257,8 @@ function deleteEvent(index) {
     if (confirm('Are you sure?')) {
         homeEvents[index].remove();
         saveAllEvents();
-        refreshAdminEvents(); 
+        refreshAdminEvents();
+        showToast("Event deleted");
     }
 }
 
@@ -257,7 +276,7 @@ function refreshAdminEvents() {
                 <div style="font-size:12px; color:white;">
                     <strong style="color:var(--pmu-orange);">${month} ${day}</strong>: ${title}
                 </div>
-                <button onclick="deleteEvent(${index})" style="background:none; border:none; color:#ff4444;"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="deleteEvent(${index})" style="background:none; border:none; color:#ff4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
             </div>`;
     });
 }
@@ -265,22 +284,6 @@ function refreshAdminEvents() {
 // --- نظام التذكيرات ---
 let reminders = JSON.parse(localStorage.getItem('pmu_reminders')) || [];
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderReminders();
-    renderFavorites(); // تشغيل المفضلات أيضاً
-    setInterval(updateCountdowns, 1000);
-});
-// 🔥 حل مشكلة ارتفاع الشاشة في iOS PWA
-function setRealHeight() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-// تشغيل أول مرة
-setRealHeight();
-
-// عند تغيير الحجم (مهم للآيفون)
-window.addEventListener('resize', setRealHeight);
 function addReminder() {
     const title = document.getElementById('remindTitle').value;
     const date = document.getElementById('remindDate').value;
@@ -291,8 +294,9 @@ function addReminder() {
         document.getElementById('remindTitle').value = '';
         document.getElementById('remindDate').value = '';
         renderReminders();
+        showToast("Reminder added!");
     } else {
-        alert("Please fill fields!");
+        showToast("Please fill all fields!", true);
     }
 }
 
@@ -310,7 +314,7 @@ function renderReminders() {
         list.innerHTML += `
             <div class="reminder-card">
                 <div class="reminder-header">
-                    <span class="reminder-title"><i class="fa-regular fa-bell" style="color:var(--pmu-orange); margin-right:8px;"></i>${rem.title}</span>
+                    <span class="reminder-title"><i class="fa-regular fa-bell" style="color:var(--pmu-orange); margin-right:8px;"></i>${escapeHtml(rem.title)}</span>
                     <button onclick="deleteReminder(${rem.id})" class="delete-rem-btn">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
@@ -324,6 +328,7 @@ function renderReminders() {
                 </div>
             </div>`;
     });
+    updateCountdowns();
 }
 
 function updateCountdowns() {
@@ -340,10 +345,12 @@ function updateCountdowns() {
             const m = Math.floor((diff % 3600000) / 60000);
             const s = Math.floor((diff % 60000) / 1000);
 
-            values[0].innerText = d;
-            values[1].innerText = h;
-            values[2].innerText = m;
-            values[3].innerText = s;
+            if (values.length === 4) {
+                values[0].innerText = d;
+                values[1].innerText = h;
+                values[2].innerText = m;
+                values[3].innerText = s;
+            }
         }
     });
 }
@@ -352,19 +359,36 @@ function deleteReminder(id) {
     reminders = reminders.filter(r => r.id !== id);
     localStorage.setItem('pmu_reminders', JSON.stringify(reminders));
     renderReminders();
+    showToast("Reminder deleted");
 }
 
 // --- نظام المفضلة ---
 let favorites = JSON.parse(localStorage.getItem('pmu_favorites')) || [];
 
+function toggleFavorite() {
+    const roomNumber = window.currentRoomNumber;
+    if (!roomNumber) {
+        showToast("No room selected!", true);
+        return;
+    }
+    
+    if (favorites.includes(roomNumber)) {
+        favorites = favorites.filter(r => r !== roomNumber);
+        showToast(`Room ${roomNumber} removed from favorites`);
+    } else {
+        favorites.push(roomNumber);
+        showToast(`Room ${roomNumber} added to Favorites! ❤️`);
+    }
+    
+    localStorage.setItem('pmu_favorites', JSON.stringify(favorites));
+    renderFavorites();
+}
+
 function saveToFav(roomNumber) {
     if (!favorites.includes(roomNumber)) {
         favorites.push(roomNumber);
         localStorage.setItem('pmu_favorites', JSON.stringify(favorites));
-        
-        // استبدال الـ alert بـ Toast احترافي
         showToast(`Room ${roomNumber} added to Favorites! ❤️`);
-        
         renderFavorites();
     } else {
         showToast("Already in favorites!");
@@ -376,14 +400,14 @@ function renderFavorites() {
     if (!favContainer) return;
     favContainer.innerHTML = '';
     if (favorites.length === 0) {
-        favContainer.innerHTML = '<p style="color:gray; font-size:12px; text-align:center;">Empty</p>';
+        favContainer.innerHTML = '<p style="color:gray; font-size:12px; text-align:center;">No favorites yet</p>';
         return;
     }
     favorites.forEach(room => {
         favContainer.innerHTML += `
             <div class="fav-item-card" onclick="goToRoom('${room}')" style="background:rgba(255,255,255,0.05); padding:12px; border-radius:10px; margin-bottom:8px; display:flex; justify-content:space-between; cursor:pointer;">
                 <span style="color:white;"><i class="fa-solid fa-location-arrow" style="color:var(--pmu-orange);"></i> Room ${room}</span>
-                <button onclick="event.stopPropagation(); removeFromFav('${room}')" style="background:none; border:none; color:#ff4444;"><i class="fa-solid fa-trash-can"></i></button>
+                <button onclick="event.stopPropagation(); removeFromFav('${room}')" style="background:none; border:none; color:#ff4444; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button>
             </div>`;
     });
 }
@@ -392,6 +416,7 @@ function removeFromFav(roomNumber) {
     favorites = favorites.filter(r => r !== roomNumber);
     localStorage.setItem('pmu_favorites', JSON.stringify(favorites));
     renderFavorites();
+    showToast(`Room ${roomNumber} removed`);
 }
 
 function goToRoom(roomNumber) {
@@ -400,8 +425,26 @@ function goToRoom(roomNumber) {
     searchRoom();
     const navItems = document.querySelectorAll('.nav-item');
     let navigateBtn;
-    navItems.forEach(item => { if(item.innerText.includes('Navigate')) navigateBtn = item; });
+    navItems.forEach(item => { 
+        if(item.innerText.includes('Navigate')) navigateBtn = item; 
+    });
     showScreen('search-page', navigateBtn);
+}
+
+function shareLocation() {
+    const roomNumber = window.currentRoomNumber;
+    if (roomNumber) {
+        const text = `Check out Room ${roomNumber} at PMU!`;
+        if (navigator.share) {
+            navigator.share({
+                title: 'PMU Room Location',
+                text: text,
+            }).catch(() => showToast("Share cancelled"));
+        } else {
+            navigator.clipboard.writeText(text);
+            showToast("Link copied to clipboard!");
+        }
+    }
 }
 
 // --- إدارة القاعات في الأدمن ---
@@ -448,43 +491,63 @@ function deleteCustomRoom(roomNumber) {
         delete customRooms[roomNumber];
         localStorage.setItem('pmu_custom_rooms', JSON.stringify(customRooms));
         refreshAdminRooms();
-        updateAdminStats(); // تحديث الإحصائيات بعد الحذف
-        alert('Room deleted successfully!');
+        updateAdminStats();
+        showToast(`Room ${roomNumber} deleted`);
     }
 }
 
-// --- تحديث الإحصائيات الشامل ---
+// --- تحديث الإحصائيات ---
 
 function updateAdminStats() {
-    // 1. حساب الغرف
     const allRoomsCount = Object.keys({ ...defaultRooms, ...customRooms }).length;
     const roomsStatElement = document.getElementById('stat-rooms-count');
     if (roomsStatElement) roomsStatElement.innerText = allRoomsCount;
 
-    // 2. حساب الفعاليات من صفحة الهوم مباشرة لضمان الدقة
     const homeEventsCount = document.querySelectorAll('#home-page .event-card').length;
     const eventsStatElement = document.getElementById('stat-events-count');
     if (eventsStatElement) eventsStatElement.innerText = homeEventsCount;
-    
-    console.log("Stats updated:", allRoomsCount, homeEventsCount);
 }
 
-function showToast(message) {
+// --- Toast Notification ---
+function showToast(message, isError = false) {
     const toast = document.getElementById('custom-toast');
-    if (!toast) return; // للتأكد من وجود العنصر في HTML
+    if (!toast) return;
 
-    // تحديث النص داخل الرسالة
-    toast.querySelector('span').innerText = message;
+    const toastMessage = toast.querySelector('span');
+    const toastIcon = toast.querySelector('i');
     
-    // إظهار العنصر
+    if (toastMessage) toastMessage.innerText = message;
+    
+    if (isError) {
+        if (toastIcon) toastIcon.className = 'fa-solid fa-exclamation-triangle';
+        toast.style.border = '1px solid rgba(255, 68, 68, 0.4)';
+    } else {
+        if (toastIcon) toastIcon.className = 'fa-solid fa-circle-check';
+        toast.style.border = '1px solid rgba(239, 125, 0, 0.4)';
+    }
+    
     toast.classList.remove('toast-hidden');
     toast.classList.add('toast-show');
     
-    // إخفاء التوست تلقائياً بعد ثانيتين
     setTimeout(() => {
         toast.classList.remove('toast-show');
         setTimeout(() => {
             toast.classList.add('toast-hidden');
-        }, 300); 
+            if (toastIcon && !isError) toastIcon.className = 'fa-solid fa-circle-check';
+        }, 300);
     }, 2000);
 }
+
+// --- دالة للحماية من XSS ---
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+// تحديث العدادات كل ثانية
+setInterval(updateCountdowns, 1000);
