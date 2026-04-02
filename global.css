@@ -18,7 +18,7 @@
     margin: 0; 
     padding: 0; 
 }
-
+/* منع أي تمرير أو قفز للشاشة */
 html, body {
     width: 100%;
     height: 100%;
@@ -27,38 +27,37 @@ html, body {
     padding: 0;
     overflow: hidden;
     position: fixed;
-    background-color: #001223; /* لون الخلفية الأساسي */
+    background-color: #001223; /* لون خلفية موحد يغطي الفراغات */
 }
 
 body {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    /* إلغاء التوسيط القديم الذي يسبب الفراغ السفلي */
+    justify-content: flex-start; 
     align-items: stretch;
-    /* دعم آيفون 15 وآيباد: تأمين مسافات الأمان من كل الجهات */
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left) !important;
+    /* الحماية من الكاميرا والساعة */
+    padding-top: env(safe-area-inset-top) !important;
 }
 
 .app-container {
+    flex: 1; /* يجعله يأخذ كامل المساحة المتبقية إجبارياً */
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    /* جعل الخلفية تغطي كامل مساحة الجهاز مهما كان حجمه */
     background: linear-gradient(160deg, #002d56 0%, #001223 100%) !important;
 }
 
-/* إلغاء تحديد العرض للآيباد لكي يملأ الشاشة */
+/* إصلاح الآيباد لكي لا يظهر بفراغ أسود */
 @media (min-width: 500px) { 
     .app-container:not(.hidden) { 
-        max-width: 100%; /* تغيير من 400px إلى 100% */
+        max-width: 100%; 
         height: 100%; 
-        border-radius: 0; /* إلغاء الحواف المستديرة في الآيباد ليكون تطبيقاً كاملاً */
+        border-radius: 0; 
     } 
 }
-
 /* --- شاشة التحميل الأصلية (Splash) --- */
 /* --- تنسيق شاشة التحميل - التمركز المطلق --- */
 #splash-screen { 
@@ -107,24 +106,24 @@ body {
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
 
 .bottom-nav { 
-    position: fixed; 
-    /* الالتصاق التام بالأسفل يضمن عدم وجود فراغات في آيفون 15 */
-    bottom: 0 !important; 
-    left: 0 !important; 
-    right: 0 !important; 
-    width: 100% !important;
-    height: calc(70px + env(safe-area-inset-bottom)) !important; 
-    background: rgba(0, 30, 60, 0.9) !important; 
+    position: fixed; /* التغيير لـ fixed ينهي التداخل الشفاف */
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    width: 100%;
+    /* ارتفاع ثابت يغطي منطقة السحب في الآيفون */
+    height: calc(75px + env(safe-area-inset-bottom)) !important; 
+    background: #001e3c !important; /* لون صلب أو شبه شفاف معتم */
     backdrop-filter: blur(20px); 
     -webkit-backdrop-filter: blur(20px);
     display: flex; 
     justify-content: space-around; 
     align-items: center; 
-    /* بادنج سفلي لرفع الأيقونات عن شريط السحب في الآيفون والآيباد */
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    border-radius: 20px 20px 0 0 !important; 
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* رفع الأيقونات لتكون في منتصف الشريط فوق منطقة السحب */
+    padding-bottom: env(safe-area-inset-bottom);
     z-index: 1000;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
 }
 
 .nav-item {
@@ -533,18 +532,13 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .main-header, .home-header, header {
     background: transparent !important;
-    /* calc يضمن مسافة إضافية فوق مساحة الأمان لآيفون 15 */
-    padding-top: calc(max(15px, env(safe-area-inset-top))) !important;
-    padding-bottom: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 15px 20px 10px !important; /* تقليل المسافة العلوية */
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     z-index: 10;
 }
-
 /* إذا كان هناك عنوان داخل الهيدر */
 .header-title h1, .header-title h2 {
     color: white !important;
