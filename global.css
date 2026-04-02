@@ -31,22 +31,24 @@ body {
 /* قفل الأبعاد لمنع أي فراغات سوداء أو اهتزاز */
 html, body {
     width: 100%;
-    height: 100%;
+    /* استخدام fill-available لضمان ملء الشاشة في التطبيق المثبت */
+    height: 100vh; 
     height: -webkit-fill-available;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed; /* هذا ما يجعله تطبيقاً وليس متصفحاً */
-    background-color: #001223;
+    position: fixed; 
+    /* توحيد لون الخلفية لمنع ظهور الشريط الأزرق المختلف */
+    background-color: #001223; 
 }
 .app-container {
     width: 100%;
     height: 100%;
+    height: -webkit-fill-available; /* مهم جداً هنا أيضاً */
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    /* خلفية ممتدة للنهاية */
     background: linear-gradient(160deg, #002d56 0%, #001223 100%) !important;
 }
 @media (min-width: 500px) { 
@@ -106,26 +108,37 @@ html, body {
 }
 
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
+
 .bottom-nav { 
-    position: absolute; 
-    /* تقليل الـ 15px إلى 10px لتقريب المنيو من الأسفل */
-    bottom: calc(10px + env(safe-area-inset-bottom)); 
-    left: 15px; 
-    right: 15px; 
-    width: calc(100% - 30px);
-    height: 65px; 
-    background: rgba(0, 30, 60, 0.85); 
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 25px; 
+    position: fixed; /* التغيير من absolute إلى fixed */
+    bottom: 0;      /* التصاق تام بالقاع لإلغاء الفجوة */
+    left: 0; 
+    right: 0; 
+    width: 100%;    /* يأخذ كامل العرض */
+    
+    /* ارتفاع ثابت + مساحة الأمان السفلية للآيفون */
+    height: calc(65px + env(safe-area-inset-bottom)); 
+    
+    background: rgba(0, 30, 60, 0.9) !important; 
+    backdrop-filter: blur(20px) saturate(150%); 
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    
     display: flex; 
     justify-content: space-around; 
     align-items: center; 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    
+    /* إلغاء المرجن والبوردر راديوس السفلي لضمان الالتصاق */
+    border-radius: 20px 20px 0 0; /* انحناء علوي فقط لمظهر أنيق */
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* رفع الأيقونات للأعلى قليلاً لتجنب شريط السحب في آيفون */
+    padding-bottom: env(safe-area-inset-bottom);
+    
+    z-index: 10000;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
 }
-'
+
 .nav-item {
     color: rgba(255, 255, 255, 0.5);
     display: flex;
@@ -169,8 +182,10 @@ html, body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 150px تضمن أن التغريدات وزر تسجيل الدخول ستظهر فوق المنيو عند السحب */
-    padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
 background: transparent !important;
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-card {
