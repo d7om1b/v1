@@ -138,45 +138,46 @@ input, textarea, select, button {
 }
 
 /* --- شريط التنقل السفلي - ناعم وصغير --- */
+/* --- شريط التنقل السفلي - تصغير الارتفاع نهائياً --- */
 .bottom-nav {
     flex-shrink: 0;
     width: 100%;
-    height: 54px;  /* تم التصغير من 70px إلى 54px */
-    background: rgba(0, 18, 35, 0.92);
+    height: 50px !important;  /* تصغير إجباري */
+    min-height: 50px !important;
+    max-height: 50px !important;
+    background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     z-index: 100;
     padding-bottom: env(safe-area-inset-bottom, 0px);
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.55);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 9px;
     cursor: pointer;
-    padding: 6px 14px;
-    border-radius: 30px;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    padding: 4px 10px;
+    border-radius: 25px;
+    transition: all 0.2s ease;
 }
 
 .nav-item i {
-    font-size: 18px;  /* تم التصغير من 22px إلى 18px */
+    font-size: 16px;
     margin-bottom: 2px;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .nav-item span {
-    font-size: 9px;  /* تم التصغير */
+    font-size: 9px;
     font-weight: 500;
-    transition: all 0.25s ease;
 }
 
 .nav-item.active {
@@ -186,7 +187,6 @@ input, textarea, select, button {
 
 .nav-item.active i {
     transform: translateY(-2px);
-    text-shadow: 0 0 8px rgba(239, 125, 0, 0.4);
 }
 
 .nav-item:active {
