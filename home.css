@@ -4,91 +4,60 @@
     background: transparent !important;
 }
 
-/* تنسيق الهيدر العلوي - ثابت ومتداخل مع الخلفية */
+/* تنسيق الهيدر العلوي - تصغير المساحة */
 .profile-header-container {
     width: 100%;
     padding: 0;
     margin: 0;
-    position: relative;
-    /* إزالة أي خلفية أو حدود */
-    background: transparent;
-    /* إزالة الظل والزوايا */
-    box-shadow: none;
-    border-radius: 0;
-    overflow: visible;
+    line-height: 0;
 }
 
-/* الصورة - متداخلة مع الخلفية وثابتة */
 .header-img { 
     width: 100%; 
-    height: auto;
-    min-height: 200px;
-    max-height: 250px;
+    height: auto; 
+    max-height: 150px;  /* تحديد أقصى ارتفاع */
     object-fit: cover;
-    object-position: center center;
-    display: block;
-    /* إزالة أي تأثيرات إضافية */
-    filter: none;
-    /* الصورة ثابتة لا تتحرك */
-    position: relative;
-    background: transparent;
+    display: block; 
 }
 
-/* إزالة الطبقة الزائدة اللي كانت فوق الصورة */
-.profile-header-container::after {
-    display: none;
-}
-
-/* قسم الترحيب Hero Section - يبقى منفصل */
+/* قسم الترحيب Hero Section - تصغير الحجم */
 .hero-section { 
-    background: rgba(0, 18, 35, 0.6);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(15px); 
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white; 
-    padding: 15px 22px;
-    border-radius: 25px;
+    padding: 10px 20px;  /* تصغير من 18px إلى 10px */
+    border-radius: 20px;
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    margin: 15px 15px 15px 15px;
+    margin: 5px 15px 15px 15px;
     position: relative;
     z-index: 10;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
 .user-info p { 
-    font-size: 11px; 
+    font-size: 10px;  /* تصغير الخط */
     opacity: 0.7; 
-    margin-bottom: 2px;
+    margin-bottom: 2px; 
 }
 
 .user-info h2 { 
-    font-size: 20px; 
+    font-size: 16px;  /* تصغير من 19px إلى 16px */
     font-weight: 800; 
-    background: linear-gradient(135deg, #ffffff, var(--pmu-orange)); 
+    background: linear-gradient(to right, #ffffff, #ef7d00); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 0;
 }
 
 .mini-logo { 
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    padding: 8px;
+    width: 28px;  /* تصغير من 32px إلى 28px */
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(239,125,0,0.3);
 }
 
-.mini-logo:hover {
-    transform: scale(1.05);
-    background: rgba(239,125,0,0.2);
-}
-
-/* 🔥 الهيدر ثابت لا يتحرك */
+/* الجزء الثابت */
 .home-sticky-header {
     position: sticky;
     top: 0;
@@ -106,10 +75,9 @@
 /* قسم التقويم */
 .section-title { 
     color: white; 
-    font-size: 15px; 
+    font-size: 14px; 
     margin-bottom: 12px; 
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 5px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -118,124 +86,102 @@
 
 .section-title i { 
     color: var(--pmu-orange); 
-    font-size: 18px;
 }
 
 .event-card { 
     background: rgba(255, 255, 255, 0.05); 
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1); 
-    padding: 14px; 
-    border-radius: 20px; 
-    margin-bottom: 12px; 
+    padding: 12px;  /* تصغير من 15px */
+    border-radius: 18px; 
+    margin-bottom: 10px; 
     display: flex; 
     align-items: center; 
-    transition: all 0.3s ease;
-}
-
-.event-card:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateX(5px);
 }
 
 .event-date { 
-    background: linear-gradient(135deg, var(--pmu-orange), #ff9d33);
+    background: var(--pmu-orange); 
     color: white; 
-    padding: 8px 10px;
-    border-radius: 15px; 
+    padding: 6px;  /* تصغير */
+    border-radius: 12px; 
     text-align: center; 
     font-weight: 800; 
-    min-width: 55px; 
+    min-width: 45px;  /* تصغير */
     margin-right: 15px;
-    box-shadow: 0 4px 10px rgba(239,125,0,0.2);
 }
 
 .event-date span { 
     display: block; 
-    font-size: 16px; 
-    line-height: 1.2; 
+    font-size: 14px;  /* تصغير */
+    line-height: 1; 
 }
 
 .event-info h4 { 
     color: #ffffff; 
-    font-size: 14px; 
-    font-weight: 700; 
-    margin-bottom: 3px; 
+    font-size: 13px;  /* تصغير */
+    font-weight: 600; 
+    margin-bottom: 2px; 
 }
 
 .event-info p { 
     color: rgba(255, 255, 255, 0.5); 
-    font-size: 11px; 
+    font-size: 10px;  /* تصغير */
 }
 
 .calendar-link { 
     color: var(--pmu-orange); 
     text-decoration: none; 
-    font-weight: 600; 
-    font-size: 12px; 
+    font-weight: 700; 
+    font-size: 11px; 
     text-align: center;
-    display: inline-block;
-    margin: 10px auto;
-    padding: 8px 20px;
+    display: block;
+    margin: 8px auto;
+    padding: 6px 16px;
     background: rgba(239, 125, 0, 0.1);
     border-radius: 50px;
     width: fit-content;
-    transition: all 0.3s ease;
-}
-
-.calendar-link:hover {
-    background: rgba(239, 125, 0, 0.2);
-    transform: translateY(-2px);
 }
 
 /* --- تنسيق قسم الأخبار --- */
 .news-section {
-    margin-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 15px;
+    padding-bottom: 10px;
 }
 
 .news-card {
     background: rgba(255, 255, 255, 0.03);
-    margin: 10px 10px;
-    padding: 14px;
-    border-radius: 18px;
+    margin: 8px 12px;
+    padding: 12px;
+    border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.news-card:hover {
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-3px);
-    border-color: rgba(239, 125, 0, 0.2);
 }
 
 .news-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     position: relative;
 }
 
 .news-avatar {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #fff, #eee);
-    padding: 3px;
-    margin-right: 12px;
-    border: 1px solid rgba(239,125,0,0.3);
+    background: white;
+    padding: 2px;
+    margin-right: 10px;
 }
 
 .news-meta h4 {
     color: white;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     margin: 0;
 }
 
 .news-meta span {
     color: rgba(255, 255, 255, 0.5);
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .twitter-icon {
@@ -243,14 +189,13 @@
     right: 0;
     top: 0;
     color: #1DA1F2;
-    font-size: 16px;
-    opacity: 0.7;
+    font-size: 14px;
 }
 
 .news-content {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 11px;
+    line-height: 1.4;
     margin: 0;
 }
 
