@@ -105,7 +105,7 @@ input, textarea, select, button {
     100% { transform: rotate(360deg); } 
 }
 
-/* --- شريط التنقل السفلي - الحل النهائي للإلتصاق --- */
+/* --- شريط التنقل السفلي - القسم 3 (للصفحة الرئيسية) والقسم 2 (لباقي الصفحات) --- */
 .bottom-nav {
     flex-shrink: 0;
     width: 100%;
@@ -153,7 +153,7 @@ input, textarea, select, button {
     transform: scale(0.95);
 }
 
-/* --- الشاشات - إزالة الـ padding-bottom الزائد --- */
+/* --- الشاشات - كل شاشة لها تقسيمها الخاص --- */
 .screen {
     position: absolute;
     top: 0;
@@ -162,8 +162,6 @@ input, textarea, select, button {
     bottom: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 15px;
-    padding-bottom: 0;
     background: transparent !important;
 }
 
@@ -172,14 +170,12 @@ input, textarea, select, button {
 }
 
 .screen:not(.hidden) {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 /* دعم iOS لمساحة الأمان */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .screen {
-        padding-bottom: env(safe-area-inset-bottom);
-    }
     .bottom-nav {
         padding-bottom: env(safe-area-inset-bottom);
     }
@@ -421,7 +417,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-/* --- خلفية تأثيرات - تم تعطيلها لحل المشكلة --- */
+/* --- تعطيل تأثيرات الخلفية --- */
 .bg-glow-1, 
 .bg-glow-2 {
     display: none !important;
@@ -454,38 +450,4 @@ input[type="datetime-local"] {
 
 body, .app-container, #splash-screen {
     background-color: #001223;
-}
-
-/* 🔥 إزالة المسافات الزائدة تحت المحتوى */
-.home-scrollable-content {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.scrollable-content {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.calendar-section {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.news-section {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.screen > :last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-/* إزالة أي عناصر وهمية */
-.bottom-nav::before,
-.bottom-nav::after,
-.screens-wrapper::after {
-    display: none !important;
-    content: none !important;
 }
