@@ -25,9 +25,9 @@ html, body {
     height: -webkit-fill-available;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    position: fixed;
-    background-color: #001223; /* لون خلفية موحد يغطي الفراغات */
+
+
+    background-color: #001223;
 }
 
 body {
@@ -37,23 +37,23 @@ body {
     justify-content: flex-start; 
     align-items: stretch;
     /* الحماية من الكاميرا والساعة */
-    padding-top: env(safe-area-inset-top) !important;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* السطر القادم هو السر لإنهاء الفراغ السفلي */
-    height: 100vh; 
-    height: -webkit-fill-available; 
-    position: fixed; /* تغيير من relative لـ fixed يضمن التصاقه بالحواف */
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+
+    position: relative;
     overflow: hidden;
+
     background: linear-gradient(160deg, #002d56 0%, #001223 100%) !important;
+
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* إصلاح الآيباد لكي لا يظهر بفراغ أسود */
@@ -112,22 +112,23 @@ body {
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
 
 .bottom-nav { 
-    position: absolute; /* وليس fixed لأننا وضعناه داخل الحاوية */
+    position: absolute;
     bottom: 0; 
     left: 0; 
     right: 0; 
     width: 100%;
-    /* زيادة الارتفاع ليدعم سحبة الآيفون 15 */
-    height: calc(70px + env(safe-area-inset-bottom)) !important; 
-    background: #001223 !important; 
+
+    height: calc(70px + env(safe-area-inset-bottom));
+
+    background: #001223; 
     display: flex; 
     justify-content: space-around; 
     align-items: center; 
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    z-index: 1000;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
 
+    padding-bottom: env(safe-area-inset-bottom);
+
+    z-index: 1000;
+}
 .nav-item {
     color: rgba(255, 255, 255, 0.5);
     display: flex;
@@ -139,7 +140,7 @@ body {
 }
 
 .nav-item.active { 
-.nav-item.active { color: var(--pmu-orange); } /* الأزرق الأصلي النشط */
+    color: var(--pmu-orange);
 }
 
 .nav-item i { 
