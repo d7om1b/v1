@@ -1,7 +1,7 @@
 /* --- تنسيق صفحة البروفايل --- */
 
 #profile-page { 
-background: transparent !important; 
+    background: transparent !important; 
     min-height: 100%;
 }
 
@@ -22,7 +22,10 @@ background: transparent !important;
     gap: 5px; 
 }
 
-.pmu-outlined-field { position: relative; margin-bottom: 15px; }
+.pmu-outlined-field { 
+    position: relative; 
+    margin-bottom: 15px; 
+}
 
 .pmu-outlined-field .input-box { 
     border: 1.2px solid white; 
@@ -32,10 +35,11 @@ background: transparent !important;
     position: relative; 
 }
 
+/* تعديل اتجاه الـ label ليكون من اليسار (LTR) */
 .pmu-outlined-field label { 
     position: absolute; 
     top: -10px; 
-    left: 22px; 
+    left: 22px;  /* RTL كان right: 22px */
     background-color: var(--dark-bg); 
     padding: 0 8px; 
     color: white; 
@@ -51,13 +55,35 @@ background: transparent !important;
     color: white; 
     outline: none; 
     font-size: 14px; 
+    text-align: left; /* محاذاة النص لليسار */
 }
 
-.login-with-text { text-align: center; color: white; font-size: 12px; margin: 15px 0; opacity: 0.5; }
+.login-with-text { 
+    text-align: center; 
+    color: white; 
+    font-size: 12px; 
+    margin: 15px 0; 
+    opacity: 0.5; 
+}
 
-.social-login-icons { display: flex; justify-content: center; gap: 50px; margin-bottom: 25px; }
-.social-login-icons a { color: white; font-size: 24px; transition: 0.3s; opacity: 0.8; }
-.social-login-icons a:hover { color: var(--pmu-orange); opacity: 1; }
+.social-login-icons { 
+    display: flex; 
+    justify-content: center; 
+    gap: 50px; 
+    margin-bottom: 25px; 
+}
+
+.social-login-icons a { 
+    color: white; 
+    font-size: 24px; 
+    transition: 0.3s; 
+    opacity: 0.8; 
+}
+
+.social-login-icons a:hover { 
+    color: var(--pmu-orange); 
+    opacity: 1; 
+}
 
 .pmu-btn-signin { 
     background: #fc6630; 
@@ -73,12 +99,36 @@ background: transparent !important;
     box-shadow: 0 4px 15px rgba(241, 90, 36, 0.3);
 }
 
+.pmu-btn-signin:active {
+    transform: scale(0.96);
+}
+
 .pmu-signup-link { 
     text-align: center; 
     color: white; 
-    font-size: 15px Bold; 
+    font-size: 15px; 
+    font-weight: 500;
     text-decoration: none; 
     border-bottom: 1px solid rgba(255,255,255,0.5); 
     align-self: center; 
     margin-top: 5px;
+    padding-bottom: 3px;
+}
+
+.pmu-signup-link:hover {
+    color: var(--pmu-orange);
+    border-bottom-color: var(--pmu-orange);
+}
+
+/* تحسينات إضافية للصفحة */
+.profile-header-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header-img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
