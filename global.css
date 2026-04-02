@@ -1,10 +1,14 @@
-/* --- 1. الإعدادات الجذرية (ألوان موحدة صلبة) --- */
+/* --- 1. الإعدادات العامة واللون الموحد --- */
 :root {
-    --pmu-blue-dark: #001223; /* اللون الأساسي الموحد */
-    --pmu-blue-light: #001e3c; /* للبطاقات والمنيو */
+    --pmu-blue: #002d56;
     --pmu-orange: #ef7d00;
+    --dark-bg: #001223; /* اللون الموحد الأساسي */
+    --pmu-blue-dark: #001223;
+    --card-bg: #001e3c; /* لون الكروت الموحد */
     --glass-border: rgba(255, 255, 255, 0.08);
 }
+
+.hidden { display: none !important; }
 
 * { 
     box-sizing: border-box; 
@@ -13,7 +17,7 @@
     padding: 0; 
 }
 
-/* --- 2. ضبط الجسم والحاوية (منع الفراغات تماماً) --- */
+/* --- 2. منع الفراغات والارتداد السفلي --- */
 html, body {
     width: 100%;
     height: 100%;
@@ -21,22 +25,28 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed; /* يمنع اهتزاز الشاشة */
-    background-color: var(--pmu-blue-dark) !important; /* لون موحد للخلفية */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: fixed;
+    background-color: var(--pmu-blue-dark); /* خلفية ثابتة */
+    overscroll-behavior-y: none; /* منع البياض عند السحب */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: stretch;
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
-    height: -webkit-fill-available;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--pmu-blue-dark) !important; /* حذف التدرج والمؤثرات */
+    height: 100vh; 
+    height: -webkit-fill-available; 
+    position: fixed; 
+    top: 0; left: 0; bottom: 0; right: 0;
     overflow: hidden;
+    background: var(--pmu-blue-dark) !important; /* لون واحد صلب */
 }
 
 /* --- 3. الشاشات والمحتوى --- */
@@ -45,23 +55,43 @@ html, body {
     height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: var(--pmu-blue-dark) !important;
-    /* مسافة أمان سفلية لكي لا يختفي المحتوى خلف المنيو */
-    padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
+    /* مسافة أمان فوق المنيو وتحت الهيدر */
     padding-top: env(safe-area-inset-top);
+    padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
+    background: transparent !important;
+    display: flex;
+    flex-direction: column;
 }
 
-.hidden { display: none !important; }
+/* --- 4. الهيدر (رأس الصفحة) --- */
+.main-header, .home-header, header {
+    background: var(--pmu-blue-dark) !important;
+    padding: 15px 20px 10px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
 
-/* --- 4. المنيو السفلي (تصميم صلب بدون شفافية) --- */
+/* --- 5. الكروت (تصميم صلب وواضح) --- */
+.reminder-card, .admin-card {
+    background: var(--card-bg) !important; /* لون صلب بدون تمويه blur */
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 24px;
+    padding: 20px;
+    margin: 15px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* --- 6. المنيو السفلي (إغلاق الفجوة السفلية) --- */
 .bottom-nav { 
     position: absolute;
-    bottom: 0; 
-    left: 0; 
-    right: 0; 
+    bottom: 0; left: 0; right: 0;
     width: 100%;
     height: calc(70px + env(safe-area-inset-bottom)) !important; 
-    background: var(--pmu-blue-light) !important; /* لون أفتح قليلاً للتمييز */
+    background: var(--card-bg) !important; /* لون المنيو */
     display: flex; 
     justify-content: space-around; 
     align-items: center; 
@@ -70,28 +100,46 @@ html, body {
     border-top: 1px solid var(--glass-border);
 }
 
-/* --- 5. الكروت (تصميم بسيط وواضح) --- */
-.reminder-card, .admin-card {
-    background: var(--pmu-blue-light) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+/* --- 7. العداد الزمني (Countdown) --- */
+.modern-countdown {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
 }
 
-/* --- 6. شاشة التحميل (Splash) --- */
-#splash-screen { 
-    position: fixed; 
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--pmu-blue-dark); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    z-index: 10000;
+.time-box {
+    flex: 1; 
+    background: rgba(239, 125, 0, 0.1); 
+    border: 1px solid rgba(239, 125, 0, 0.2);
+    padding: 10px 5px;
+    border-radius: 12px;
+    text-align: center;
 }
 
-/* --- 7. عناصر التنفيذ (Buttons & Inputs) --- */
+.time-value {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--pmu-orange);
+    line-height: 1;
+}
+
+.time-label {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+}
+
+/* --- 8. العناصر المحذوفة (تنظيف الكود) --- */
+/* حذف الهالات الضوئية، التدرجات، والزخارف */
+.bg-glow-1, .bg-glow-2, .app-container::before, 
+@keyframes floatGlow, .main-header::after {
+    display: none !important;
+    background: none !important;
+    animation: none !important;
+}
+
+/* --- 9. أزرار التحكم --- */
 .btn-primary, .btn-add-now {
     background: var(--pmu-orange);
     color: white;
@@ -101,53 +149,8 @@ html, body {
     font-weight: 800;
     width: 80%;
     max-width: 300px;
-    margin: 10px auto;
+    margin: 20px auto;
     display: flex;
     justify-content: center;
-    align-items: center;
     cursor: pointer;
-}
-
-.modern-input {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 12px;
-    color: white;
-    margin-bottom: 10px;
-}
-
-/* --- 8. العداد الزمني (Countdown) --- */
-.modern-countdown {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-}
-
-.time-box {
-    background: rgba(239, 125, 0, 0.1);
-    border: 1px solid rgba(239, 125, 0, 0.2);
-    padding: 10px;
-    border-radius: 10px;
-    flex: 1;
-    text-align: center;
-}
-
-.time-value {
-    color: var(--pmu-orange);
-    font-size: 18px;
-    font-weight: 900;
-    display: block;
-}
-
-.time-label {
-    font-size: 8px;
-    color: #ccc;
-    text-transform: uppercase;
-}
-
-/* --- حذف أي مؤثرات قديمة --- */
-.bg-glow-1, .bg-glow-2, .app-container::before {
-    display: none !important;
 }
