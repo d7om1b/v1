@@ -69,9 +69,25 @@
     text-align: center;
 }
 
-.stat-card i { color: var(--pmu-orange); margin-bottom: 8px; font-size: 18px; }
-.stat-card span { display: block; font-size: 22px; font-weight: 800; color: white; }
-.stat-card p { font-size: 11px; color: #aaa; text-transform: uppercase; margin-top: 4px; }
+.stat-card i { 
+    color: var(--pmu-orange); 
+    margin-bottom: 8px; 
+    font-size: 18px; 
+}
+
+.stat-card span { 
+    display: block; 
+    font-size: 22px; 
+    font-weight: 800; 
+    color: white; 
+}
+
+.stat-card p { 
+    font-size: 11px; 
+    color: #aaa; 
+    text-transform: uppercase; 
+    margin-top: 4px; 
+}
 
 .btn-logout {
     background: rgba(255, 68, 68, 0.15);
@@ -100,7 +116,8 @@
     background: rgba(255, 255, 255, 0.1);
     margin: 20px 0;
 }
-/* --- جعل صفحة الإدارة تمتد لكامل الشاشة --- */
+
+/* --- تعديل صفحات الإدارة لتتناسب مع الهيكل الجديد --- */
 
 #admin-login-page.screen, 
 #admin-dashboard.screen {
@@ -109,72 +126,126 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 0; /* إلغاء الفراغات الجانبية الموروثة */
+    padding: 0;
     background: var(--dark-bg);
-    overflow-y: auto; /* السماح بالتمرير إذا كان المحتوى طويلاً */
+    overflow-y: auto;
     z-index: 1000;
 }
 
-/* حاوية المحتوى داخل الإدارة لضبط المسافات بشكل أنيق */
+/* حاوية المحتوى داخل الإدارة */
 .admin-scroll-area {
     padding: 20px;
-    padding-bottom: 100px; /* مساحة إضافية في الأسفل لضمان عدم اختفاء المحتوى خلف الأزرار */
+    padding-bottom: 100px;
 }
 
-/* تنسيق خاص لصفحة الدخول ليكون في منتصف الشاشة تماماً */
+/* تنسيق خاص لصفحة الدخول */
 #admin-login-page .login-container {
-    height: 100vh;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* توسط عمودي */
-    align-items: center;     /* توسط أفقي */
+    justify-content: center;
+    align-items: center;
     padding: 30px;
 }
 
-/* هذا الكلاس سيجعل الصفحة فوق كل شيء وبكامل العرض */
-.admin-full-screen {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: 10000 !important; /* رقم عالي جداً ليتجاوز الـ bottom-nav */
-    background-color: #000d1a !important; /* لون الخلفية */
-    margin: 0 !important;
-    padding: 0 !important;
-    display: none;
+/* تنسيق شاشة الداشبورد */
+.admin-main-wrapper {
+    min-height: 100%;
+    padding: 15px;
+    padding-bottom: 30px;
 }
 
-/* إظهار الصفحة عند عدم وجود كلاس hidden */
-.admin-full-screen:not(.hidden) {
-    display: block !important;
+.admin-padding {
+    padding: 0 10px;
 }
 
-/* تعديل هيدر الأدمن ليناسب العرض الكامل */
-#admin-dashboard .res-header {
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 101;
+/* تنسيق قائمة الغرف في لوحة الإدارة */
+.list-container {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-/* تنسيق يجعل صفحات الإدارة تملأ الشاشة بالكامل */
-#admin-login-page, 
-#admin-dashboard {
-    position: fixed; /* لتثبيتها فوق كل العناصر */
-    top: 0;
-    left: 0;
-    width: 100vw;    /* عرض الشاشة بالكامل */
-    height: 100vh;   /* طول الشاشة بالكامل */
-    background-color: #000d1a; /* نفس لون خلفية التطبيق */
-    z-index: 9999;   /* لضمان ظهورها فوق القائمة السفلية bottom-nav */
-    margin: 0;
-    padding: 0;
-    overflow-y: auto; /* للسماح بالتمرير إذا كان المحتوى طويلاً */
+.list-container .room-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* لضمان اختفاء القائمة السفلية عند فتح صفحات الإدارة */
-body:has(#admin-dashboard:not(.hidden)) .bottom-nav,
-body:has(#admin-login-page:not(.hidden)) .bottom-nav {
-    display: none;
+.list-container .room-item span {
+    color: white;
+    font-size: 14px;
+}
+
+.list-container .room-item button {
+    background: rgba(255, 68, 68, 0.2);
+    border: none;
+    color: #ff4444;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.list-container .room-item button:hover {
+    background: #ff4444;
+    color: white;
+}
+
+/* تنسيق قائمة الأحداث */
+#admin-events-list .event-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#admin-events-list .event-item .event-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#admin-events-list .event-item .event-date-badge {
+    background: var(--pmu-orange);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+#admin-events-list .event-item .event-title {
+    color: white;
+    font-size: 14px;
+}
+
+#admin-events-list .event-item button {
+    background: rgba(255, 68, 68, 0.2);
+    border: none;
+    color: #ff4444;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* تحسينات إضافية */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+textarea.admin-input {
+    resize: vertical;
+    min-height: 80px;
 }
