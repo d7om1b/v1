@@ -10,6 +10,11 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="theme-color" content="#ef7d00">
+    
+    <!-- Preload للملفات المهمة -->
+    <link rel="preload" href="global.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="logo.png" as="image">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="global.css">
@@ -25,22 +30,20 @@
 
 <div id="splash-screen">
     <div class="splash-content">
-        <img src="./logo.png" alt="PMU Logo" class="splash-logo">
+        <img src="./logo.png" alt="PMU Logo" class="splash-logo" loading="eager">
         <div class="loader"></div>
     </div>
 </div>
 
 <div class="app-container hidden">
     
-    <!-- Screens Wrapper -->
     <div class="screens-wrapper">
         
-        <!-- ==================== HOME PAGE - 3 أقسام ==================== -->
+        <!-- Home Page -->
         <main id="home-page" class="screen">
-            <!-- القسم 1: الهيدر والهيرو (ثابت في الأعلى) -->
             <div class="home-section-1">
                 <div class="profile-header-container">
-                    <img src="./P1.png" alt="Header Image" class="header-img">
+                    <img src="./P1.png" alt="Header Image" class="header-img" loading="eager" fetchpriority="high">
                 </div>
 
                 <div class="hero-section">
@@ -48,11 +51,10 @@
                         <p>Welcome back,</p>
                         <h2>Hadeel</h2>
                     </div>
-                    <img src="./logo.png" class="mini-logo" onclick="showScreen('admin-login-page')">
+                    <img src="./logo.png" class="mini-logo" onclick="showScreen('admin-login-page')" loading="lazy">
                 </div>
             </div>
 
-            <!-- القسم 2: المحتوى القابل للتمرير (التقويم + التغريدات) -->
             <div class="home-section-2">
                 <div class="calendar-section">
                     <h3 class="section-title"><i class="fa-solid fa-calendar-check"></i> Academic Calendar</h3>
@@ -74,7 +76,7 @@
                         
                         <div class="news-card">
                             <div class="news-header">
-                                <img src="./logo.png" alt="PMU" class="news-avatar">
+                                <img src="./logo.png" alt="PMU" class="news-avatar" loading="lazy">
                                 <div class="news-meta">
                                     <h4>PMU Official</h4>
                                     <span>@PMU_KSA · 2h</span>
@@ -86,7 +88,7 @@
 
                         <div class="news-card">
                             <div class="news-header">
-                                <img src="logo.png" alt="PMU" class="news-avatar">
+                                <img src="logo.png" alt="PMU" class="news-avatar" loading="lazy">
                                 <div class="news-meta">
                                     <h4>PMU Official</h4>
                                     <span>@PMU_KSA · 1d</span>
@@ -98,12 +100,10 @@
                     </div>
                 </div>
             </div>
-            <!-- القسم 3: شريط التنقل موجود في global.css -->
         </main>
 
-        <!-- ==================== SEARCH PAGE - قسمين ==================== -->
+        <!-- باقي الصفحات (نفس الشي مع إضافة loading="lazy" للصور) -->
         <section id="search-page" class="screen hidden">
-            <!-- القسم 1: المحتوى -->
             <div class="page-content">
                 <div id="search-input-area">
                     <div class="page-title">
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="result-card-container">
-                        <img id="roomImage" src="" alt="Room Map" class="search-result-img">
+                        <img id="roomImage" src="" alt="Room Map" class="search-result-img" loading="lazy">
                         
                         <div class="result-description-box">
                             <div class="badge highlight">University Room</div>
@@ -155,12 +155,9 @@
                     </div>
                 </div>
             </div>
-            <!-- القسم 2: شريط التنقل موجود في global.css -->
         </section>
 
-        <!-- ==================== REMINDERS PAGE - قسمين ==================== -->
         <section id="reminders-page" class="screen hidden">
-            <!-- القسم 1: المحتوى -->
             <div class="page-content">
                 <div class="page-title">
                     <h2>My Reminders</h2>
@@ -181,12 +178,9 @@
 
                 <div id="reminders-list" style="padding-bottom: 20px;"></div>
             </div>
-            <!-- القسم 2: شريط التنقل موجود في global.css -->
         </section>
 
-        <!-- ==================== MAP PAGE - قسمين ==================== -->
         <section id="map-page" class="screen hidden">
-            <!-- القسم 1: المحتوى -->
             <div class="page-content">
                 <div class="page-title"><h2>University Campus</h2></div>
                 <div class="map-wrapper">
@@ -197,15 +191,12 @@
                     </div>
                 </div>
             </div>
-            <!-- القسم 2: شريط التنقل موجود في global.css -->
         </section>
 
-        <!-- ==================== PROFILE PAGE - قسمين ==================== -->
         <section id="profile-page" class="screen hidden">
-            <!-- القسم 1: المحتوى -->
             <div class="page-content">
                 <div class="profile-header-container">
-                    <img src="./P1.png" alt="Header Image" class="header-img">
+                    <img src="./P1.png" alt="Header Image" class="header-img" loading="lazy">
                 </div>
                 <div class="login-overlay-content">
                     <h2 class="login-title">Student Login</h2>
@@ -231,12 +222,9 @@
                     <a href="#" class="pmu-signup-link">Sign up</a>
                 </div>
             </div>
-            <!-- القسم 2: شريط التنقل موجود في global.css -->
         </section>
 
-        <!-- ==================== ADMIN LOGIN PAGE - قسمين ==================== -->
         <section id="admin-login-page" class="screen hidden">
-            <!-- القسم 1: المحتوى -->
             <div class="page-content">
                 <div class="login-container">
                     <div class="login-header">
@@ -261,12 +249,9 @@
                     </div>
                 </div>
             </div>
-            <!-- القسم 2: شريط التنقل موجود في global.css -->
         </section>
 
-        <!-- ==================== ADMIN DASHBOARD - قسمين ==================== -->
         <section id="admin-dashboard" class="screen hidden">
-            <!-- القسم 1: المحتوى -->
             <div class="page-content">
                 <div class="admin-main-wrapper">
                     <div class="res-header">
@@ -337,12 +322,10 @@
                     </button>
                 </div>
             </div>
-            <!-- القسم 2: شريط التنقل موجود في global.css -->
         </section>
         
     </div>
     
-    <!-- ==================== القسم الأخير: شريط التنقل السفلي (مشترك بين جميع الصفحات) ==================== -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="showScreen('home-page', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
         <div class="nav-item" onclick="showScreen('search-page', this)"><i class="fa-solid fa-location-dot"></i><span>Navigate</span></div>
@@ -360,6 +343,6 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
