@@ -1,66 +1,341 @@
-/* --- تنسيق الخريطة لملء كامل الشاشة --- */
+/* --- صفحة الخريطة التفاعلية --- */
 
-#map-page.screen {
-    padding: 0; /* إلغاء أي مسافات داخلية للصفحة */
-    position: relative;
+#map-page {
+    background: transparent !important;
+}
+
+.map-page-content {
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
-.map-wrapper {
-    width: 100%; /* تأخذ كامل العرض */
-    height: 100%; /* تأخذ كامل الارتفاع المتاح في الصفحة */
-    margin: 0;   /* إلغاء الهوامش */
-    border-radius: 0; /* إلغاء الزوايا الدائرية لتلتصق بحواف الجوال */
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-#map-page iframe {
-    width: 100% !important;
-    height: calc(100% + 150px) !important; /* زيادة الطول لإخفاء زوائد جوجل ماب */
-    margin-top: -80px; /* إزاحة للأعلى لإخفاء شريط البحث */
-    filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(85%) !important;
-}
-
-/* تحويل بطاقة المعلومات لتكون "عائمة" فوق الخريطة */
-.map-info-card {
-    position: absolute;
-    top: 60px; /* وضعها في الأعلى */
-    left: 20px;
-    right: 20px;
-    z-index: 10; /* لتكون فوق الخريطة */
-    background: rgba(0, 45, 86, 0.8); /* استخدام لون PMU Blue مع شفافية */
+/* Header الخريطة */
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 18, 35, 0.6);
     backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
 }
 
-.map-info-card h3 {
+.map-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.map-header-icon {
+    font-size: 28px;
     color: var(--pmu-orange);
-    font-size: 15px;
-    margin-bottom: 5px;
+    filter: drop-shadow(0 0 5px rgba(239, 125, 0, 0.3));
 }
 
-.map-info-card p {
-    font-size: 12px;
-    color: #eee;
+.map-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    background: linear-gradient(135deg, #fff, var(--pmu-orange-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* إضافة تدرج ظلي في الأسفل لضمان وضوح شريط التنقل */
-.map-wrapper::after {
-    content: "";
+.map-control-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.map-control-btn {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-control-btn:hover {
+    background: var(--pmu-orange);
+    border-color: var(--pmu-orange);
+    transform: scale(1.05);
+}
+
+.map-control-btn:active {
+    transform: scale(0.95);
+}
+
+/* حاوية الخريطة */
+.map-container {
+    flex: 1;
+    position: relative;
+    background: #0a1620;
+    overflow: hidden;
+}
+
+.campus-map {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #0d1f2d, #07121c);
+    position: relative;
+    cursor: grab;
+    overflow: hidden;
+}
+
+.campus-map:active {
+    cursor: grabbing;
+}
+
+/* طبقة الخريطة */
+.map-layer {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-    background: linear-gradient(to top, var(--dark-bg), transparent);
+    transform-origin: 0 0;
+    transition: transform 0.1s ease-out;
+}
+
+/* المباني */
+.building {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.building:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(239, 125, 0, 0.5));
+}
+
+.building.selected {
+    filter: drop-shadow(0 0 15px var(--pmu-orange));
+}
+
+.building rect {
+    transition: all 0.2s ease;
+}
+
+.building:hover rect {
+    stroke: var(--pmu-orange);
+    stroke-width: 3;
+}
+
+/* تسميات المباني */
+.building-label {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
     pointer-events: none;
-    z-index: 5;
+    z-index: 15;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(239, 125, 0, 0.3);
+}
+
+/* الطرق */
+.path {
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 5;
+    animation: dash 20s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+/* المساحات الخضراء */
+.green-area {
+    fill: rgba(46, 125, 50, 0.15);
+    stroke: rgba(76, 175, 80, 0.3);
+    stroke-width: 1;
+}
+
+/* طبقة التحميل */
+.map-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    z-index: 100;
+}
+
+.map-loader {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top: 2px solid var(--pmu-orange);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* معلومات الخريطة */
+.map-info-section {
+    background: rgba(0, 18, 35, 0.8);
+    backdrop-filter: blur(15px);
+    padding: 12px 15px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.map-info-section::-webkit-scrollbar {
+    display: none;
+}
+
+.map-info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 10px 15px;
+    min-width: 110px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.map-info-card:hover {
+    background: rgba(239, 125, 0, 0.15);
+    border-color: var(--pmu-orange);
+    transform: translateY(-2px);
+}
+
+.map-info-card:active {
+    transform: scale(0.96);
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(239, 125, 0, 0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pmu-orange);
+    font-size: 20px;
+}
+
+.info-text h4 {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+}
+
+.info-text p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 10px;
+    margin: 0;
+}
+
+/* شريط الحالة */
+.map-status {
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    flex-shrink: 0;
+}
+
+.map-status i {
+    color: var(--pmu-orange);
+    font-size: 14px;
+}
+
+/* Zoom controls */
+.map-zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 20;
+}
+
+.zoom-btn {
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 18, 35, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-btn:hover {
+    background: var(--pmu-orange);
+    transform: scale(1.05);
+}
+
+/* رسالة عند اختيار مبنى */
+.location-tooltip {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--pmu-orange);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* وضع التحميل */
+.hidden {
+    display: none !important;
 }
