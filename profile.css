@@ -1,4 +1,4 @@
-/* --- تنسيق صفحة البروفايل --- */
+/* --- صفحة الملف الشخصي المحسنة --- */
 
 #profile-page { 
     background: transparent !important; 
@@ -8,43 +8,52 @@
 .login-title {
     color: white;
     text-align: center;
-    margin-bottom: 7px;
-    font-size: 22px;
+    margin-bottom: 10px;
+    font-size: 28px;
     font-weight: 800;
+    background: linear-gradient(135deg, #fff, var(--pmu-orange-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .login-overlay-content { 
     flex: 1; 
-    padding: 20px 45px; 
+    padding: 20px 30px; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
-    gap: 5px; 
+    gap: 10px; 
 }
 
 .pmu-outlined-field { 
     position: relative; 
-    margin-bottom: 15px; 
+    margin-bottom: 20px; 
 }
 
 .pmu-outlined-field .input-box { 
-    border: 1.2px solid white; 
-    border-radius: 50px; 
-    height: 45px; 
-    padding: 0 20px; 
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 60px; 
+    height: 52px; 
+    padding: 0 24px; 
     position: relative; 
+    transition: var(--transition-smooth);
 }
 
-/* تعديل اتجاه الـ label ليكون من اليسار (LTR) */
+.pmu-outlined-field .input-box:hover {
+    border-color: var(--pmu-orange);
+}
+
 .pmu-outlined-field label { 
     position: absolute; 
-    top: -10px; 
-    left: 22px;  /* RTL كان right: 22px */
-    background-color: var(--dark-bg); 
-    padding: 0 8px; 
-    color: white; 
+    top: -12px; 
+    left: 22px; 
+    background: linear-gradient(160deg, var(--pmu-blue), var(--pmu-blue-dark));
+    padding: 0 10px; 
+    color: var(--pmu-orange); 
     font-size: 11px; 
+    font-weight: 600;
     z-index: 5; 
+    border-radius: 20px;
 }
 
 .pmu-outlined-field input { 
@@ -54,81 +63,68 @@
     height: 100%; 
     color: white; 
     outline: none; 
-    font-size: 14px; 
-    text-align: left; /* محاذاة النص لليسار */
+    font-size: 15px; 
+}
+
+.pmu-outlined-field input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .login-with-text { 
     text-align: center; 
     color: white; 
-    font-size: 12px; 
-    margin: 15px 0; 
-    opacity: 0.5; 
+    font-size: 13px; 
+    margin: 20px 0 15px; 
+    opacity: 0.6;
+    position: relative;
+}
+
+.login-with-text::before,
+.login-with-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.login-with-text::before {
+    left: 0;
+}
+
+.login-with-text::after {
+    right: 0;
 }
 
 .social-login-icons { 
     display: flex; 
     justify-content: center; 
-    gap: 50px; 
-    margin-bottom: 25px; 
+    gap: 40px; 
+    margin-bottom: 30px; 
 }
 
 .social-login-icons a { 
     color: white; 
-    font-size: 24px; 
-    transition: 0.3s; 
-    opacity: 0.8; 
+    font-size: 28px; 
+    transition: var(--transition-smooth); 
+    opacity: 0.8;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .social-login-icons a:hover { 
     color: var(--pmu-orange); 
-    opacity: 1; 
+    opacity: 1;
+    transform: translateY(-3px);
+    border-color: var(--pmu-orange);
 }
 
 .pmu-btn-signin { 
-    background: #fc6630; 
-    color: white; 
-    border: none; 
-    padding: 14px; 
-    border-radius: 30px; 
-    font-weight: 700; 
-    font-size: 15px; 
-    margin-top: 10px;
-    margin-bottom: 10px; 
-    cursor: pointer; 
-    box-shadow: 0 4px 15px rgba(241, 90, 36, 0.3);
-}
-
-.pmu-btn-signin:active {
-    transform: scale(0.96);
-}
-
-.pmu-signup-link { 
-    text-align: center; 
-    color: white; 
-    font-size: 15px; 
-    font-weight: 500;
-    text-decoration: none; 
-    border-bottom: 1px solid rgba(255,255,255,0.5); 
-    align-self: center; 
-    margin-top: 5px;
-    padding-bottom: 3px;
-}
-
-.pmu-signup-link:hover {
-    color: var(--pmu-orange);
-    border-bottom-color: var(--pmu-orange);
-}
-
-/* تحسينات إضافية للصفحة */
-.profile-header-container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.header-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu
