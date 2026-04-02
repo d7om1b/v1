@@ -24,7 +24,11 @@
     margin: 0; 
     padding: 0; 
 }
-
+/* أضف هذا السطر في بداية ملف global.css */
+body, .app-container, .screen, .bottom-nav, .nav-item {
+    direction: ltr;  /* الاتجاه من اليسار إلى اليمين */
+    text-align: left; /* محاذاة النص لليسار */
+}
 /* منع الزوم والتكبير بالكامل */
 html, body {
     width: 100%;
