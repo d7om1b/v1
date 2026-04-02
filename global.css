@@ -21,28 +21,27 @@
 
 html, body {
     width: 100%;
-    /* السطر القادم هو السر لثبات الشاشة في مكانها */
     height: 100vh;
-    height: -webkit-fill-available; 
+    height: -webkit-fill-available;
     margin: 0;
     padding: 0;
     overflow: hidden;
     position: fixed;
-    /* تأكد أن الخلفية موحدة لكي لا تلاحظ أي فراغ */
     background-color: #001223;
 }
 
 body {
-    /* هذه الأسطر تمنع المحتوى من الارتفاع فوق الكاميرا */
-    padding-top: env(safe-area-inset-top) !important;
-    padding-bottom: env(safe-area-inset-bottom) !important;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start; /* يبدأ من الأعلى ولا يتوسط */
+    align-items: stretch;
+    /* دفع المحتوى للأسفل بمقدار مساحة الساعة والكاميرا */
+    padding-top: env(safe-area-inset-top) !important;
 }
+
 .app-container {
     width: 100%;
     height: 100%;
-    height: -webkit-fill-available; /* مهم جداً هنا أيضاً */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -542,16 +541,14 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 /* --- توحيد الهيدر مع الخلفية الديناميكية الجديدة --- */
 
 .main-header, .home-header, header {
-    background: transparent !important; 
-    box-shadow: none !important; 
+    background: transparent !important;
+    box-shadow: none !important;
     border: none !important;
-    
-    /* التعديل هنا: نستخدم max لضمان وجود مسافة لا تقل عن 20 بكسل أو مساحة الكاميرا أيهما أكبر */
-    padding-top: calc(max(20px, env(safe-area-inset-top)) + 10px) !important;
+    /* إضافة مسافة إضافية فقط إذا لم تكن مساحة الأمان كافية */
+    padding-top: calc(max(10px, env(safe-area-inset-top))) !important;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 10px;
-
+    padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
