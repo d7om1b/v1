@@ -501,14 +501,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     background: transparent !important; /* هذا السطر هو الأهم لظهور الخلفية */
 }
 
-/* --- لمسة جمالية إضافية للكروت (Dark Glass) لتبرز فوق الخلفية القوية --- */
-.reminder-card, .admin-card, .result-description-box {
-    background: rgba(0, 18, 35, 0.6) !important; /* زجاج غامق ليتناسق مع الخلفية القوية */
-    backdrop-filter: blur(15px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(15px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
-}
+
 /* --- توحيد الهيدر مع الخلفية الديناميكية الجديدة --- */
 
 .main-header, .home-header, header {
