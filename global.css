@@ -464,3 +464,10 @@ body, .app-container, #splash-screen {
     display: none !important;
     content: none !important;
 }
+
+
+.bg-glow-1,
+.bg-glow-2,
+.app-container::before {
+    display: none !important;
+}
