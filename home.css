@@ -45,7 +45,7 @@
 
 .header-img { 
     width: 100%; 
-    height: auto;
+    height: full;
     /* إزالة القيود على الارتفاع - الصورة تظهر كاملة */
     min-height: auto;
     max-height: none;
@@ -57,21 +57,24 @@
 
 /* قسم الترحيب - منفصل تماماً عن الصورة */
 .hero-section { 
-    background: rgba(0, 18, 35, 0.75);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; 
+    padding: 18px 25px; 
+    border-radius: 20px;
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    /* إزالة التداخل - الهيرو تحت الصورة مباشرة */
-    margin: 15px 16px 20px 16px;
-    padding: 14px 22px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* التعديل هنا: تقليل المسافة العلوية */
+    margin: 5px 15px 15px 15px; /* جعلنا المسافة العلوية 5px فقط بدلاً من 15px */
+    
     position: relative;
-    z-index: 2;
+    z-index: 10;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    flex-shrink: 0;
 }
 
 .hero-section:hover {
