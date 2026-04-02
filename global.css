@@ -38,22 +38,20 @@ html, body {
     right: 0;
     bottom: 0;
     
-    /* 🔥 منع الزوم والتكبير */
-    touch-action: pan-x pan-y; /* يسمح بالتمرير فقط بدون زوم */
+    touch-action: pan-x pan-y;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     
     background-color: #001223;
 }
 
-/* منع الزوم باللمس المزدوج */
 body {
     touch-action: pan-x pan-y;
 }
 
 /* منع التكبير عند النقر على الحقول */
 input, textarea, select, button {
-    font-size: 16px; /* يمنع الزوم التلقائي في iOS */
+    font-size: 16px;
     touch-action: manipulation;
 }
 
@@ -66,6 +64,7 @@ body {
     position: relative;
 }
 
+/* --- الحاوية الرئيسية - الهيكل الجديد --- */
 .app-container {
     display: flex;
     flex-direction: column;
@@ -74,6 +73,14 @@ body {
     position: relative;
     background: linear-gradient(160deg, #002d56 0%, #001223 100%) !important;
     overflow: hidden;
+}
+
+/* --- حاوية الشاشات (الجزء العلوي) --- */
+.screens-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 
 /* إصلاح الآيباد */
@@ -129,12 +136,9 @@ body {
     100% { transform: rotate(360deg); } 
 }
 
-/* --- شريط التنقل السفلي - الحل النهائي --- */
+/* --- شريط التنقل السفلي الثابت --- */
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    flex-shrink: 0;
     width: 100%;
     height: 65px;
     background: rgba(0, 18, 35, 0.95);
@@ -143,20 +147,14 @@ body {
     justify-content: space-around;
     align-items: center;
     border-top: 1px solid rgba(255,255,255,0.08);
-    z-index: 9999;
+    z-index: 100;
     
-    /* 🔥 الحل النهائي للمسافة البيضاء */
+    /* مسافة الأمان لآيفون */
     padding-bottom: env(safe-area-inset-bottom, 0px);
     padding-bottom: constant(safe-area-inset-bottom, 0px);
     
-    /* إزالة أي تأثيرات جانبية */
     margin-bottom: 0;
     box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-}
-
-/* إزالة الطبقة الإضافية التي تسبب المشكلة */
-.bottom-nav::after {
-    display: none;
 }
 
 .nav-item {
@@ -192,7 +190,7 @@ body {
     transform: scale(0.95);
 }
 
-/* --- الكروت والصفحات - الحل النهائي --- */
+/* --- الشاشات --- */
 .screen {
     position: absolute;
     top: 0;
@@ -201,19 +199,9 @@ body {
     bottom: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    
-    /* 🔥 تعديل المسافة السفلية لتتناسب مع شريط التنقل */
-    padding-bottom: 75px;
-    
-    /* إضافة مساحة للأمان في iOS */
-    padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px));
-    padding-bottom: calc(75px + constant(safe-area-inset-bottom, 0px));
-    
-    position: relative;
-    z-index: 2;
+    padding: 15px;
+    padding-bottom: 20px;
     background: transparent !important;
-    
-    /* منع تأثيرات الزوم */
     touch-action: pan-y;
 }
 
@@ -229,23 +217,18 @@ body {
 
 /* دعم لأجهزة iOS */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .screen {
-        padding-bottom: calc(75px + env(safe-area-inset-bottom));
-    }
     .bottom-nav {
         padding-bottom: env(safe-area-inset-bottom);
     }
 }
 
 @supports (padding-bottom: constant(safe-area-inset-bottom)) {
-    .screen {
-        padding-bottom: calc(75px + constant(safe-area-inset-bottom));
-    }
     .bottom-nav {
         padding-bottom: constant(safe-area-inset-bottom);
     }
 }
 
+/* --- الكروت --- */
 .admin-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(8px);
@@ -352,6 +335,7 @@ body {
     color: white;
 }
 
+/* --- الأزرار --- */
 .btn-primary {
     background: var(--pmu-orange);
     color: white;
@@ -373,6 +357,7 @@ body {
     filter: brightness(0.95);
 }
 
+/* --- البادجات --- */
 .badge {
     background: rgba(255,255,255,0.06);
     padding: 5px 12px;
@@ -389,6 +374,7 @@ body {
     background: rgba(239, 125, 0, 0.03);
 }
 
+/* --- حركات --- */
 @keyframes pageReveal {
     0% { opacity: 0; transform: translateY(15px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -406,6 +392,7 @@ body {
     border-radius: 10px;
 }
 
+/* --- Toast --- */
 #custom-toast {
     position: fixed;
     top: 50%;
@@ -441,7 +428,7 @@ body {
     visibility: hidden;
 }
 
-/* --- نموذج إضافة تنبيه جديد --- */
+/* --- نموذج إضافة تنبيه --- */
 .add-reminder-form {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -467,7 +454,7 @@ body {
     border-radius: 15px;
     padding: 12px 15px;
     color: white;
-    font-size: 16px; /* منع الزوم التلقائي */
+    font-size: 16px;
     text-align: center;
     outline: none;
     transition: 0.3s all ease;
@@ -549,81 +536,27 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     z-index: 1;
 }
 
-/* تنسيق الهيدر */
-.main-header, .home-header, header {
-    background: transparent !important;
-    padding: 15px 20px 10px !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 10;
-}
-
-.header-title h1, .header-title h2 {
-    color: white !important;
-    font-size: 22px;
-    font-weight: 800;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    margin: 0;
-}
-
-.header-icons i {
-    color: white;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.header-icons i:active {
-    transform: scale(0.95);
-}
-
-.main-header::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-}
-
-/* --- تحسينات إضافية لمنع الزوم --- */
+/* --- تحسينات إضافية --- */
 button, a, .nav-item, .delete-rem-btn, .btn-primary, .btn-add-now {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* منع التحديد والتكبير */
 * {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
 }
 
-/* السماح بتحديد النص في الحقول فقط */
 input, textarea {
     -webkit-user-select: text;
     user-select: text;
 }
 
-/* تحسين المظهر على iOS */
 input[type="datetime-local"] {
-    min-height: 44px; /* حجم مناسب للنقر */
+    min-height: 44px;
 }
 
-/* إصلاح أي فراغات متبقية */
 body, .app-container, #splash-screen {
     background-color: #001223;
-}
-
-/* التأكد من عدم وجود أي فراغ أبيض */
-.screen:last-child {
-    margin-bottom: 0;
-    padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px));
 }
