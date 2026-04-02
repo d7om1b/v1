@@ -111,58 +111,6 @@ body {
 
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
 
-.bottom-nav { 
-    position: absolute; /* وليس fixed لأننا وضعناه داخل الحاوية */
-    bottom: 0; 
-    left: 0; 
-    right: 0; 
-    width: 100%;
-    /* زيادة الارتفاع ليدعم سحبة الآيفون 15 */
-    height: calc(70px + env(safe-area-inset-bottom)) !important; 
-    background: #001223 !important; 
-    display: flex; 
-    justify-content: space-around; 
-    align-items: center; 
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    z-index: 1000;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nav-item {
-    color: rgba(255, 255, 255, 0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.nav-item.active { 
-.nav-item.active { color: var(--pmu-orange); } /* الأزرق الأصلي النشط */
-}
-
-.nav-item i { 
-    display: block; 
-    font-size: 18px; 
-    margin-bottom: 3px; 
-    transition: transform 0.3s ease;
-}
-
-.nav-item.active i { 
-    transform: translateY(-5px); 
-    color: var(--pmu-orange); /* البرتقالي الأصلي النشط */
-    text-shadow: 0 0 10px rgba(239, 125, 0, 0.4);
-}
-
-.nav-item span { 
-    font-size: 9px; 
-    font-weight: 700; 
-    opacity: 0.7; 
-    transition: 0.3s;
-}
-
-.nav-item.active span { opacity: 1; }
 
 /* --- الكروت والصفحات --- */
 .screen {
