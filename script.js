@@ -7,17 +7,25 @@ window.addEventListener('load', function() {
     
     loadEventsFromStorage();
 
-    setTimeout(function() {
-        const splash = document.getElementById('splash-screen');
-        const container = document.querySelector('.app-container');
-        if (splash) {
-            splash.style.opacity = '0';
-            splash.style.visibility = 'hidden';
-        }
-        if (container) {
-            container.classList.remove('hidden');
-        }
-    }, 2000); 
+setTimeout(function() {
+    const splash = document.getElementById('splash-screen');
+    const container = document.querySelector('.app-container');
+
+    if (splash) {
+        splash.style.opacity = '0';
+        splash.style.visibility = 'hidden';
+    }
+
+    if (container) {
+        container.classList.remove('hidden');
+    }
+
+    // 🔥 إعادة حساب الارتفاع بعد ظهور التطبيق
+    setTimeout(() => {
+        setRealHeight();
+    }, 300);
+
+}, 2000);
 });
 
 // 2. التنقل بين الصفحات
@@ -254,7 +262,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFavorites(); // تشغيل المفضلات أيضاً
     setInterval(updateCountdowns, 1000);
 });
+// 🔥 حل مشكلة ارتفاع الشاشة في iOS PWA
+function setRealHeight() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
 
+// تشغيل أول مرة
+setRealHeight();
+
+// عند تغيير الحجم (مهم للآيفون)
+window.addEventListener('resize', setRealHeight);
 function addReminder() {
     const title = document.getElementById('remindTitle').value;
     const date = document.getElementById('remindDate').value;
