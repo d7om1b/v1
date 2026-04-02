@@ -33,24 +33,25 @@
     border-radius: 2px;
 }
 
-/* تنسيق الهيدر - الصورة كاملة بدون قص */
+/* تنسيق الهيدر - الصورة تظهر كاملة */
 .profile-header-container {
     width: 100%;
     padding: 0;
     margin: 0;
     background: transparent;
     position: relative;
-    overflow: visible; /* الصورة تظهر كاملة بدون قص */
+    /* إضافة مسافة آمنة للأيفون */
+    padding-top: env(safe-area-inset-top, 0px);
 }
 
 .header-img { 
     width: 100%; 
-    height: full;
-    /* إزالة القيود على الارتفاع - الصورة تظهر كاملة */
+    height: auto;
+    /* السماح للصورة بالظهور بشكلها الطبيعي */
     min-height: auto;
     max-height: none;
     object-fit: contain; /* الصورة كاملة بدون قص */
-    object-position: center;
+    object-position: top center;
     display: block;
     background: transparent;
 }
