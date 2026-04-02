@@ -653,3 +653,270 @@ function showScreenOptimized(screenId, element) {
 
 // استبدال showScreen القديمة بالنسخة المحسنة
 window.showScreen = showScreenOptimized;
+
+
+// --- متغيرات الخريطة التفاعلية ---
+let currentZoom = 1;
+let currentPan = { x: 0, y: 0 };
+let isDragging = false;
+let dragStart = { x: 0, y: 0 };
+let mapTransform = { x: 0, y: 0, zoom: 1 };
+
+// بيانات المباني
+const buildings = {
+    gate: { name: "Main Gate", x: 400, y: 200, icon: "🚪", desc: "University Main Entrance" },
+    library: { name: "Central Library", x: 300, y: 350, icon: "📚", desc: "Open 24/7" },
+    cafeteria: { name: "Food Court", x: 500, y: 400, icon: "🍽️", desc: "Restaurants & Cafes" },
+    gym: { name: "Sports Center", x: 200, y: 450, icon: "💪", desc: "Gym, Pool & Courts" },
+    parking: { name: "Parking Area", x: 600, y: 300, icon: "🅿️", desc: "Multi-level Parking" },
+    clinic: { name: "Health Clinic", x: 350, y: 250, icon: "🏥", desc: "Medical Services" }
+};
+
+// تهيئة الخريطة
+function initMap() {
+    const mapContainer = document.getElementById('campus-map');
+    if (!mapContainer) return;
+    
+    // إنشاء SVG للخريطة
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.style.background = "linear-gradient(145deg, #0d1f2d, #07121c)";
+    
+    // إضافة المساحات الخضراء
+    const green1 = document.createElementNS(svgNS, "rect");
+    green1.setAttribute("x", "50");
+    green1.setAttribute("y", "50");
+    green1.setAttribute("width", "700");
+    green1.setAttribute("height", "500");
+    green1.setAttribute("fill", "rgba(46, 125, 50, 0.1)");
+    green1.setAttribute("rx", "20");
+    svg.appendChild(green1);
+    
+    // إضافة الطرق الرئيسية
+    const road1 = document.createElementNS(svgNS, "line");
+    road1.setAttribute("x1", "100");
+    road1.setAttribute("y1", "300");
+    road1.setAttribute("x2", "700");
+    road1.setAttribute("y2", "300");
+    road1.setAttribute("stroke", "rgba(255,255,255,0.15)");
+    road1.setAttribute("stroke-width", "4");
+    road1.setAttribute("stroke-dasharray", "8");
+    svg.appendChild(road1);
+    
+    const road2 = document.createElementNS(svgNS, "line");
+    road2.setAttribute("x1", "400");
+    road2.setAttribute("y1", "100");
+    road2.setAttribute("x2", "400");
+    road2.setAttribute("y2", "550");
+    road2.setAttribute("stroke", "rgba(255,255,255,0.15)");
+    road2.setAttribute("stroke-width", "4");
+    road2.setAttribute("stroke-dasharray", "8");
+    svg.appendChild(road2);
+    
+    // إضافة المباني
+    Object.entries(buildings).forEach(([id, building]) => {
+        const group = document.createElementNS(svgNS, "g");
+        group.setAttribute("class", "building");
+        group.setAttribute("data-id", id);
+        group.setAttribute("data-name", building.name);
+        group.setAttribute("data-desc", building.desc);
+        group.style.cursor = "pointer";
+        
+        // مستطيل المبنى
+        const rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", building.x - 40);
+        rect.setAttribute("y", building.y - 30);
+        rect.setAttribute("width", "80");
+        rect.setAttribute("height", "60");
+        rect.setAttribute("rx", "10");
+        rect.setAttribute("fill", "rgba(239, 125, 0, 0.2)");
+        rect.setAttribute("stroke", "rgba(239, 125, 0, 0.5)");
+        rect.setAttribute("stroke-width", "2");
+        
+        // أيقونة المبنى
+        const text = document.createElementNS(svgNS, "text");
+        text.setAttribute("x", building.x);
+        text.setAttribute("y", building.y);
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("dominant-baseline", "middle");
+        text.setAttribute("font-size", "24");
+        text.textContent = building.icon;
+        
+        // اسم المبنى
+        const label = document.createElementNS(svgNS, "text");
+        label.setAttribute("x", building.x);
+        label.setAttribute("y", building.y + 35);
+        label.setAttribute("text-anchor", "middle");
+        label.setAttribute("font-size", "10");
+        label.setAttribute("fill", "white");
+        label.textContent = building.name;
+        
+        group.appendChild(rect);
+        group.appendChild(text);
+        group.appendChild(label);
+        
+        // إضافة حدث النقر
+        group.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectBuilding(id, building.name, building.desc);
+        });
+        
+        svg.appendChild(group);
+    });
+    
+    // إضافة مجموعة للتحريك
+    const mapLayer = document.createElementNS(svgNS, "g");
+    mapLayer.setAttribute("class", "map-layer");
+    mapLayer.appendChild(svg);
+    
+    mapContainer.appendChild(mapLayer);
+    
+    // إضافة أحداث السحب والتحريك
+    setupMapInteractions(mapContainer, mapLayer);
+}
+
+// إعداد تفاعلات الخريطة
+function setupMapInteractions(container, mapLayer) {
+    let isDragging = false;
+    let startX, startY;
+    let translateX = 0, translateY = 0;
+    let scale = 1;
+    
+    // تحديث التحويل
+    function updateTransform() {
+        mapLayer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+    
+    // بدء السحب
+    container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+        container.style.cursor = 'grabbing';
+    });
+    
+    // السحب
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        updateTransform();
+    });
+    
+    // إنهاء السحب
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        container.style.cursor = 'grab';
+    });
+    
+    // Zoom باستخدام العجلة
+    container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.05 : 0.05;
+        scale = Math.min(Math.max(0.5, scale + delta), 2);
+        updateTransform();
+    });
+    
+    // تخزين الدوال للاستخدام العالمي
+    window.mapControls = {
+        zoomIn: () => {
+            scale = Math.min(2, scale + 0.1);
+            updateTransform();
+        },
+        zoomOut: () => {
+            scale = Math.max(0.5, scale - 0.1);
+            updateTransform();
+        },
+        reset: () => {
+            translateX = 0;
+            translateY = 0;
+            scale = 1;
+            updateTransform();
+        }
+    };
+    
+    updateTransform();
+}
+
+// اختيار مبنى
+function selectBuilding(id, name, desc) {
+    // إزالة التحديد السابق
+    document.querySelectorAll('.building').forEach(b => {
+        b.classList.remove('selected');
+    });
+    
+    // تحديد المبنى الحالي
+    const selectedBuilding = document.querySelector(`.building[data-id="${id}"]`);
+    if (selectedBuilding) {
+        selectedBuilding.classList.add('selected');
+    }
+    
+    // تحديث شريط الحالة
+    const statusSpan = document.getElementById('selected-location');
+    if (statusSpan) {
+        statusSpan.innerHTML = `${name} - ${desc}`;
+    }
+    
+    // عرض رسالة منبثقة
+    showToast(`📍 ${name}: ${desc}`, false);
+    
+    // إضافة تأثير اهتزاز (إذا كان الجهاز يدعم)
+    if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(50);
+    }
+}
+
+// دوال التحكم في الخريطة
+function zoomIn() {
+    if (window.mapControls) window.mapControls.zoomIn();
+}
+
+function zoomOut() {
+    if (window.mapControls) window.mapControls.zoomOut();
+}
+
+function resetMap() {
+    if (window.mapControls) window.mapControls.reset();
+    showToast("🗺️ Map reset to default view", false);
+}
+
+// عرض موقع معين
+function showLocation(locationId) {
+    const building = buildings[locationId];
+    if (building) {
+        selectBuilding(locationId, building.name, building.desc);
+        
+        // تحريك الخريطة إلى موقع المبنى
+        const container = document.getElementById('campus-map');
+        const mapLayer = document.querySelector('.map-layer');
+        if (container && mapLayer) {
+            // حساب موقع التمركز
+            const centerX = window.innerWidth / 2 - building.x;
+            const centerY = window.innerHeight / 2 - building.y;
+            if (window.mapControls) {
+                // إعادة تعيين ثم تحريك
+                window.mapControls.reset();
+                setTimeout(() => {
+                    const layer = document.querySelector('.map-layer');
+                    if (layer) {
+                        layer.style.transform = `translate(${centerX - 200}px, ${centerY - 150}px) scale(1.2)`;
+                    }
+                }, 100);
+            }
+        }
+    }
+}
+
+// تحديث init ليشمل الخريطة
+const originalInit = init;
+window.init = function() {
+    if (originalInit) originalInit();
+    initMap();
+};
+
+// تشغيل تهيئة الخريطة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    initMap();
+});
