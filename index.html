@@ -32,63 +32,69 @@
     <!-- حاوية الشاشات (الجزء العلوي) -->
     <div class="screens-wrapper">
         
-        <main id="home-page" class="screen">
-            <div class="profile-header-container">
-                <img src="./P1.png" alt="Header Image" class="header-img">
+    <main id="home-page" class="screen">
+    <!-- الجزء الثابت -->
+    <div class="home-sticky-header">
+        <div class="profile-header-container">
+            <img src="./P1.png" alt="Header Image" class="header-img">
+        </div>
+
+        <div class="hero-section">
+            <div class="user-info">
+                <p>Welcome back,</p>
+                <h2>Hadeel</h2>
+            </div>
+            <img src="./logo.png" class="mini-logo" onclick="showScreen('admin-login-page')">
+        </div>
+    </div>
+
+    <!-- الجزء المتحرك (القابل للتمرير) -->
+    <div class="home-scrollable-content">
+        <div class="calendar-section">
+            <h3 class="section-title"><i class="fa-solid fa-calendar-check"></i> Academic Calendar</h3>
+            
+            <div class="event-card">
+                <div class="event-date">AUG<span>24</span></div>
+                <div class="event-info"><h4>Fall Classes Start</h4><p>First day of semester</p></div>
             </div>
 
-            <div class="hero-section">
-                <div class="user-info">
-                    <p>Welcome back,</p>
-                    <h2>Hadeel</h2>
-                </div>
-                <img src="./logo.png" class="mini-logo" onclick="showScreen('admin-login-page')">
+            <div class="event-card">
+                <div class="event-date">DEC<span>14</span></div>
+                <div class="event-info"><h4>Final Exams</h4><p>Examination period starts</p></div>
             </div>
 
-            <div class="calendar-section scrollable-content">
-                <h3 class="section-title"><i class="fa-solid fa-calendar-check"></i> Academic Calendar</h3>
+            <a href="#" class="calendar-link">Download Full PDF</a>
+            
+            <div class="news-section">
+                <h3 class="section-title"><i class="fa-brands fa-twitter"></i> Latest Updates</h3>
                 
-                <div class="event-card">
-                    <div class="event-date">AUG<span>24</span></div>
-                    <div class="event-info"><h4>Fall Classes Start</h4><p>First day of semester</p></div>
+                <div class="news-card">
+                    <div class="news-header">
+                        <img src="./logo.png" alt="PMU" class="news-avatar">
+                        <div class="news-meta">
+                            <h4>PMU Official</h4>
+                            <span>@PMU_KSA · 2h</span>
+                        </div>
+                        <i class="fa-brands fa-twitter twitter-icon"></i>
+                    </div>
+                    <p class="news-content">Registration for the upcoming spring semester is now open. Make sure to consult with your academic advisor. #PMU #Registration</p>
                 </div>
 
-                <div class="event-card">
-                    <div class="event-date">DEC<span>14</span></div>
-                    <div class="event-info"><h4>Final Exams</h4><p>Examination period starts</p></div>
-                </div>
-
-                <a href="#" class="calendar-link">Download Full PDF</a>
-                
-                <div class="news-section">
-                    <h3 class="section-title"><i class="fa-brands fa-twitter"></i> Latest Updates</h3>
-                    
-                    <div class="news-card">
-                        <div class="news-header">
-                            <img src="./logo.png" alt="PMU" class="news-avatar">
-                            <div class="news-meta">
-                                <h4>PMU Official</h4>
-                                <span>@PMU_KSA · 2h</span>
-                            </div>
-                            <i class="fa-brands fa-twitter twitter-icon"></i>
+                <div class="news-card">
+                    <div class="news-header">
+                        <img src="logo.png" alt="PMU" class="news-avatar">
+                        <div class="news-meta">
+                            <h4>PMU Official</h4>
+                            <span>@PMU_KSA · 1d</span>
                         </div>
-                        <p class="news-content">Registration for the upcoming spring semester is now open. Make sure to consult with your academic advisor. #PMU #Registration</p>
+                        <i class="fa-brands fa-twitter twitter-icon"></i>
                     </div>
-
-                    <div class="news-card">
-                        <div class="news-header">
-                            <img src="logo.png" alt="PMU" class="news-avatar">
-                            <div class="news-meta">
-                                <h4>PMU Official</h4>
-                                <span>@PMU_KSA · 1d</span>
-                            </div>
-                            <i class="fa-brands fa-twitter twitter-icon"></i>
-                        </div>
-                        <p class="news-content">Congratulations to our students who participated in the Global Innovation Challenge! We are proud of your achievements. 🏆</p>
-                    </div>
+                    <p class="news-content">Congratulations to our students who participated in the Global Innovation Challenge! We are proud of your achievements. 🏆</p>
                 </div>
             </div>
-        </main>
+        </div>
+    </div>
+</main>
 
         <section id="search-page" class="screen hidden">
             <div id="search-input-area">
