@@ -7,7 +7,6 @@
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.08);
     
-    /* متغيرات الأمان */
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);
     --sab: env(safe-area-inset-bottom);
@@ -24,12 +23,14 @@
     margin: 0; 
     padding: 0; 
 }
-/* أضف هذا السطر في بداية ملف global.css */
+
+/* الاتجاه من اليسار إلى اليمين */
 body, .app-container, .screen, .bottom-nav, .nav-item {
-    direction: ltr;  /* الاتجاه من اليسار إلى اليمين */
-    text-align: left; /* محاذاة النص لليسار */
+    direction: ltr;
+    text-align: left;
 }
-/* منع الزوم والتكبير بالكامل */
+
+/* منع الزوم والتكبير */
 html, body {
     width: 100%;
     height: 100%;
@@ -41,25 +42,14 @@ html, body {
     left: 0;
     right: 0;
     bottom: 0;
-    
     touch-action: pan-x pan-y;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    
     background-color: #001223;
 }
 
 body {
     touch-action: pan-x pan-y;
-}
-
-/* منع التكبير عند النقر على الحقول */
-input, textarea, select, button {
-    font-size: 16px;
-    touch-action: manipulation;
-}
-
-body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start; 
@@ -68,7 +58,13 @@ body {
     position: relative;
 }
 
-/* --- الحاوية الرئيسية - الهيكل الجديد --- */
+/* منع التكبير عند النقر على الحقول */
+input, textarea, select, button {
+    font-size: 16px;
+    touch-action: manipulation;
+}
+
+/* --- الحاوية الرئيسية --- */
 .app-container {
     display: flex;
     flex-direction: column;
@@ -79,12 +75,13 @@ body {
     overflow: hidden;
 }
 
-/* --- حاوية الشاشات (الجزء العلوي) --- */
+/* --- حاوية الشاشات --- */
 .screens-wrapper {
     flex: 1;
     position: relative;
     overflow: hidden;
     width: 100%;
+    background: transparent !important;
 }
 
 /* إصلاح الآيباد */
@@ -140,13 +137,11 @@ body {
     100% { transform: rotate(360deg); } 
 }
 
-/* --- شريط التنقل السفلي الثابت --- */
-/* --- شريط التنقل السفلي الثابت - ارتفاع أقل --- */
-/* --- شريط التنقل السفلي الثابت --- */
+/* --- شريط التنقل السفلي --- */
 .bottom-nav {
     flex-shrink: 0;
     width: 100%;
-    height: 45px;  /* تم التخفيض من 55px إلى 45px */
+    height: 45px;
     background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
     display: flex;
@@ -154,10 +149,8 @@ body {
     align-items: center;
     border-top: 1px solid rgba(255,255,255,0.08);
     z-index: 100;
-    
     padding-bottom: env(safe-area-inset-bottom, 0px);
     padding-bottom: constant(safe-area-inset-bottom, 0px);
-    
     margin-bottom: 0;
     box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
 }
@@ -168,28 +161,28 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 9px;  /* تصغير الخط */
+    font-size: 9px;
     text-decoration: none;
     transition: 0.3s;
     cursor: pointer;
-    padding: 2px 8px;  /* تقليل البادنج */
+    padding: 2px 8px;
     border-radius: 8px;
 }
 
 .nav-item i {
-    font-size: 16px;  /* تصغير الأيقونة من 18px إلى 16px */
+    font-size: 16px;
     margin-bottom: 2px;
     transition: 0.3s;
 }
 
-.nav-item.active i {
-    transform: translateY(-2px);  /* تقليل الحركة */
-}
 .nav-item.active {
     color: var(--pmu-orange);
 }
 
-
+.nav-item.active i {
+    transform: translateY(-2px);
+    color: var(--pmu-orange);
+}
 
 .nav-item:active {
     transform: scale(0.95);
@@ -205,21 +198,22 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 60px;  /* خليها 60px بدل 75px */
+    padding-bottom: 60px;
     background: transparent !important;
     touch-action: pan-y;
 }
+
 /* إخفاء الشاشات غير النشطة */
 .screen.hidden {
     display: none !important;
 }
 
-/* إظهار الشاشة النشطة فقط */
+/* إظهار الشاشة النشطة */
 .screen:not(.hidden) {
     display: block;
 }
 
-/* دعم لأجهزة iOS */
+/* دعم iOS */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .bottom-nav {
         padding-bottom: env(safe-area-inset-bottom);
@@ -563,4 +557,13 @@ input[type="datetime-local"] {
 
 body, .app-container, #splash-screen {
     background-color: #001223;
+}
+
+/* 🔥 إزالة أي خلفية من العناصر القديمة */
+#pages-container {
+    background: transparent !important;
+}
+
+.pages-container {
+    background: transparent !important;
 }
