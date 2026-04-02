@@ -75,7 +75,7 @@ const defaultRooms = {
     "101": {
         floor: "Floor 1",
         building: "Building A",
-        image: "https://via.placeholder.com/400x200?text=Room+101",
+             image: "./room101.jpg",
         desc: "Located near the North Elevator. Perfect for group studies and lectures.",
         nearby: { cafe: "1m", print: "30s" }
     }
