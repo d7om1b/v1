@@ -160,7 +160,7 @@ input, textarea, select, button {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 65px;
+    padding-bottom: 15px;
     background: transparent !important;
 }
 
@@ -178,7 +178,7 @@ input, textarea, select, button {
         padding-bottom: env(safe-area-inset-bottom);
     }
     .screen {
-        padding-bottom: calc(65px + env(safe-area-inset-bottom));
+        padding-bottom: calc(15px + env(safe-area-inset-bottom));
     }
 }
 
@@ -430,4 +430,37 @@ input, textarea {
 
 body, .app-container, #splash-screen {
     background-color: #001223;
+}
+
+/* 🔥 إزالة المسافة الزائدة تحت المحتوى */
+.home-scrollable-content {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.scrollable-content {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.calendar-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.news-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#home-page .screen {
+    padding-bottom: 0 !important;
+}
+
+/* إزالة أي عنصر فارغ */
+.bottom-nav::before,
+.bottom-nav::after,
+.screens-wrapper::after {
+    display: none !important;
+    content: none !important;
 }
