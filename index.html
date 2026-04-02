@@ -180,18 +180,98 @@
             </div>
         </section>
 
-        <section id="map-page" class="screen hidden">
-            <div class="page-content">
-                <div class="page-title"><h2>University Campus</h2></div>
-                <div class="map-wrapper">
-                    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1QwnWtXpGgrs8Wb0kPZOdVtOjvEpr9p8&ehbc=2E312F" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    <div class="map-info-card">
-                        <h3><i class="fa-solid fa-location-dot"></i> PMU Campus</h3>
-                        <p>Al Khobar, Eastern Province</p>
-                    </div>
+<!-- Map Page - صفحة خريطة تفاعلية محسنة -->
+<section id="map-page" class="screen hidden">
+    <div class="page-content map-page-content">
+        
+        <!-- عنوان الصفحة مع أيقونة -->
+        <div class="map-header">
+            <div class="map-title-wrapper">
+                <i class="fa-solid fa-map-location-dot map-header-icon"></i>
+                <h2 class="map-title">University Campus Map</h2>
+            </div>
+            <div class="map-control-buttons">
+                <button class="map-control-btn" onclick="zoomIn()" title="Zoom In">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="map-control-btn" onclick="zoomOut()" title="Zoom Out">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <button class="map-control-btn" onclick="resetMap()" title="Reset Map">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- حاوية الخريطة -->
+        <div class="map-container">
+            <div id="campus-map" class="campus-map"></div>
+            
+            <!-- طبقة التحميل للخريطة -->
+            <div id="map-loading" class="map-loading hidden">
+                <div class="map-loader"></div>
+                <span>Loading Map...</span>
+            </div>
+        </div>
+
+        <!-- بطاقات المعلومات التفاعلية -->
+        <div class="map-info-section">
+            <div class="map-info-card" onclick="showLocation('gate')">
+                <div class="info-icon"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
+                <div class="info-text">
+                    <h4>Main Gate</h4>
+                    <p>University Entrance</p>
                 </div>
             </div>
-        </section>
+            
+            <div class="map-info-card" onclick="showLocation('library')">
+                <div class="info-icon"><i class="fa-solid fa-book"></i></div>
+                <div class="info-text">
+                    <h4>Central Library</h4>
+                    <p>24/7 Study Area</p>
+                </div>
+            </div>
+            
+            <div class="map-info-card" onclick="showLocation('cafeteria')">
+                <div class="info-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="info-text">
+                    <h4>Food Court</h4>
+                    <p>Restaurants & Cafes</p>
+                </div>
+            </div>
+            
+            <div class="map-info-card" onclick="showLocation('gym')">
+                <div class="info-icon"><i class="fa-solid fa-dumbbell"></i></div>
+                <div class="info-text">
+                    <h4>Sports Center</h4>
+                    <p>Gym & Pool</p>
+                </div>
+            </div>
+            
+            <div class="map-info-card" onclick="showLocation('parking')">
+                <div class="info-icon"><i class="fa-solid fa-car"></i></div>
+                <div class="info-text">
+                    <h4>Parking Area</h4>
+                    <p>Multi-level Parking</p>
+                </div>
+            </div>
+            
+            <div class="map-info-card" onclick="showLocation('clinic')">
+                <div class="info-icon"><i class="fa-solid fa-hospital-user"></i></div>
+                <div class="info-text">
+                    <h4>Health Clinic</h4>
+                    <p>Medical Services</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط الحالة -->
+        <div id="map-status" class="map-status">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="selected-location">Select a location on the map</span>
+        </div>
+    </div>
+</section>
 
         <section id="profile-page" class="screen hidden">
             <div class="page-content">
