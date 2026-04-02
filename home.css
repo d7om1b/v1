@@ -278,3 +278,18 @@
     line-height: 1.45;
     margin: 0;
 }
+
+/* --- تحسين أداء الصفحة الرئيسية --- */
+.home-section-2 {
+    will-change: scroll-position;
+}
+
+.event-card,
+.news-card {
+    will-change: transform;
+}
+
+.event-card:hover,
+.news-card:hover {
+    will-change: transform;
+}
