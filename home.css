@@ -14,24 +14,29 @@
     z-index: 10;
 }
 
-/* تنسيق الهيدر */
+/* تنسيق الهيدر - إظهار الصورة بالكامل */
 .profile-header-container {
     width: 100%;
     padding: 0;
     margin: 0;
     background: transparent;
+    /* إزالة أي قص للصورة */
+    overflow: visible;
 }
 
 .header-img { 
     width: 100%; 
     height: auto;
-    min-height: 180px;
-    max-height: 250px;
-    object-fit: cover;
-    object-position: center center;
+    /* إزالة القيود على الارتفاع */
+    min-height: auto;
+    max-height: none;
+    /* التأكد من ظهور الصورة كاملة */
+    object-fit: contain;
+    object-position: top center;
     display: block;
+    /* إضافة ظل خفيف للوضوح */
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
 }
-
 /* قسم الترحيب */
 .hero-section { 
     background: rgba(0, 18, 35, 0.6);
