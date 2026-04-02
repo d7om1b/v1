@@ -182,12 +182,20 @@
 
 /* 1. نحدد طول منطقة المحتوى ونفعل التمرير */
 .scrollable-content {
-    max-height: 50vh; /* يحدد طول منطقة التقويم بنصف الشاشة تقريباً */
-    overflow-y: auto; /* تفعيل التمرير الرأسي */
-    padding-bottom: 80px; /* مسافة عشان آخر خبر ما يختفي تحت المنيو */
+    /* إلغاء تحديد الارتفاع بنصف الشاشة */
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
     
-    /* إخفاء شريط التمرير المزعج */
-    scrollbar-width: none; 
+    /* تفعيل التمرير الكامل */
+    overflow-y: auto; 
+    
+    /* مسافة سفلية داخلية فقط لتجاوز طول المنيو */
+    /* 100px تضمن أن آخر عنصر يظهر فوق المنيو بوضوح */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important; 
+    
+    /* إخفاء شريط التمرير */
+    scrollbar-width: none;  
     -ms-overflow-style: none;
 }
 
