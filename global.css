@@ -133,7 +133,7 @@ input, textarea, select, button {
     border-top: 1px solid rgba(255,255,255,0.08);
     z-index: 100;
     margin-bottom: 0;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 -2px 13px rgba(0,0,0,0.1);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     box-sizing: content-box;
 }
@@ -147,7 +147,7 @@ input, textarea, select, button {
     font-size: 11px;
     cursor: pointer;
     padding: 5px 5px;
-    border-radius: 12px;
+    border-radius: 5px;
     transition: 0.3s;
 }
 
