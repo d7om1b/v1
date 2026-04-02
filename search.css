@@ -1,0 +1,150 @@
+/* --- تنسيق صفحة البحث والنتائج الزجاجية المحسن --- */
+
+#search-page { 
+    background: radial-gradient(circle at top right, var(--pmu-blue), var(--dark-bg)); 
+    min-height: 100%;
+    width: 100%;
+    overflow-x: hidden; /* يمنع ظهور شريط التمرير الجانبي */
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title h2 { 
+    color: white; 
+    text-align: center; 
+    padding: 30px 20px 10px; 
+    font-size: 22px; 
+    font-weight: 800;
+}
+
+/* --- إصلاح مربع البحث (التوسط والحجم) --- */
+.modern-input { 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    /* margin: auto يضمن التوسط الأفقي */
+    margin: 15px auto; 
+    padding: 5px 15px; 
+    border-radius: 20px; 
+    display: flex; 
+    align-items: center; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    width: calc(100% - 40px); /* يترك مسافة 20px من كل جهة */
+    max-width: 350px; /* لضمان عدم كبر الحجم في الشاشات العريضة */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.modern-input input { 
+    border: none; 
+    background: transparent; 
+    padding: 12px; 
+    width: 100%; 
+    outline: none; 
+    color: white; 
+    font-size: 15px;
+    text-align: center; /* يوسط النص المكتوب */
+}
+
+/* --- زر البحث الأساسي --- */
+.btn-primary { 
+    background: linear-gradient(135deg, var(--pmu-orange), #ff9d33); 
+    color: white; 
+    border: none; 
+    padding: 16px; 
+    margin: 10px auto; 
+    border-radius: 20px; 
+    font-weight: 700; 
+    font-size: 16px;
+    cursor: pointer; 
+    width: calc(100% - 40px); 
+    max-width: 350px;
+    display: block; /* ضروري لعمل margin auto */
+    box-shadow: 0 8px 20px rgba(239, 125, 0, 0.25);
+    transition: 0.3s;
+}
+
+/* --- تنسيق النتيجة (تم تقليص الـ Padding الزائد) --- */
+
+.result-card-container {
+    padding: 20px; /* تم تقليله من 50px */
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 20px; /* تم تقليله من 50px */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-result-img {
+    width: 100%;
+    max-width: 340px;
+    height: 200px;
+    border-radius: 25px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    object-fit: cover;
+}
+
+.result-description-box {
+    width: 100%; 
+    max-width: 340px;
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(25px); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    padding: 25px; /* تم تقليله ليناسب الشاشة */
+    color: white;
+    text-align: center; /* يوسط المحتوى النصي */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+}
+
+.result-description-box h3 { 
+    color: var(--pmu-orange); 
+    margin-bottom: 15px; 
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.result-description-box p { 
+    font-size: 14px; 
+    opacity: 0.9; 
+    line-height: 1.6;
+}
+
+/* الأوسمة */
+.badge {
+    background: rgba(239, 125, 0, 0.1);
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--pmu-orange);
+    border: 1px solid rgba(239, 125, 0, 0.2);
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* حاوية أزرار الإجراءات */
+.action-buttons {
+    display: flex; 
+    gap: 10px; 
+    margin-top: 20px;
+    width: 100%;
+}
+
+.action-buttons button {
+    flex: 1; 
+    padding: 12px; 
+    font-size: 13px; 
+    font-weight: 700;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}

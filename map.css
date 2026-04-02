@@ -1,0 +1,66 @@
+/* --- تنسيق الخريطة لملء كامل الشاشة --- */
+
+#map-page.screen {
+    padding: 0; /* إلغاء أي مسافات داخلية للصفحة */
+    position: relative;
+    height: 100%;
+}
+
+.map-wrapper {
+    width: 100%; /* تأخذ كامل العرض */
+    height: 100%; /* تأخذ كامل الارتفاع المتاح في الصفحة */
+    margin: 0;   /* إلغاء الهوامش */
+    border-radius: 0; /* إلغاء الزوايا الدائرية لتلتصق بحواف الجوال */
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#map-page iframe {
+    width: 100% !important;
+    height: calc(100% + 150px) !important; /* زيادة الطول لإخفاء زوائد جوجل ماب */
+    margin-top: -80px; /* إزاحة للأعلى لإخفاء شريط البحث */
+    filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(85%) !important;
+}
+
+/* تحويل بطاقة المعلومات لتكون "عائمة" فوق الخريطة */
+.map-info-card {
+    position: absolute;
+    top: 60px; /* وضعها في الأعلى */
+    left: 20px;
+    right: 20px;
+    z-index: 10; /* لتكون فوق الخريطة */
+    background: rgba(0, 45, 86, 0.8); /* استخدام لون PMU Blue مع شفافية */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.map-info-card h3 {
+    color: var(--pmu-orange);
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.map-info-card p {
+    font-size: 12px;
+    color: #eee;
+}
+
+/* إضافة تدرج ظلي في الأسفل لضمان وضوح شريط التنقل */
+.map-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(to top, var(--dark-bg), transparent);
+    pointer-events: none;
+    z-index: 5;
+}

@@ -1,0 +1,571 @@
+/* --- الإعدادات العامة والجذرية --- */
+:root {
+    --pmu-blue: #002d56;
+    --pmu-orange: #ef7d00;
+    --dark-bg: #001e3c;
+    --pmu-blue-dark: #001223;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+.hidden {
+    display: none !important;
+}
+
+*{ 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0d0d0d;
+    /* تأكدي من إضافة مساحات الآيفون هنا */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* قفل الأبعاد لمنع أي فراغات سوداء أو اهتزاز */
+html, body {
+    width: 100%;
+    height: 100%;
+    height: -webkit-fill-available;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed; /* هذا ما يجعله تطبيقاً وليس متصفحاً */
+    background-color: #001223;
+}
+.app-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    /* خلفية ممتدة للنهاية */
+    background: linear-gradient(160deg, #002d56 0%, #001223 100%) !important;
+}
+@media (min-width: 500px) { 
+    /* هذا القيد ينطبق فقط إذا كانت حاوية التطبيق مرئية */
+    .app-container:not(.hidden) { 
+        max-width: 400px; 
+        height: 90vh; 
+        border-radius: 35px; 
+        border: 2px solid rgba(255,255,255,0.05);
+        position: relative;
+    } 
+}
+
+/* --- شاشة التحميل الأصلية (Splash) --- */
+/* --- تنسيق شاشة التحميل - التمركز المطلق --- */
+#splash-screen { 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* التأكد من أخذ كامل طول الشاشة */
+    background: var(--pmu-blue); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; /* التوسط العمودي */
+    align-items: center;     /* التوسط الأفقي */
+    z-index: 10000;          /* التأكد من ظهورها فوق كل شيء */
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* حاوية المحتوى لضمان الترتيب */
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.splash-logo { 
+    width: 140px; /* حجم مناسب */
+    height: auto;
+    margin-bottom: 30px; /* مسافة بين الشعار ودائرة التحميل */
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+}
+
+.loader { 
+    width: 40px; 
+    height: 40px; 
+    border: 4px solid rgba(255,255,255,0.1); 
+    border-top: 4px solid var(--pmu-orange); 
+    border-radius: 50%; 
+    animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite; 
+}
+
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
+
+/* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
+.bottom-nav { 
+    position: absolute; 
+    /* تقليل الـ 15px إلى 10px لتقريب المنيو من الأسفل */
+    bottom: calc(10px + env(safe-area-inset-bottom)); 
+    left: 15px; 
+    right: 15px; 
+    width: calc(100% - 30px);
+    height: 65px; 
+    background: rgba(0, 30, 60, 0.85); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 25px; 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+'
+.nav-item {
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-item.active { 
+.nav-item.active { color: var(--pmu-orange); } /* الأزرق الأصلي النشط */
+}
+
+.nav-item i { 
+    display: block; 
+    font-size: 18px; 
+    margin-bottom: 3px; 
+    transition: transform 0.3s ease;
+}
+
+.nav-item.active i { 
+    transform: translateY(-5px); 
+    color: var(--pmu-orange); /* البرتقالي الأصلي النشط */
+    text-shadow: 0 0 10px rgba(239, 125, 0, 0.4);
+}
+
+.nav-item span { 
+    font-size: 9px; 
+    font-weight: 700; 
+    opacity: 0.7; 
+    transition: 0.3s;
+}
+
+.nav-item.active span { opacity: 1; }
+
+/* --- الكروت والصفحات --- */
+.screen {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 150px تضمن أن التغريدات وزر تسجيل الدخول ستظهر فوق المنيو عند السحب */
+    padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+background: transparent !important;
+}
+
+.admin-card {
+    background: rgba(255, 255, 255, 0.03); /* شفافية ناعمة جداً مريحة */
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* --- عداد التذكيرات الأصلي (Countdown) --- */
+/* الحاوية الخارجية للبطاقة */
+.reminder-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    padding: 20px;
+    margin: 15px;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.reminder-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--pmu-orange);
+}
+
+/* عنوان التنبيه */
+.reminder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.reminder-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+/* تصميم المربعات الزمنية */
+/* الحاوية التي تجمع المربعات الأربعة */
+.modern-countdown {
+    display: flex;
+    justify-content: center; /* توسيط المربعات في منتصف البطاقة */
+    align-items: center;
+    gap: 8px; /* المسافة بين كل مربع ومربع */
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* المربع الزمني الواحد */
+.time-box {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(239, 125, 0, 0.08); 
+    border: 1px solid rgba(239, 125, 0, 0.15);
+    padding: 10px 5px; /* تقليل البادنج الجانبي لضمان عدم خروج المربع عن المساحة */
+    border-radius: 12px;
+    min-width: 0; /* مهم جداً لمنع تمدد المربعات بشكل غير متساوي */
+}
+
+/* الرقم (العدد) */
+.time-value {
+    display: block;
+    font-size: 20px; /* تكبير بسيط للرقم */
+    font-weight: 900;
+    color: var(--pmu-orange);
+    margin: 0;
+    padding: 0;
+    line-height: 1; /* يمنع الفراغات الزائدة فوق وتحت الرقم */
+}
+
+
+
+/* الكلمة (Days, Hours...) */
+.time-label {
+    display: block;
+    font-size: 8px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    text-align: center;
+}
+
+/* زر الحذف الأنيق */
+.delete-rem-btn {
+    background: rgba(255, 68, 68, 0.1);
+    color: #ff4444;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.delete-rem-btn:hover {
+    background: #ff4444;
+    color: white;
+}
+
+/* --- الأزرار الأصلية --- */
+.btn-primary {
+    background: var(--pmu-orange); /* البرتقالي الأصلي */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(239, 125, 0, 0.2);
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 300px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:active {
+    transform: scale(0.96);
+    filter: brightness(0.95);
+}
+
+/* --- الأوسمة الأصلية (Badges) --- */
+.badge {
+    background: rgba(255,255,255,0.06);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #eee;
+    border: 1px solid var(--glass-border);
+}
+
+.badge.highlight {
+    border-color: var(--pmu-orange);
+    color: var(--pmu-orange);
+    background: rgba(239, 125, 0, 0.03);
+}
+
+/* --- الحركات الأصلية (Animations) --- */
+@keyframes pageReveal {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.screen:not(.hidden) {
+    animation: pageReveal 0.4s ease-out forwards;
+}
+
+/* تحسين السكرول بار المريح */
+.screen::-webkit-scrollbar {
+    width: 3px;
+}
+.screen::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+}
+
+
+#custom-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(0, 45, 86, 0.9); /* لون البي ام يو الأزرق مع شفافية */
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    border: 1px solid rgba(239, 125, 0, 0.4); /* إطار برتقالي خفيف */
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    opacity: 0;
+}
+
+#custom-toast i {
+    color: var(--pmu-orange);
+    font-size: 20px;
+}
+
+/* حالة الظهور */
+#custom-toast.toast-show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.toast-hidden {
+    visibility: hidden;
+}
+
+/* --- نموذج إضافة تنبيه جديد (Add Reminder Form) --- */
+/* --- نموذج إضافة تنبيه جديد (المربع الكبير) --- */
+.add-reminder-form {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 25px 20px; /* مساحة داخلية متساوية */
+    margin: 15px auto;   /* auto من اليمين واليسار تضمن التوسط الخارجي */
+    width: calc(100% - 30px); /* عرض المربع مع ترك مسافة بسيطة من الأطراف */
+    max-width: 350px;    /* لضمان عدم تمدده بشكل بشع */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* لضمان توسط كل العناصر (المدخلات والزر) عمودياً */
+    justify-content: center;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+    box-sizing: border-box; /* لضمان حساب العرض مع البادنج */
+}
+
+/* تنسيق حقول الإدخال داخل النموذج */
+.modern-input {
+    width: 100%;        /* ستأخذ كامل عرض الحاوية الأب */
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 12px 0;    /* بادنج علوي وسفلي فقط لضمان بقاء النص بالمنتصف */
+    color: white;
+    font-size: 14px;
+    text-align: center; /* توسط النص المكتوب */
+    outline: none;
+    transition: 0.3s all ease;
+}
+
+/* زر الحفظ داخل النموذج */
+.btn-add-now {
+    width: 100%;        /* ليكون بنفس عرض الحقول */
+    background: var(--pmu-orange);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 15px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* ليكون نص الزر بالمنتصف */
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
+}
+
+/* تعديل بسيط لعنوان النموذج "New Countdown" */
+.add-reminder-form p {
+    margin: 0 0 5px 0;  /* تصفير المارجن الجانبي */
+    width: 100%;
+    text-align: center;
+}
+.modern-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--pmu-orange);
+    box-shadow: 0 0 15px rgba(239, 125, 0, 0.2);
+}
+
+/* زر الحفظ المطور */
+.btn-add-now {
+    background: var(--pmu-orange);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
+}
+
+.btn-add-now:active {
+    transform: scale(0.96);
+}
+
+/* تحسين أيقونة التقويم */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg); /* تلوين الأيقونة للبرتقالي/الأبيض */
+    cursor: pointer;
+}
+
+/* --- لمسة الخلفية المودرن (Glow Effects) --- */
+.bg-glow-1, .bg-glow-2 {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    filter: blur(100px);
+    z-index: -1;
+    opacity: 0.4;
+}
+
+/* الهالة الأولى: لون برتقالي خافت في الزاوية العلوية */
+.bg-glow-1 { top: -100px; right: -50px; background: var(--pmu-blue); }
+
+/* الهالة الثانية: لون أزرق فاتح في الزاوية السفلية */
+.bg-glow-2 { bottom: -100px; left: -50px; background: var(--pmu-orange); }
+
+/* حركة عائمة بسيطة تعطي حياة للتطبيق */
+@keyframes floatGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 50px) scale(1.2); }
+}
+
+/* تعديل بسيط على الحاوية الأساسية لتناسب التأثير */
+/* --- تصميم الخلفية الديناميكية الجديدة (Gradient Mesh) --- */
+
+
+/* إضافة طبقة "الملمس الفخم" (Geometric Texture) لتعطي إيحاءً بالاحترافية */
+.app-container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* ملمس هندسي خفيف جداً (مثل الخطوط المتقاطعة) */
+    background-image: url("https://www.transparenttextures.com/patterns/simple-dashed.png");
+    opacity: 0.04; /* شفافة جداً، فقط تعطي ملمس فخم */
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* التأكد من أن جميع الشاشات شفافة لترى ما خلفها */
+.screen {
+    position: relative;
+    z-index: 2;
+    background: transparent !important; /* هذا السطر هو الأهم لظهور الخلفية */
+}
+
+/* --- لمسة جمالية إضافية للكروت (Dark Glass) لتبرز فوق الخلفية القوية --- */
+.reminder-card, .admin-card, .result-description-box {
+    background: rgba(0, 18, 35, 0.6) !important; /* زجاج غامق ليتناسق مع الخلفية القوية */
+    backdrop-filter: blur(15px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(15px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+}
+/* --- توحيد الهيدر مع الخلفية الديناميكية الجديدة --- */
+
+.main-header, .home-header, header {
+    background: transparent !important; /* إزالة اللون الصلب */
+    box-shadow: none !important; /* إزالة الظلال التقليدية */
+    border: none !important;
+    padding: 25px 20px 10px; /* موازنة المسافات */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* إذا كان هناك عنوان داخل الهيدر */
+.header-title h1, .header-title h2 {
+    color: white !important;
+    font-size: 22px;
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2); /* لمسة عمق للنص */
+}
+
+/* تنسيق أيقونات الهيدر (مثل التنبيهات أو البروفايل) */
+.header-icons i {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+/* لمسة جمالية: خط نحيف جداً تحت الهيدر ليفصله بنعومة */
+.main-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}

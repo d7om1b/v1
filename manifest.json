@@ -1,0 +1,12 @@
+{
+  "name": "PMU Way",
+  "short_name": "PMU Way",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#002d56",
+  "theme_color": "#002d56",
+  "icons": [
+    { "src": "logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
