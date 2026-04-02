@@ -19,27 +19,25 @@
     padding: 0; 
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #0d0d0d;
-    /* تأكدي من إضافة مساحات الآيفون هنا */
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
-
-/* قفل الأبعاد لمنع أي فراغات سوداء أو اهتزاز */
 html, body {
     width: 100%;
-    /* استخدام fill-available لضمان ملء الشاشة في التطبيق المثبت */
-    height: 100vh; 
-    height: -webkit-fill-available;
+    /* السطر القادم هو السر لثبات الشاشة في مكانها */
+    height: 100vh;
+    height: -webkit-fill-available; 
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed; 
-    /* توحيد لون الخلفية لمنع ظهور الشريط الأزرق المختلف */
-    background-color: #001223; 
+    position: fixed;
+    /* تأكد أن الخلفية موحدة لكي لا تلاحظ أي فراغ */
+    background-color: #001223;
+}
+
+body {
+    /* هذه الأسطر تمنع المحتوى من الارتفاع فوق الكاميرا */
+    padding-top: env(safe-area-inset-top) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    display: flex;
+    flex-direction: column;
 }
 .app-container {
     width: 100%;
@@ -544,10 +542,16 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 /* --- توحيد الهيدر مع الخلفية الديناميكية الجديدة --- */
 
 .main-header, .home-header, header {
-    background: transparent !important; /* إزالة اللون الصلب */
-    box-shadow: none !important; /* إزالة الظلال التقليدية */
+    background: transparent !important; 
+    box-shadow: none !important; 
     border: none !important;
-    padding: 25px 20px 10px; /* موازنة المسافات */
+    
+    /* التعديل هنا: نستخدم max لضمان وجود مسافة لا تقل عن 20 بكسل أو مساحة الكاميرا أيهما أكبر */
+    padding-top: calc(max(20px, env(safe-area-inset-top)) + 10px) !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
