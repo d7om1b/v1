@@ -1,178 +1,154 @@
-/* --- تنسيق صفحة البحث والنتائج الزجاجية المحسن --- */
+/* --- صفحة البحث المحسنة --- */
 
-#search-page { 
-    background: radial-gradient(circle at top right, var(--pmu-blue), var(--dark-bg)); 
-    min-height: 100%;
-    width: 100%;
-    overflow-x: hidden;
+#search-page {
+    background: transparent !important;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .page-title h2 { 
     color: white; 
     text-align: center; 
-    padding: 30px 20px 10px; 
-    font-size: 22px; 
+    padding: 20px 20px 10px; 
+    font-size: 24px; 
     font-weight: 800;
+    background: linear-gradient(135deg, #fff, var(--pmu-orange-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* --- إصلاح مربع البحث --- */
+/* مربع البحث المحسن */
 .modern-input { 
-    background: rgba(255, 255, 255, 0.05); 
+    background: rgba(255, 255, 255, 0.06); 
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    margin: 15px auto; 
-    padding: 5px 15px; 
-    border-radius: 20px; 
+    margin: 20px auto; 
+    padding: 8px 20px; 
+    border-radius: 60px; 
     display: flex; 
     align-items: center; 
     border: 1px solid rgba(255, 255, 255, 0.1); 
     width: calc(100% - 40px); 
-    max-width: 350px; 
-    box-sizing: border-box;
-    transition: all 0.3s ease;
+    max-width: 360px;
+    transition: var(--transition-smooth);
+}
+
+.modern-input:hover {
+    border-color: rgba(239, 125, 0, 0.3);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .modern-input i {
-    margin-right: 10px;
+    margin-right: 12px;
     color: var(--pmu-orange);
+    font-size: 18px;
 }
 
 .modern-input input { 
     border: none; 
     background: transparent; 
-    padding: 12px; 
+    padding: 14px 0; 
     width: 100%; 
     outline: none; 
     color: white; 
     font-size: 15px;
-    text-align: left; /* LTR: محاذاة النص لليسار */
 }
 
-/* --- زر البحث الأساسي --- */
-.btn-primary { 
-    background: linear-gradient(135deg, var(--pmu-orange), #ff9d33); 
-    color: white; 
-    border: none; 
-    padding: 16px; 
-    margin: 10px auto; 
-    border-radius: 20px; 
-    font-weight: 700; 
-    font-size: 16px;
-    cursor: pointer; 
-    width: calc(100% - 40px); 
-    max-width: 350px;
-    display: block;
-    box-shadow: 0 8px 20px rgba(239, 125, 0, 0.25);
-    transition: 0.3s;
+.modern-input input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
 }
 
-.btn-primary:active {
-    transform: scale(0.96);
-}
-
-/* --- تنسيق رأس النتائج (زر الرجوع) --- */
+/* رأس النتائج */
 .res-header {
     display: flex;
     align-items: center;
     padding: 15px 20px;
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .back-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    padding: 8px 16px;
-    border-radius: 30px;
+    padding: 10px 20px;
+    border-radius: 40px;
     cursor: pointer;
     font-size: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: 0.3s;
-}
-
-.back-btn i {
-    margin-right: 0;
-    font-size: 12px;
+    transition: var(--transition-smooth);
 }
 
 .back-btn:hover {
     background: var(--pmu-orange);
     border-color: var(--pmu-orange);
+    transform: translateX(-3px);
 }
 
-/* --- تنسيق النتيجة --- */
+/* بطاقة النتيجة المحسنة */
 .result-card-container {
     padding: 20px;
     display: flex;
     flex-direction: column; 
     align-items: center;
     gap: 20px;
-    width: 100%;
-    box-sizing: border-box;
 }
 
 .search-result-img {
     width: 100%;
-    max-width: 340px;
-    height: 200px;
-    border-radius: 25px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 360px;
+    height: 220px;
+    border-radius: 28px; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
     object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.search-result-img:hover {
+    transform: scale(1.02);
 }
 
 .result-description-box {
     width: 100%; 
-    max-width: 340px;
-    background: rgba(255, 255, 255, 0.05); 
+    max-width: 360px;
+    background: rgba(0, 18, 35, 0.7);
     backdrop-filter: blur(25px); 
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 28px;
-    padding: 25px;
-    color: white;
-    text-align: left; /* LTR: محاذاة النص لليسار */
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    box-sizing: border-box;
+    border-radius: 32px;
+    padding: 28px;
+    text-align: left;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.result-description-box:hover {
+    transform: translateY(-3px);
+    border-color: rgba(239, 125, 0, 0.3);
 }
 
 .result-description-box h3 { 
     color: var(--pmu-orange); 
-    margin-bottom: 15px; 
-    font-size: 19px;
+    margin-bottom: 12px; 
+    font-size: 22px;
     font-weight: 800;
-    text-align: left;
 }
 
 .result-description-box p { 
     font-size: 14px; 
     opacity: 0.9; 
     line-height: 1.6;
-    text-align: left;
+    color: rgba(255, 255, 255, 0.85);
 }
 
-/* الأوسمة */
-.badge {
-    background: rgba(239, 125, 0, 0.1);
-    padding: 6px 14px;
-    border-radius: 10px;
-    font-size: 11px;
-    color: var(--pmu-orange);
-    border: 1px solid rgba(239, 125, 0, 0.2);
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-/* حاوية أزرار الإجراءات */
+/* أزرار الإجراءات */
 .action-buttons {
     display: flex; 
-    gap: 10px; 
-    margin-top: 20px;
-    width: 100%;
+    gap: 12px; 
+    margin-top: 24px;
 }
 
 .action-buttons button {
@@ -180,10 +156,10 @@
     padding: 12px; 
     font-size: 13px; 
     font-weight: 700;
-    border-radius: 15px;
+    border-radius: 40px;
     cursor: pointer;
     border: none;
-    transition: 0.3s;
+    transition: var(--transition-smooth);
 }
 
 .action-buttons button:active {
@@ -191,46 +167,27 @@
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* تنسيق المفضلات */
+/* قائمة المفضلات */
 #favorites-list {
     margin-top: 10px;
 }
 
 .fav-item-card {
-    transition: 0.3s;
+    transition: var(--transition-smooth);
+    cursor: pointer;
 }
 
 .fav-item-card:hover {
-    background: rgba(239, 125, 0, 0.1) !important;
+    background: rgba(239, 125, 0, 0.15) !important;
     border-color: var(--pmu-orange) !important;
-}
-
-.fav-item-card span {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* تحسينات إضافية */
-#search-input-area {
-    flex: 1;
-}
-
-#search-results-area {
-    flex: 1;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    transform: translateX(5px);
 }
