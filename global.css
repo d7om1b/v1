@@ -106,24 +106,20 @@ body {
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
 
 .bottom-nav { 
-    position: fixed; /* التغيير لـ fixed ينهي التداخل الشفاف */
+    position: absolute; /* وليس fixed لأننا وضعناه داخل الحاوية */
     bottom: 0; 
     left: 0; 
     right: 0; 
     width: 100%;
-    /* ارتفاع ثابت يغطي منطقة السحب في الآيفون */
-    height: calc(75px + env(safe-area-inset-bottom)) !important; 
-    background: #001e3c !important; /* لون صلب أو شبه شفاف معتم */
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px);
+    /* زيادة الارتفاع ليدعم سحبة الآيفون 15 */
+    height: calc(70px + env(safe-area-inset-bottom)) !important; 
+    background: #001223 !important; 
     display: flex; 
     justify-content: space-around; 
     align-items: center; 
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    /* رفع الأيقونات لتكون في منتصف الشريط فوق منطقة السحب */
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom) !important;
     z-index: 1000;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .nav-item {
