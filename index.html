@@ -206,7 +206,19 @@
                     <a href="#" class="pmu-signup-link">Sign up</a>
                 </div>
             </section>
-
+<div id="custom-toast" class="toast-hidden">
+    <div class="toast-content">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Added to Favorites!</span>
+    </div>
+</div>
+              <nav class="bottom-nav">
+            <div class="nav-item active" onclick="showScreen('home-page', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
+            <div class="nav-item" onclick="showScreen('search-page', this)"><i class="fa-solid fa-location-dot"></i><span>Navigate</span></div>
+            <div class="nav-item" onclick="showScreen('map-page', this)"><i class="fa-solid fa-map-location-dot"></i><span>Campus Map</span></div>
+            <div class="nav-item" onclick="showScreen('reminders-page', this)"><i class="fa-solid fa-clock"></i><span>Alerts</span></div>
+            <div class="nav-item" onclick="showScreen('profile-page', this)"><i class="fa-solid fa-id-card"></i><span>Account</span></div>
+        </nav>
         </div>
 
 
@@ -314,19 +326,7 @@
     </div>
 </section>
 
-<div id="custom-toast" class="toast-hidden">
-    <div class="toast-content">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>Added to Favorites!</span>
-    </div>
-</div>
-              <nav class="bottom-nav">
-            <div class="nav-item active" onclick="showScreen('home-page', this)"><i class="fa-solid fa-house"></i><span>Home</span></div>
-            <div class="nav-item" onclick="showScreen('search-page', this)"><i class="fa-solid fa-location-dot"></i><span>Navigate</span></div>
-            <div class="nav-item" onclick="showScreen('map-page', this)"><i class="fa-solid fa-map-location-dot"></i><span>Campus Map</span></div>
-            <div class="nav-item" onclick="showScreen('reminders-page', this)"><i class="fa-solid fa-clock"></i><span>Alerts</span></div>
-            <div class="nav-item" onclick="showScreen('profile-page', this)"><i class="fa-solid fa-id-card"></i><span>Account</span></div>
-        </nav>
+
   
     
     <script src="script.js"></script>
