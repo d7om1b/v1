@@ -1,3 +1,11 @@
+function setRealHeight() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+window.addEventListener('load', setRealHeight);
+window.addEventListener('resize', setRealHeight);
+
 // 1. التحكم في شاشة التحميل (Splash Screen)
 window.addEventListener('load', function() {
     const savedColor = localStorage.getItem('pmu_theme_color');
