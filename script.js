@@ -562,3 +562,94 @@ function escapeHtml(str) {
 
 // تحديث العدادات كل ثانية
 setInterval(updateCountdowns, 1000);
+
+
+// --- تحسين الأداء ---
+
+// منع استخدام GPU للعناصر غير المرئية
+function optimizePerformance() {
+    // استخدام requestAnimationFrame للرسوم المتحركة
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                // تحديث العناصر المرئية فقط
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // تحسين تحميل الصور
+    const images = document.querySelectorAll('img');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.loading = 'lazy';
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// تنفيذ تحسين الأداء بعد تحميل الصفحة
+window.addEventListener('load', optimizePerformance);
+
+// تقليل استخدام setInterval (تحسين التذكيرات)
+let countdownInterval;
+function startOptimizedCountdown() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    
+    // استخدام requestAnimationFrame بدلاً من setInterval عندما تكون الصفحة غير مرئية
+    let lastTime = Date.now();
+    
+    function updateCountdownOptimized() {
+        const now = Date.now();
+        if (now - lastTime >= 1000) {
+            updateCountdowns();
+            lastTime = now;
+        }
+        requestAnimationFrame(updateCountdownOptimized);
+    }
+    
+    requestAnimationFrame(updateCountdownOptimized);
+}
+
+// تشغيل العداد المحسن
+startOptimizedCountdown();
+
+// توفير الطاقة عندما يكون التطبيق في الخلفية
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // التطبيق في الخلفية - تقليل التحديثات
+        if (countdownInterval) clearInterval(countdownInterval);
+    } else {
+        // التطبيق في المقدمة - تشغيل التحديثات مرة أخرى
+        startOptimizedCountdown();
+        renderReminders();
+        renderFavorites();
+    }
+});
+
+// منع تجميد الواجهة عند التبديل بين الشاشات
+function showScreenOptimized(screenId, element) {
+    // استخدام requestAnimationFrame للتبديل السلس
+    requestAnimationFrame(() => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        const target = document.getElementById(screenId);
+        if (target) {
+            target.classList.remove('hidden');
+        }
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        if (element) {
+            element.classList.add('active');
+        }
+    });
+}
+
+// استبدال showScreen القديمة بالنسخة المحسنة
+window.showScreen = showScreenOptimized;
