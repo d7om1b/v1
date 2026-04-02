@@ -1,4 +1,4 @@
-/* --- تنسيق الصفحة الرئيسية - تقسيم 3 أقسام --- */
+/* --- الصفحة الرئيسية المحسنة --- */
 
 #home-page {
     background: transparent !important;
@@ -7,59 +7,62 @@
     height: 100%;
 }
 
-/* القسم 1: الهيدر والهيرو (ثابت في الأعلى) */
+/* القسم 1: الهيدر والهيرو */
 .home-section-1 {
     flex-shrink: 0;
     background: transparent;
     z-index: 10;
 }
 
-/* تنسيق الهيدر - إظهار الصورة بالكامل */
+/* تنسيق الهيدر */
 .profile-header-container {
     width: 100%;
     padding: 0;
     margin: 0;
     background: transparent;
-    /* إزالة أي قص للصورة */
-    overflow: visible;
+    position: relative;
 }
 
 .header-img { 
     width: 100%; 
     height: auto;
-    /* إزالة القيود على الارتفاع */
-    min-height: auto;
-    max-height: none;
-    /* التأكد من ظهور الصورة كاملة */
-    object-fit: contain;
-    object-position: top center;
+    min-height: 180px;
+    max-height: 250px;
+    object-fit: cover;
+    object-position: center;
     display: block;
-    /* إضافة ظل خفيف للوضوح */
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
 }
-/* قسم الترحيب */
+
+/* قسم الترحيب المحسن */
 .hero-section { 
-    background: rgba(0, 18, 35, 0.6);
-    backdrop-filter: blur(15px);
+    background: rgba(0, 18, 35, 0.75);
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white; 
-    padding: 12px 22px;
-    border-radius: 25px;
+    padding: 16px 24px;
+    border-radius: 28px;
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    margin: 15px 15px 10px 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    margin: 15px 16px 20px 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.hero-section:hover {
+    transform: translateY(-2px);
+    border-color: rgba(239, 125, 0, 0.3);
 }
 
 .user-info p { 
-    font-size: 11px; 
+    font-size: 12px; 
     opacity: 0.7; 
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
 }
 
 .user-info h2 { 
-    font-size: 20px; 
+    font-size: 24px; 
     font-weight: 800; 
     background: linear-gradient(135deg, #ffffff, var(--pmu-orange)); 
     -webkit-background-clip: text;
@@ -68,22 +71,22 @@
 }
 
 .mini-logo { 
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.1);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(239,125,0,0.3);
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(239, 125, 0, 0.3);
 }
 
 .mini-logo:hover {
-    transform: scale(1.05);
-    background: rgba(239,125,0,0.2);
+    transform: scale(1.05) rotate(5deg);
+    background: rgba(239, 125, 0, 0.2);
 }
 
-/* القسم 2: المحتوى القابل للتمرير (التقويم + التغريدات) */
+/* القسم 2: المحتوى القابل للتمرير */
 .home-section-2 {
     flex: 1;
     overflow-y: auto;
@@ -91,22 +94,25 @@
     padding: 0 0 10px 0;
 }
 
-/* التمرير المخفي */
 .home-section-2::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
+}
+.home-section-2::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 .home-section-2::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.08);
+    background: var(--pmu-orange);
     border-radius: 10px;
 }
 
-/* قسم التقويم */
+/* عناوين الأقسام */
 .section-title { 
     color: white; 
-    font-size: 15px; 
-    margin-bottom: 12px; 
-    margin-top: 10px;
-    margin-left: 15px;
+    font-size: 16px; 
+    margin-bottom: 16px; 
+    margin-top: 8px;
+    margin-left: 16px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -115,49 +121,52 @@
 
 .section-title i { 
     color: var(--pmu-orange); 
-    font-size: 18px;
+    font-size: 20px;
 }
 
+/* بطاقات الأحداث المحسنة */
 .event-card { 
     background: rgba(255, 255, 255, 0.05); 
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    padding: 14px; 
-    border-radius: 20px; 
-    margin: 0 15px 12px 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    padding: 16px; 
+    border-radius: 24px; 
+    margin: 0 16px 14px 16px;
     display: flex; 
     align-items: center; 
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
+    cursor: pointer;
 }
 
 .event-card:hover {
     background: rgba(255, 255, 255, 0.08);
-    transform: translateX(5px);
+    transform: translateX(8px);
+    border-color: rgba(239, 125, 0, 0.3);
 }
 
 .event-date { 
-    background: linear-gradient(135deg, var(--pmu-orange), #ff9d33);
+    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
     color: white; 
-    padding: 8px 10px;
-    border-radius: 15px; 
+    padding: 10px 12px;
+    border-radius: 18px; 
     text-align: center; 
     font-weight: 800; 
-    min-width: 55px; 
-    margin-right: 15px;
-    box-shadow: 0 4px 10px rgba(239,125,0,0.2);
+    min-width: 60px; 
+    margin-right: 16px;
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
 }
 
 .event-date span { 
     display: block; 
-    font-size: 16px; 
+    font-size: 18px; 
     line-height: 1.2; 
 }
 
 .event-info h4 { 
     color: #ffffff; 
-    font-size: 14px; 
+    font-size: 15px; 
     font-weight: 700; 
-    margin-bottom: 3px; 
+    margin-bottom: 4px; 
 }
 
 .event-info p { 
@@ -169,14 +178,15 @@
     color: var(--pmu-orange); 
     text-decoration: none; 
     font-weight: 600; 
-    font-size: 12px; 
+    font-size: 13px; 
     text-align: center;
     display: inline-block;
-    margin: 10px 15px;
-    padding: 8px 20px;
+    margin: 8px 16px 16px 16px;
+    padding: 10px 24px;
     background: rgba(239, 125, 0, 0.1);
     border-radius: 50px;
-    transition: all 0.3s ease;
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(239, 125, 0, 0.2);
 }
 
 .calendar-link:hover {
@@ -184,47 +194,47 @@
     transform: translateY(-2px);
 }
 
-/* قسم الأخبار */
+/* قسم الأخبار المحسن */
 .news-section {
-    margin-top: 10px;
+    margin-top: 16px;
     padding-bottom: 20px;
 }
 
 .news-card {
-    background: rgba(255, 255, 255, 0.03);
-    margin: 10px 15px;
-    padding: 14px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.04);
+    margin: 12px 16px;
+    padding: 16px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: var(--transition-smooth);
 }
 
 .news-card:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.07);
     transform: translateY(-3px);
-    border-color: rgba(239, 125, 0, 0.2);
+    border-color: rgba(239, 125, 0, 0.25);
 }
 
 .news-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     position: relative;
 }
 
 .news-avatar {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #fff, #eee);
-    padding: 3px;
-    margin-right: 12px;
-    border: 1px solid rgba(239,125,0,0.3);
+    background: linear-gradient(135deg, #fff, #f0f0f0);
+    padding: 4px;
+    margin-right: 14px;
+    border: 1px solid rgba(239, 125, 0, 0.3);
 }
 
 .news-meta h4 {
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     margin: 0;
 }
@@ -239,15 +249,13 @@
     right: 0;
     top: 0;
     color: #1DA1F2;
-    font-size: 16px;
-    opacity: 0.7;
+    font-size: 18px;
+    opacity: 0.8;
 }
 
 .news-content {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.5;
     margin: 0;
 }
-
-/* القسم 3: شريط التنقل موجود في global.css */
