@@ -41,11 +41,17 @@ body {
 }
 
 .app-container {
-    flex: 1; /* يجعله يأخذ كامل المساحة المتبقية إجبارياً */
-    width: 100%;
     display: flex;
     flex-direction: column;
-    position: relative;
+    width: 100%;
+    /* السطر القادم هو السر لإنهاء الفراغ السفلي */
+    height: 100vh; 
+    height: -webkit-fill-available; 
+    position: fixed; /* تغيير من relative لـ fixed يضمن التصاقه بالحواف */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     overflow: hidden;
     background: linear-gradient(160deg, #002d56 0%, #001223 100%) !important;
 }
