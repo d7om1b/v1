@@ -1,14 +1,27 @@
 {
   "name": "PMU Way",
   "short_name": "PMU Way",
+  "description": "Student Campus Navigation App",
   "start_url": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "background_color": "#002d56",
-  "theme_color": "#002d56",
+  "theme_color": "#ef7d00",
   "orientation": "portrait",
+  "lang": "en",
+  "scope": "/",
   "icons": [
-    { "src": "logo.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "logo.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
