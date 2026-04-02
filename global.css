@@ -19,28 +19,25 @@
     padding: 0; 
 }
 
-/* قفل الأبعاد الأساسية للهيكل */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0d0d0d;
+    /* تأكدي من إضافة مساحات الآيفون هنا */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* قفل الأبعاد لمنع أي فراغات سوداء أو اهتزاز */
 html, body {
     width: 100%;
     height: 100%;
     height: -webkit-fill-available;
     margin: 0;
     padding: 0;
-    /* نترك الـ overflow hidden هنا لكي لا تظهر مسطرة تمرير مزدوجة، 
-       ولكن سنفعل التمرير داخل الـ screen */
-    overflow: hidden; 
-    position: fixed; 
+    overflow: hidden;
+    position: fixed; /* هذا ما يجعله تطبيقاً وليس متصفحاً */
     background-color: #001223;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* دعم مساحات الآيفون */
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    /* تفعيل اللمس بشكل كامل */
-    touch-action: none; 
 }
 .app-container {
     width: 100%;
@@ -110,43 +107,33 @@ body {
 
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
 .bottom-nav { 
-    position: fixed; 
-    bottom: 0; 
-    left: 0;
-    right: 0;
-    width: 100%;
-    /* الحساب الصحيح للارتفاع */
-    height: calc(65px + env(safe-area-inset-bottom)); 
-    
-    background: rgba(0, 18, 35, 0.92) !important; 
+    position: absolute; 
+    /* تقليل الـ 15px إلى 10px لتقريب المنيو من الأسفل */
+    bottom: calc(10px + env(safe-area-inset-bottom)); 
+    left: 15px; 
+    right: 15px; 
+    width: calc(100% - 30px);
+    height: 65px; 
+    background: rgba(0, 30, 60, 0.85); 
     backdrop-filter: blur(20px); 
     -webkit-backdrop-filter: blur(20px);
-    
+    border-radius: 25px; 
     display: flex; 
-    /* تعديل: row يجعل الأيقونات تبدأ من اليسار، row-reverse من اليمين. اختر ما يناسبك */
-    flex-direction: row; 
     justify-content: space-around; 
     align-items: center; 
-    
-    padding-bottom: env(safe-area-inset-bottom);
-    border-radius: 0; 
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 10000;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
-    
-    /* منع الشريط من اعتراض اللمس في المناطق الفارغة حوله */
-    pointer-events: auto; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
-
+'
 .nav-item {
-    /* تأكد أن العناصر لا تملك background يغطي ما خلفها */
-    background: transparent !important;
-    flex: 1;
+    color: rgba(255, 255, 255, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    font-size: 12px;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
 .nav-item.active { 
@@ -179,28 +166,13 @@ body {
 .screen {
     width: 100%;
     height: 100%;
-    
-    /* تفعيل التمرير العمودي */
-    overflow-y: auto !important; 
-    
-    /* السماح باللمس والحركة (مهم جداً) */
-    pointer-events: auto !important; 
-    
-    /* سلاسة التمرير في آيفون */
-    -webkit-overflow-scrolling: touch; 
-    
-    /* 120px مساحة كافية لتظهر التغريدات فوق المنيو الملاصق للأسفل */
-    padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important;
-    
-    background: transparent !important;
-    position: relative;
-    z-index: 5;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 150px تضمن أن التغريدات وزر تسجيل الدخول ستظهر فوق المنيو عند السحب */
+    padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+background: transparent !important;
 }
 
-/* إخفاء شريط التمرير الافتراضي لشكل أنيق */
-.screen::-webkit-scrollbar {
-    display: none;
-}
 .admin-card {
     background: rgba(255, 255, 255, 0.03); /* شفافية ناعمة جداً مريحة */
     backdrop-filter: blur(8px);
@@ -363,7 +335,10 @@ body {
     animation: pageReveal 0.4s ease-out forwards;
 }
 
-
+/* تحسين السكرول بار المريح */
+.screen::-webkit-scrollbar {
+    width: 3px;
+}
 .screen::-webkit-scrollbar-thumb {
     background: rgba(255,255,255,0.08);
     border-radius: 10px;
@@ -593,17 +568,4 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     width: 80%;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-}
-
-.scrollable-content {
-    /* إلغاء أي قيود على الطول */
-    max-height: none !important; 
-    height: auto !important;
-    
-    /* تفعيل اللمس والتمرير */
-    overflow-y: visible !important; 
-    -webkit-overflow-scrolling: touch;
-    
-    /* مساحة سفلية كافية لكي لا يختفي المحتوى تحت المنيو */
-    padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
 }
