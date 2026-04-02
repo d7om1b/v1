@@ -105,11 +105,11 @@ input, textarea, select, button {
     100% { transform: rotate(360deg); } 
 }
 
-/* --- شريط التنقل السفلي --- */
+/* --- شريط التنقل السفلي - الحل النهائي للإلتصاق --- */
 .bottom-nav {
     flex-shrink: 0;
     width: 100%;
-    height: 50px;
+    height: 65px;
     background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
     display: flex;
@@ -117,7 +117,10 @@ input, textarea, select, button {
     align-items: center;
     border-top: 1px solid rgba(255,255,255,0.08);
     z-index: 100;
+    margin-bottom: 0;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: content-box;
 }
 
 .nav-item {
@@ -126,16 +129,16 @@ input, textarea, select, button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 11px;
     cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
     transition: 0.3s;
 }
 
 .nav-item i {
-    font-size: 18px;
-    margin-bottom: 2px;
+    font-size: 20px;
+    margin-bottom: 4px;
 }
 
 .nav-item.active {
@@ -143,14 +146,14 @@ input, textarea, select, button {
 }
 
 .nav-item.active i {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 }
 
 .nav-item:active {
     transform: scale(0.95);
 }
 
-/* --- الشاشات --- */
+/* --- الشاشات - إزالة الـ padding-bottom الزائد --- */
 .screen {
     position: absolute;
     top: 0;
@@ -160,7 +163,7 @@ input, textarea, select, button {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 0;
     background: transparent !important;
 }
 
@@ -172,13 +175,13 @@ input, textarea, select, button {
     display: block;
 }
 
-/* دعم iOS */
+/* دعم iOS لمساحة الأمان */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .bottom-nav {
+    .screen {
         padding-bottom: env(safe-area-inset-bottom);
     }
-    .screen {
-        padding-bottom: calc(15px + env(safe-area-inset-bottom));
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
     }
 }
 
@@ -203,6 +206,11 @@ input, textarea, select, button {
     padding: 20px;
     margin: 15px;
     transition: transform 0.3s ease;
+}
+
+.reminder-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--pmu-orange);
 }
 
 .reminder-header {
@@ -258,6 +266,12 @@ input, textarea, select, button {
     height: 28px;
     border-radius: 50%;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.delete-rem-btn:hover {
+    background: #ff4444;
+    color: white;
 }
 
 /* --- أزرار --- */
@@ -274,10 +288,12 @@ input, textarea, select, button {
     max-width: 300px;
     cursor: pointer;
     transition: 0.2s;
+    box-shadow: 0 4px 10px rgba(239, 125, 0, 0.2);
 }
 
 .btn-primary:active {
     transform: scale(0.96);
+    filter: brightness(0.95);
 }
 
 /* --- بادجات --- */
@@ -293,6 +309,7 @@ input, textarea, select, button {
 .badge.highlight {
     border-color: var(--pmu-orange);
     color: var(--pmu-orange);
+    background: rgba(239, 125, 0, 0.03);
 }
 
 /* --- حركات --- */
@@ -332,11 +349,21 @@ input, textarea, select, button {
     transition: 0.3s;
     opacity: 0;
     pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#custom-toast i {
+    color: var(--pmu-orange);
+    font-size: 20px;
 }
 
 #custom-toast.toast-show {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+}
+
+.toast-hidden {
+    visibility: hidden;
 }
 
 /* --- نماذج --- */
@@ -351,6 +378,7 @@ input, textarea, select, button {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    backdrop-filter: blur(10px);
 }
 
 .modern-input {
@@ -362,6 +390,13 @@ input, textarea, select, button {
     color: white;
     font-size: 16px;
     outline: none;
+    transition: 0.3s;
+}
+
+.modern-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--pmu-orange);
+    box-shadow: 0 0 15px rgba(239, 125, 0, 0.2);
 }
 
 .btn-add-now {
@@ -373,9 +408,20 @@ input, textarea, select, button {
     border-radius: 15px;
     font-weight: 800;
     cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
 }
 
-/* 🔥 تعديل الخلفيات - الحل النهائي للمستطيل الأزرق */
+.btn-add-now:active {
+    transform: scale(0.96);
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
+    cursor: pointer;
+}
+
+/* --- خلفية تأثيرات - تم تعطيلها لحل المشكلة --- */
 .bg-glow-1, 
 .bg-glow-2 {
     display: none !important;
@@ -385,8 +431,8 @@ input, textarea, select, button {
     display: none !important;
 }
 
-/* --- تحسينات --- */
-button, a, .nav-item {
+/* --- تحسينات إضافية --- */
+button, a, .nav-item, .delete-rem-btn, .btn-primary, .btn-add-now {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
@@ -402,16 +448,44 @@ input, textarea {
     user-select: text;
 }
 
+input[type="datetime-local"] {
+    min-height: 44px;
+}
+
 body, .app-container, #splash-screen {
     background-color: #001223;
 }
 
-/* إزالة المسافات الزائدة */
+/* 🔥 إزالة المسافات الزائدة تحت المحتوى */
 .home-scrollable-content {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
 }
 
-.screen {
-    padding-bottom: 15px !important;
+.scrollable-content {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.calendar-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.news-section {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.screen > :last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* إزالة أي عناصر وهمية */
+.bottom-nav::before,
+.bottom-nav::after,
+.screens-wrapper::after {
+    display: none !important;
+    content: none !important;
 }
