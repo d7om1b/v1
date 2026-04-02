@@ -107,36 +107,33 @@ html, body {
 
 /* تعديل المنيو ليرتفع فوق منطقة الأمان بدون فراغ أسود */
 .bottom-nav { 
-    position: fixed; /* تغيير إلى fixed لضمان الثبات */
-    bottom: 0;      /* التصاق تام بالأسفل */
-    left: 0;        /* يبدأ من أقصى اليسار */
-    right: 0;       /* ينتهي في أقصى اليمين */
-    width: 100%;    /* يأخذ كامل عرض الشاشة */
-    
-    /* زيادة الارتفاع قليلاً ليشمل منطقة الأمان في الآيفون */
+    position: fixed; 
+    bottom: 0; /* التصاق تام بالأسفل */
+    left: 0;
+    right: 0;
+    width: 100%;
+    /* الحساب الصحيح للارتفاع مع دعم آيفون */
     height: calc(65px + env(safe-area-inset-bottom)); 
     
-    /* التنسيق الشفاف والزجاجي */
-    background: rgba(0, 30, 60, 0.75); /* تقليل التعتيم لزيادة الشفافية */
+    background: rgba(0, 18, 35, 0.9) !important; 
     backdrop-filter: blur(20px); 
     -webkit-backdrop-filter: blur(20px);
     
     display: flex; 
+    flex-direction: row-reverse; 
     justify-content: space-around; 
     align-items: center; 
     
-    /* إضافة حشوة سفلية لمنع تداخل الأيقونات مع شريط السحب في الآيفون */
+    /* حماية منطقة السحب في الآيفون برفع الأيقونات فقط */
     padding-bottom: env(safe-area-inset-bottom);
     
-    /* إلغاء الحواف المنحنية والمسافات */
-    border-radius: 0; 
+    border-radius: 0; /* إلغاء أي زوايا دائرية تسبب فراغات */
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* خط نحيف علوي فقط للفصل */
-    
-    z-index: 1000;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.2); /* ظل خفيف للأعلى */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10000;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+    margin: 0; /* تأكيد عدم وجود مارجن */
 }
-
 .nav-item {
     color: rgba(255, 255, 255, 0.5);
     display: flex;
