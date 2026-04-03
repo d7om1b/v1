@@ -12,65 +12,37 @@
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
+    /* متغيرات الأمان لأجهزة iOS */
     --sat: env(safe-area-inset-top);
     --sar: env(safe-area-inset-right);
     --sab: env(safe-area-inset-bottom);
     --sal: env(safe-area-inset-left);
 }
 
-.hidden {
-    display: none !important;
-}
-
-{ 
+/* إعادة تعيين الهوامش */
+* { 
     box-sizing: border-box; 
     -webkit-tap-highlight-color: transparent; 
     margin: 0; 
     padding: 0; 
 }
 
-
-
-/* --- إزالة أي مسافات سفلية من جميع العناصر --- */
-html, body, .app-container, .screens-wrapper, #splash-screen, .bottom-nav {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+/* إعادة تعيين إضافية */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* التأكد من أن body ليس له ارتفاع زائد */
-body {
-    min-height: 100% !important;
-    height: 100% !important;
-    max-height: 100% !important;
-}
-
-/* إزالة أي مسافات من شاشة التحميل */
-#splash-screen {
-    bottom: 0 !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 100% !important;
-    max-height: 100% !important;
-}
-
-/* إزالة أي فراغات من الحاوية الرئيسية */
-.app-container {
-    min-height: 100% !important;
-    height: 100% !important;
-}
-
-
+/* الاتجاه من اليسار إلى اليمين */
 body, .app-container, .screen, .bottom-nav, .nav-item {
     direction: ltr;
     text-align: left;
 }
 
+/* منع الزوم والتكبير */
 html, body {
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -108,6 +80,7 @@ input, textarea, select, button {
     padding-right: var(--sar, 0px);
 }
 
+/* حاوية الشاشات */
 .screens-wrapper {
     flex: 1;
     position: relative;
@@ -122,14 +95,16 @@ input, textarea, select, button {
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(135deg, var(--pmu-blue) 0%, var(--pmu-blue-dark) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10000;
     transition: opacity 0.6s ease;
-    padding-top: var(--sat, 0px);
-    padding-bottom: var(--sab, 0px);
+    margin: 0;
+    padding: 0;
 }
 
 .splash-content {
@@ -138,6 +113,12 @@ input, textarea, select, button {
     align-items: center;
     justify-content: center;
     animation: fadeInUp 0.8s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
 }
 
 .splash-logo { 
@@ -171,10 +152,7 @@ input, textarea, select, button {
     50% { transform: scale(1.05); }
 }
 
-/* --- إصلاح شريط التنقل في وضع PWA --- */
-
-/* --- شريط التنقل السفلي - كامل بعد التعديل --- */
-
+/* --- شريط التنقل السفلي --- */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -211,16 +189,13 @@ input, textarea, select, button {
 .nav-item i {
     font-size: 18px;
     margin-bottom: 2px;
-    transition: all 0.2s ease;
 }
 
 .nav-item span {
     font-size: 9px;
     font-weight: 500;
-    transition: all 0.2s ease;
 }
 
-/* الحالة النشطة */
 .nav-item.active {
     color: var(--pmu-orange);
     background: rgba(239, 125, 0, 0.08);
@@ -242,56 +217,45 @@ input, textarea, select, button {
     }
 }
 
-/* 🔥 إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية (PWA) */
+/* وضع التطبيق المحفوظ (PWA) */
 @media (display-mode: standalone) {
     .bottom-nav {
         position: fixed !important;
         bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
         height: 50px !important;
         padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
         background: rgba(0, 18, 35, 0.98) !important;
     }
     
-    /* تصغير الأيقونات في وضع PWA */
     .nav-item i {
         font-size: 16px !important;
-        margin-bottom: 1px !important;
     }
     
-    /* تصغير النص في وضع PWA */
     .nav-item span {
         font-size: 8px !important;
     }
     
-    /* تقليل المسافات */
     .nav-item {
         padding: 2px 8px !important;
     }
-    
-    /* إزالة أي مسافات إضافية */
-    .bottom-nav {
-        box-shadow: none !important;
-    }
 }
 
-/* دعم إضافي لأجهزة iOS ذات الشاشة الكبيرة */
-@media (display-mode: standalone) and (min-height: 800px) {
+/* دعم الأيباد */
+@media (min-width: 768px) and (max-width: 1024px) {
     .bottom-nav {
-        height: 55px !important;
+        height: 65px;
     }
     
     .nav-item i {
-        font-size: 18px !important;
+        font-size: 22px;
     }
     
     .nav-item span {
-        font-size: 9px !important;
+        font-size: 11px;
     }
 }
-/* --- الشاشات - تعويض المسافة للشريط الثابت --- */
+
+/* --- الشاشات --- */
 .screen {
     position: absolute;
     top: 0;
@@ -301,19 +265,25 @@ input, textarea, select, button {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: transparent !important;
-    padding: 15px;
-    padding-bottom: 75px !important;
+    padding: 0;
+    padding-bottom: 70px !important;
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .screen {
-        padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+        padding-bottom: calc(70px + env(safe-area-inset-bottom)) !important;
     }
 }
 
 @media (display-mode: standalone) {
     .screen {
-        padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px)) !important;
+        padding-bottom: 65px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .screen {
+        padding-bottom: 85px !important;
     }
 }
 
@@ -331,13 +301,16 @@ input, textarea, select, button {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 10px;
-    padding-bottom: 5px;
+    padding: 15px;
+    padding-bottom: 10px;
 }
 
-/* إزالة أي عناصر وهمية تسبب المستطيل */
-.screens-wrapper::after,
+/* إزالة أي عناصر وهمية */
+#splash-screen::before,
+#splash-screen::after,
+.app-container::before,
 .app-container::after,
+.screens-wrapper::after,
 .bottom-nav::before,
 .bottom-nav::after {
     display: none !important;
@@ -350,12 +323,14 @@ input, textarea, select, button {
 .home-section-2::-webkit-scrollbar {
     width: 4px;
 }
+
 .screen::-webkit-scrollbar-track,
 .page-content::-webkit-scrollbar-track,
 .home-section-2::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
+
 .screen::-webkit-scrollbar-thumb,
 .page-content::-webkit-scrollbar-thumb,
 .home-section-2::-webkit-scrollbar-thumb {
@@ -639,21 +614,44 @@ input, textarea, select, button {
     transform: scale(0.97);
 }
 
-/* --- الصفحة الرئيسية - تقليل الهبوط --- */
-.home-section-2 {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 0 0 5px 0;
-    margin-bottom: 0;
+/* --- دعم الأيباد --- */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .screen {
+        padding: 20px;
+        padding-bottom: 85px !important;
+    }
+    
+    .page-content {
+        padding: 20px;
+    }
+    
+    .admin-card, .reminder-card {
+        padding: 25px;
+        margin: 20px;
+    }
+    
+    .btn-primary, .btn-add-now {
+        padding: 16px 32px;
+        font-size: 16px;
+    }
+    
+    .modern-input {
+        padding: 16px 24px;
+        font-size: 16px;
+    }
 }
 
-.calendar-section {
-    margin-bottom: 5px;
-    padding-bottom: 0;
-}
-
-.news-section {
-    margin-bottom: 0;
-    padding-bottom: 5px;
+/* --- دعم الشاشات الكبيرة --- */
+@media (min-width: 1025px) {
+    .app-container {
+        max-width: 500px;
+        margin: 0 auto;
+        border-radius: 0;
+    }
+    
+    .bottom-nav {
+        max-width: 500px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
