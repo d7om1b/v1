@@ -47,13 +47,14 @@
 .header-img { 
     width: 100%; 
     height: auto;
-    /* السماح للصورة بالظهور بشكلها الطبيعي */
+    /* السماح للصورة بالظهور كاملة */
     min-height: auto;
-    max-height: 250px;  /* أقصى ارتفاع */
-    object-fit: contain; /* الصورة كاملة بدون قص */
+    max-height: none;
+    object-fit: contain;
     object-position: top center;
     display: block;
     background: transparent;
+    margin-bottom: 10px;
 }
 
 /* قسم الترحيب - منفصل تماماً عن الصورة */
