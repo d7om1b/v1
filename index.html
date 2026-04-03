@@ -241,36 +241,53 @@
         </section>
 
         <!-- ==================== PROFILE PAGE ==================== -->
-        <section id="profile-page" class="screen hidden">
-            <div class="page-content">
-                <div class="profile-header-container">
-                    <img src="./P1.png" alt="Header Image" class="header-img" loading="lazy">
-                </div>
-                <div class="login-overlay-content">
-                    <h2 class="login-title">Student Login</h2>
-                    <div class="pmu-outlined-field">
-                        <div class="input-box">
-                            <label>E-mail</label>
-                            <input type="email" placeholder="example@pmu.edu.sa">
-                        </div>
-                    </div>
-                    <div class="pmu-outlined-field">
-                        <div class="input-box">
-                            <label>Password</label>
-                            <input type="password" placeholder="••••••••">
-                        </div>
-                    </div>
-                    <p class="login-with-text">Or login with</p>
-                    <div class="social-login-icons">
-                        <a href="#"><i class="fa-brands fa-microsoft"></i></a> 
-                        <a href="#"><i class="fa-brands fa-google"></i></a>
-                        <a href="#"><i class="fa-brands fa-apple"></i></a>
-                    </div>
-                    <button class="pmu-btn-signin" onclick="alert('Login feature coming soon!')">Sign In</button>
-                    <a href="#" class="pmu-signup-link">Sign up</a>
-                </div>
-            </div>
-        </section>
+     <section id="profile-page" class="screen hidden">
+    <!-- صورة الهيدر -->
+    <div class="profile-header-container">
+        <img src="./P1.png" alt="University" class="profile-header-img">
+    </div>
+    
+    <!-- محتوى البروفايل -->
+    <div class="profile-content">
+        <div class="profile-title">
+            <h1>Welcome</h1>
+            <p>prince mohammad bin fahd university</p>
+        </div>
+        
+        <!-- حقل الإيميل -->
+        <div class="input-field">
+            <label>E-mail</label>
+            <input type="email" placeholder="example@pmu.edu.sa">
+        </div>
+        
+        <!-- حقل كلمة السر -->
+        <div class="input-field">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••">
+        </div>
+        
+        <!-- خط Or login with -->
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">login with</span>
+            <div class="divider-line"></div>
+        </div>
+        
+        <!-- أيقونات التواصل -->
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fa-brands fa-microsoft"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-google"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-apple"></i></a>
+        </div>
+        
+        <!-- أزرار -->
+        <button class="signin-btn" onclick="alert('Login feature coming soon!')">Sign in</button>
+        
+        <div class="signup-link">
+            <a href="#" onclick="alert('Sign up feature coming soon!')">Sign up</a>
+        </div>
+    </div>
+</section>
 
         <!-- ==================== ADMIN LOGIN PAGE ==================== -->
         <section id="admin-login-page" class="screen hidden">
