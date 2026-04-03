@@ -117,12 +117,13 @@
     transform: scale(0.94);
 }
 
-/* القسم 2: المحتوى القابل للتمرير */
+/* --- الصفحة الرئيسية - تقليل الهبوط --- */
 .home-section-2 {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 5px 0 15px 0;
+    padding: 0 0 5px 0;
+    margin-bottom: 0;
 }
 
 /* تخصيص شريط التمرير الناعم */
@@ -223,10 +224,14 @@
     transform: scale(0.96);
 }
 
-/* قسم الأخبار */
+.calendar-section {
+    margin-bottom: 5px;
+    padding-bottom: 0;
+}
+
 .news-section {
-    margin-top: 12px;
-    padding-bottom: 20px;
+    margin-bottom: 0;
+    padding-bottom: 5px;
 }
 
 .news-card {
