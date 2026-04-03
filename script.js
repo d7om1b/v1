@@ -958,3 +958,236 @@ if (isIOS()) {
         });
     }, 2000);
 }
+// ========================================
+// ADMIN PANEL - ENHANCED FUNCTIONS
+// ========================================
+
+// بيانات المستخدمين التجريبيين
+let users = JSON.parse(localStorage.getItem('pmu_users')) || [
+    { id: 1, name: "Hadeel", email: "hadeel@pmu.edu.sa", role: "admin", joinDate: "2024-01-15" },
+    { id: 2, name: "Ahmed", email: "ahmed@pmu.edu.sa", role: "user", joinDate: "2024-02-20" },
+    { id: 3, name: "Sarah", email: "sarah@pmu.edu.sa", role: "user", joinDate: "2024-03-10" }
+];
+
+// إحصائيات الاستخدام
+let appStats = JSON.parse(localStorage.getItem('pmu_stats')) || {
+    appOpens: 0,
+    totalReminders: 0,
+    totalSearches: 0,
+    dailyActivity: [0, 0, 0, 0, 0, 0, 0]
+};
+
+// تحديث إحصائيات فتح التطبيق
+function updateAppOpenStats() {
+    appStats.appOpens++;
+    localStorage.setItem('pmu_stats', JSON.stringify(appStats));
+    updateAdminStatsDisplay();
+}
+
+// تحديث إحصائيات البحث
+function updateSearchStats() {
+    appStats.totalSearches++;
+    localStorage.setItem('pmu_stats', JSON.stringify(appStats));
+}
+
+// عرض الإحصائيات في لوحة الأدمن
+function updateAdminStatsDisplay() {
+    const totalUsersEl = document.getElementById('total-users');
+    const appOpensEl = document.getElementById('app-opens');
+    const totalRoomsEl = document.getElementById('total-rooms-admin');
+    const totalEventsEl = document.getElementById('total-events-admin');
+    
+    if (totalUsersEl) totalUsersEl.innerText = users.length;
+    if (appOpensEl) appOpensEl.innerText = appStats.appOpens;
+    if (totalRoomsEl) totalRoomsEl.innerText = Object.keys({ ...defaultRooms, ...customRooms }).length;
+    if (totalEventsEl) totalEventsEl.innerText = document.querySelectorAll('#home-page .event-card').length;
+}
+
+// عرض قائمة المستخدمين
+function renderUsersList() {
+    const container = document.getElementById('users-list-container');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    users.forEach(user => {
+        container.innerHTML += `
+            <div class="user-item">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>${user.name}</h4>
+                        <p>${user.email}</p>
+                        <small style="color: rgba(255,255,255,0.3); font-size: 10px;">Joined: ${user.joinDate}</small>
+                    </div>
+                </div>
+                <div class="user-actions">
+                    ${user.role !== 'admin' ? `<button onclick="deleteUser(${user.id})" style="color:#ff4444;"><i class="fa-solid fa-trash"></i></button>` : '<i class="fa-solid fa-crown" style="color:var(--pmu-orange);"></i>'}
+                </div>
+            </div>
+        `;
+    });
+}
+
+// حذف مستخدم
+function deleteUser(userId) {
+    if (confirm('Delete this user?')) {
+        users = users.filter(u => u.id !== userId);
+        localStorage.setItem('pmu_users', JSON.stringify(users));
+        renderUsersList();
+        updateAdminStatsDisplay();
+        showToast('User deleted successfully');
+    }
+}
+
+// إرسال إشعار
+function sendNotification() {
+    const title = document.getElementById('notification-title')?.value;
+    const message = document.getElementById('notification-message')?.value;
+    const type = document.getElementById('notification-type')?.value;
+    
+    if (!title || !message) {
+        showToast('Please fill all fields', true);
+        return;
+    }
+    
+    // حفظ الإشعار
+    const notifications = JSON.parse(localStorage.getItem('pmu_notifications')) || [];
+    notifications.push({
+        id: Date.now(),
+        title: title,
+        message: message,
+        type: type,
+        date: new Date().toISOString()
+    });
+    localStorage.setItem('pmu_notifications', JSON.stringify(notifications));
+    
+    // عرض إشعار للمستخدم الحالي (إذا كان PWA مدعوم)
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, { body: message });
+    }
+    
+    showToast('Notification sent!');
+    document.getElementById('notification-title').value = '';
+    document.getElementById('notification-message').value = '';
+}
+
+// طلب إذن الإشعارات
+function requestNotificationPermission() {
+    if ('Notification' in window) {
+        Notification.requestPermission();
+    }
+}
+
+// تصدير البيانات
+function exportData() {
+    const data = {
+        users: users,
+        rooms: { ...defaultRooms, ...customRooms },
+        reminders: reminders,
+        favorites: favorites,
+        events: JSON.parse(localStorage.getItem('pmu_calendar_events')) || [],
+        stats: appStats,
+        exportDate: new Date().toISOString()
+    };
+    
+    const dataStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pmu-way-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Data exported successfully!');
+}
+
+// استيراد البيانات
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.users) {
+                localStorage.setItem('pmu_users', JSON.stringify(data.users));
+                users = data.users;
+            }
+            if (data.rooms) {
+                const importedRooms = {};
+                Object.entries(data.rooms).forEach(([key, value]) => {
+                    if (!defaultRooms[key]) {
+                        importedRooms[key] = value;
+                    }
+                });
+                localStorage.setItem('pmu_custom_rooms', JSON.stringify(importedRooms));
+                customRooms = importedRooms;
+            }
+            if (data.reminders) {
+                localStorage.setItem('pmu_reminders', JSON.stringify(data.reminders));
+                reminders = data.reminders;
+            }
+            if (data.favorites) {
+                localStorage.setItem('pmu_favorites', JSON.stringify(data.favorites));
+                favorites = data.favorites;
+            }
+            
+            showToast('Data imported successfully!');
+            location.reload();
+        } catch (error) {
+            showToast('Invalid file format', true);
+        }
+    };
+    reader.readAsText(file);
+}
+
+// إعادة ضبط التطبيق
+function resetApp() {
+    if (confirm('⚠️ WARNING: This will delete ALL data. Are you sure?')) {
+        localStorage.clear();
+        showToast('App reset successfully!');
+        setTimeout(() => location.reload(), 1500);
+    }
+}
+
+// تبديل الوضع الليلي/النهاري
+function toggleDarkMode() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('pmu_dark_mode', isDark);
+    showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled');
+}
+
+// تبديل اللغة
+let currentLang = localStorage.getItem('pmu_lang') || 'en';
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    localStorage.setItem('pmu_lang', currentLang);
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    showToast(currentLang === 'en' ? 'Language: English' : 'اللغة: العربية');
+    setTimeout(() => location.reload(), 500);
+}
+
+// إضافة حدث عند البحث لتحديث الإحصائيات
+const originalSearchRoom = searchRoom;
+searchRoom = function() {
+    updateSearchStats();
+    return originalSearchRoom.apply(this, arguments);
+};
+
+// تحديث الإحصائيات عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    updateAdminStatsDisplay();
+    renderUsersList();
+    
+    // طلب إذن الإشعارات
+    if ('Notification' in window && Notification.permission === 'default') {
+        setTimeout(() => {
+            if (confirm('Would you like to enable notifications?')) {
+                Notification.requestPermission();
+            }
+        }, 3000);
+    }
+});
