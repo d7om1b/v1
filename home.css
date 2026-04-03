@@ -210,6 +210,7 @@
 /* ========== بطاقات الأماكن ========== */
 .places-section {
     margin-bottom: 25px;
+    color: white;
 }
 
 .section-header {
@@ -333,6 +334,7 @@
 /* ========== قسم التقويم الأكاديمي ========== */
 .calendar-section {
     margin-top: 10px;
+    color: white;
 }
 
 .event-card {
