@@ -1191,3 +1191,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 });
+// التبديل بين تبويبات الأدمن
+function showAdminTab(tabName) {
+    // إخفاء كل التبويبات
+    document.querySelectorAll('.admin-tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+    });
+    
+    // إظهار التبويب المطلوب
+    const targetTab = document.getElementById(`admin-${tabName}-tab`);
+    if (targetTab) targetTab.classList.remove('hidden');
+    
+    // تحديث حالة الأزرار
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // تحديث البيانات عند فتح التبويب
+    if (tabName === 'dashboard') updateAdminStatsDisplay();
+    if (tabName === 'users') renderUsersList();
+}
