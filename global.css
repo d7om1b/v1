@@ -167,6 +167,8 @@ input, textarea {
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 100;
+    margin-top: auto;
+    position: relative;
 }
 
 /* iOS Safe Area Support */
@@ -266,7 +268,7 @@ input, textarea {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 20px;
+    padding-bottom: 75px;
 }
 
 /* Home Page Content */
@@ -275,7 +277,7 @@ input, textarea {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 20px;
+    padding-bottom: 75px;
 }
 
 /* Custom Scrollbar */
@@ -598,6 +600,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     .page-content,
     .home-section-2 {
         padding: 20px;
+        padding-bottom: 85px;
     }
     
     .btn-primary,
