@@ -44,12 +44,12 @@
     gap: 5px; 
 }
 
-/* 🔥 الحقل المتداخل - يقطع المربع مثل الصورة */
+/* 🔥 الحقل - الـ label يقطع الصندوق من الخارج */
 .pmu-outlined-field { 
     position: relative; 
     width: 280px;
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .pmu-outlined-field .input-box { 
@@ -58,7 +58,7 @@
     height: 52px; 
     padding: 0 20px; 
     position: relative;
-    background: rgba(255, 255, 255, 0.05);
+    background: transparent;
     transition: all 0.2s ease;
 }
 
@@ -66,17 +66,16 @@
     border-color: var(--pmu-orange);
 }
 
-/* 🔥 الـ Label المتداخل - بخلفية بيضاء/شفافة ليقطع المربع */
+/* 🔥 الـ Label يقطع الصندوق من الخارج (لون أبيض، بدون خلفية) */
 .pmu-outlined-field label { 
     position: absolute; 
     top: -12px;
     left: 18px; 
-    background: var(--pmu-blue-dark);
+    background: transparent;
     padding: 0 8px; 
-    color: var(--pmu-orange);
+    color: white;
     font-size: 11px; 
-    font-weight: 600;
-    border-radius: 20px;
+    font-weight: 500;
     z-index: 5; 
 }
 
