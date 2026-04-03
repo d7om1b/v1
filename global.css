@@ -171,13 +171,15 @@ input, textarea, select, button {
     50% { transform: scale(1.05); }
 }
 
-/* --- شريط التنقل السفلي - الحل الجذري --- */
+/* --- إصلاح شريط التنقل في وضع PWA --- */
+
+/* للشاشة العادية (Safari) */
 .bottom-nav {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     height: 55px;
     background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
@@ -185,68 +187,50 @@ input, textarea, select, button {
     justify-content: space-around;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
-    z-index: 1000 !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
-/* دعم الأيفون */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .bottom-nav {
-        padding-bottom: env(safe-area-inset-bottom);
-        height: calc(55px + env(safe-area-inset-bottom));
-    }
-}
-
-/* إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية */
+/* 🔥 إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية (PWA) */
 @media (display-mode: standalone) {
     .bottom-nav {
         position: fixed !important;
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        height: 50px !important;
+        padding-bottom: 0 !important;
         margin-bottom: 0 !important;
+        background: rgba(0, 18, 35, 0.98) !important;
+    }
+    
+    /* تصغير حجم الأيقونات والنصوص في وضع PWA */
+    .nav-item i {
+        font-size: 16px !important;
+    }
+    
+    .nav-item span {
+        font-size: 8px !important;
+    }
+    
+    .nav-item {
+        padding: 2px 8px !important;
     }
 }
 
-.nav-item {
-    color: rgba(255, 255, 255, 0.55);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    cursor: pointer;
-    padding: 4px 10px;
-    border-radius: 25px;
-    transition: all 0.2s ease;
+/* دعم الأيفون مع شريط سفلي (Dynamic Island) */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    @media (display-mode: standalone) {
+        .bottom-nav {
+            padding-bottom: 0 !important;
+        }
+    }
 }
-
-.nav-item i {
-    font-size: 18px;
-    margin-bottom: 2px;
-}
-
-.nav-item span {
-    font-size: 9px;
-    font-weight: 500;
-}
-
-.nav-item.active {
-    color: var(--pmu-orange);
-    background: rgba(239, 125, 0, 0.08);
-}
-
-.nav-item.active i {
-    transform: translateY(-2px);
-}
-
-.nav-item:active {
-    transform: scale(0.94);
-}
-
 /* --- الشاشات - تعويض المسافة للشريط الثابت --- */
 .screen {
     position: absolute;
