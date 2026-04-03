@@ -40,7 +40,7 @@
     
     <div class="screens-wrapper">
         
-        <!-- ==================== HOME PAGE - 3 أقسام ==================== -->
+        <!-- ==================== HOME PAGE - تصميم حديث ==================== -->
         <main id="home-page" class="screen">
             <div class="home-section-1">
                 <div class="profile-header-container">
@@ -50,13 +50,48 @@
                 <div class="hero-section">
                     <div class="user-info">
                         <p>Welcome back,</p>
-                        <h2>Hadeel</h2>
+                        <h2>Hadeel 👋</h2>
                     </div>
-                    <img src="./logo.png" class="mini-logo" onclick="showScreen('admin-login-page')" loading="lazy">
+                    <img src="./logo.png" class="mini-logo" onclick="showScreen('admin-login-page')">
                 </div>
             </div>
 
             <div class="home-section-2">
+                
+                <!-- شريط الفئات -->
+                <div class="categories-scroll">
+                    <div class="category-item active">Popular places</div>
+                    <div class="category-item">Most Viewed</div>
+                    <div class="category-item">Reality</div>
+                    <div class="category-item">Latest</div>
+                </div>
+
+                <!-- بطاقات الأماكن -->
+                <div class="places-section">
+                    <div class="section-header">
+                        <h3>Recommended for you</h3>
+                        <span>See all →</span>
+                    </div>
+                    
+                    <div class="place-card">
+                        <div class="place-image">
+                            <span>⭐ 4.8</span>
+                        </div>
+                        <h4 class="place-title">Andes Mountain</h4>
+                        <p class="place-location"><i class="fa-solid fa-location-dot"></i> South America</p>
+                        <p class="place-price">$230 <span style="font-size: 12px; color: rgba(255,255,255,0.5);">/ person</span></p>
+                        
+                        <div class="card-details">
+                            <div class="detail-item"><i class="fa-regular fa-clock"></i> 8 hours</div>
+                            <div class="detail-item"><i class="fa-solid fa-temperature-low"></i> 16°C</div>
+                            <div class="detail-item"><i class="fa-solid fa-star"></i> 4.5</div>
+                        </div>
+                        
+                        <button class="book-btn" onclick="alert('Booking feature coming soon!')">Book Now →</button>
+                    </div>
+                </div>
+
+                <!-- قسم التقويم الأكاديمي -->
                 <div class="calendar-section">
                     <h3 class="section-title"><i class="fa-solid fa-calendar-check"></i> Academic Calendar</h3>
                     
@@ -70,34 +105,35 @@
                         <div class="event-info"><h4>Final Exams</h4><p>Examination period starts</p></div>
                     </div>
 
-                    <a href="#" class="calendar-link">Download Full PDF</a>
-                    
-                    <div class="news-section">
-                        <h3 class="section-title"><i class="fa-brands fa-twitter"></i> Latest Updates</h3>
-                        
-                        <div class="news-card">
-                            <div class="news-header">
-                                <img src="./logo.png" alt="PMU" class="news-avatar" loading="lazy">
-                                <div class="news-meta">
-                                    <h4>PMU Official</h4>
-                                    <span>@PMU_KSA · 2h</span>
-                                </div>
-                                <i class="fa-brands fa-twitter twitter-icon"></i>
-                            </div>
-                            <p class="news-content">Registration for the upcoming spring semester is now open. Make sure to consult with your academic advisor. #PMU #Registration</p>
-                        </div>
+                    <a href="#" class="calendar-link">Download Full PDF →</a>
+                </div>
 
-                        <div class="news-card">
-                            <div class="news-header">
-                                <img src="logo.png" alt="PMU" class="news-avatar" loading="lazy">
-                                <div class="news-meta">
-                                    <h4>PMU Official</h4>
-                                    <span>@PMU_KSA · 1d</span>
-                                </div>
-                                <i class="fa-brands fa-twitter twitter-icon"></i>
+                <!-- قسم الأخبار -->
+                <div class="news-section">
+                    <h3 class="section-title"><i class="fa-brands fa-twitter"></i> Latest Updates</h3>
+                    
+                    <div class="news-card">
+                        <div class="news-header">
+                            <img src="./logo.png" alt="PMU" class="news-avatar">
+                            <div class="news-meta">
+                                <h4>PMU Official</h4>
+                                <span>@PMU_KSA · 2h</span>
                             </div>
-                            <p class="news-content">Congratulations to our students who participated in the Global Innovation Challenge! We are proud of your achievements. 🏆</p>
+                            <i class="fa-brands fa-twitter twitter-icon"></i>
                         </div>
+                        <p class="news-content">Registration for the upcoming spring semester is now open. Make sure to consult with your academic advisor. #PMU #Registration</p>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-header">
+                            <img src="logo.png" alt="PMU" class="news-avatar">
+                            <div class="news-meta">
+                                <h4>PMU Official</h4>
+                                <span>@PMU_KSA · 1d</span>
+                            </div>
+                            <i class="fa-brands fa-twitter twitter-icon"></i>
+                        </div>
+                        <p class="news-content">Congratulations to our students who participated in the Global Innovation Challenge! We are proud of your achievements. 🏆</p>
                     </div>
                 </div>
             </div>
@@ -117,7 +153,7 @@
                     </div>
                     
                     <button class="btn-primary" onclick="searchRoom()">
-                        <i class="fa-solid fa-location-arrow" style="margin-right: 8px;"></i> Find Room
+                        <i class="fa-solid fa-location-arrow"></i> Find Room
                     </button>
 
                     <div class="admin-card" style="margin-top: 25px; border-style: dashed; border-color: rgba(239, 125, 0, 0.3);">
@@ -133,7 +169,7 @@
                         <button class="back-btn" onclick="goBack()">
                             <i class="fa-solid fa-chevron-left"></i> Back
                         </button>
-                        <h2 id="roomTitle" style="margin-left: 15px; font-size: 18px;">Location Info</h2>
+                        <h2 id="roomTitle">Location Info</h2>
                     </div>
 
                     <div class="result-card-container">
@@ -148,7 +184,7 @@
                                 <button class="btn-secondary" onclick="toggleFavorite()">
                                     <i class="fa-solid fa-heart"></i> Favorite
                                 </button>
-                                <button class="btn-secondary" onclick="shareLocation()" style="background: rgba(239, 125, 0, 0.1); border-color: var(--pmu-orange); color: var(--pmu-orange);">
+                                <button class="btn-secondary" onclick="shareLocation()">
                                     <i class="fa-solid fa-share-nodes"></i> Share
                                 </button>
                             </div>
@@ -166,19 +202,15 @@
                 </div>
 
                 <div class="add-reminder-form">
-                    <p style="color: white; font-weight: 700; font-size: 15px; text-align: center; margin-bottom: 10px;">
-                        <i class="fa-solid fa-plus" style="color: var(--pmu-orange); margin-right: 5px;"></i> New Countdown
-                    </p>
-                    
+                    <p><i class="fa-solid fa-plus"></i> New Countdown</p>
                     <input type="text" id="remindTitle" class="modern-input" placeholder="Event Name...">
                     <input type="datetime-local" id="remindDate" class="modern-input">
-                    
                     <button class="btn-add-now" onclick="addReminder()">
                         <i class="fa-solid fa-calendar-check"></i> Start Countdown
                     </button>
                 </div>
 
-                <div id="reminders-list" style="padding-bottom: 20px;"></div>
+                <div id="reminders-list"></div>
             </div>
         </section>
 
@@ -188,7 +220,7 @@
                 <div class="page-title" style="flex-shrink: 0;">
                     <h2>University Campus</h2>
                 </div>
-                <div class="map-wrapper" style="flex: 1; min-height: 0; margin: 0; border-radius: 0;">
+                <div class="map-wrapper" style="flex: 1; min-height: 0; margin: 0;">
                     <iframe 
                         src="https://www.google.com/maps/d/embed?mid=1QwnWtXpGgrs8Wb0kPZOdVtOjvEpr9p8&ehbc=2E312F" 
                         style="width: 100%; height: 100%; border: 0; display: block;" 
@@ -196,11 +228,11 @@
                         loading="lazy">
                     </iframe>
                 </div>
-                <div class="map-info-card" style="flex-shrink: 0; margin: 15px; background: rgba(0, 18, 35, 0.7); backdrop-filter: blur(15px); border-radius: 25px; padding: 15px 20px; display: flex; align-items: center; gap: 15px;">
-                    <i class="fa-solid fa-location-dot" style="font-size: 28px; color: var(--pmu-orange);"></i>
+                <div class="map-info-card" style="flex-shrink: 0; margin: 15px;">
+                    <i class="fa-solid fa-location-dot"></i>
                     <div>
-                        <h3 style="color: white; font-size: 16px; margin: 0;">PMU Campus</h3>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 12px; margin: 5px 0 0 0;">Al Khobar, Eastern Province</p>
+                        <h3>PMU Campus</h3>
+                        <p>Al Khobar, Eastern Province</p>
                     </div>
                 </div>
             </div>
@@ -245,20 +277,17 @@
                     <div class="login-header">
                         <i class="fa-solid fa-user-shield admin-icon"></i>
                         <h2 class="login-title">Admin Access</h2>
-                        <p style="color: rgba(255,255,255,0.5); font-size: 13px;">Please enter your credentials</p>
+                        <p>Please enter your credentials</p>
                     </div>
-
                     <div class="login-form">
                         <div class="modern-input">
                             <i class="fa-solid fa-user"></i>
                             <input type="text" id="adminUser" placeholder="Username">
                         </div>
-                        
                         <div class="modern-input">
                             <i class="fa-solid fa-lock"></i>
                             <input type="password" id="adminPass" placeholder="Password">
                         </div>
-                        
                         <button class="btn-primary" onclick="checkAdminLogin()">Login to Dashboard</button>
                         <button class="cancel-link" onclick="showScreen('home-page')">Return to Home</button>
                     </div>
@@ -271,9 +300,8 @@
             <div class="page-content">
                 <div class="admin-main-wrapper">
                     <div class="res-header">
-                        <h2 style="margin-left: 20px;">Admin Dashboard</h2>
+                        <h2>Admin Dashboard</h2>
                     </div>
-
                     <div class="admin-stats-grid">
                         <div class="stat-card">
                             <i class="fa-solid fa-door-closed"></i>
@@ -286,56 +314,45 @@
                             <p>Events</p>
                         </div>
                     </div>
-
                     <div class="admin-card">
                         <h3><i class="fa-solid fa-palette"></i> App Appearance</h3>
                         <div class="color-picker-wrapper">
-                            <p style="font-size: 13px; color: #ccc; margin-bottom: 8px;">Primary Theme Color</p>
-                            <input type="color" id="colorPicker" value="#ef7d00" onchange="updateThemeColor(this.value)" style="width: 100%; height: 40px; border-radius: 8px; border: none; cursor: pointer;">
+                            <p>Primary Theme Color</p>
+                            <input type="color" id="colorPicker" value="#ef7d00" onchange="updateThemeColor(this.value)">
                         </div>
                     </div>
-
                     <div class="admin-card">
                         <h3><i class="fa-solid fa-plus-circle"></i> Add New Room</h3>
                         <div class="admin-form">
-                            <input type="text" id="newRoomNumber" placeholder="Room Number (e.g. 101)" class="admin-input">
+                            <input type="text" id="newRoomNumber" placeholder="Room Number" class="admin-input">
                             <input type="text" id="newRoomBuilding" placeholder="Building Name" class="admin-input">
                             <input type="text" id="newRoomFloor" placeholder="Floor Level" class="admin-input">
-                            <textarea id="newRoomDesc" placeholder="Room Description & Details..." class="admin-input" style="min-height: 100px;"></textarea>
-                            
+                            <textarea id="newRoomDesc" placeholder="Room Description" class="admin-input"></textarea>
                             <div class="file-upload-box">
-                                <label for="newRoomImage" style="cursor: pointer; display: block;">
-                                    <i class="fa-solid fa-image"></i> Upload Room Image
-                                </label>
+                                <label for="newRoomImage"><i class="fa-solid fa-image"></i> Upload Room Image</label>
                                 <input type="file" id="newRoomImage" accept="image/*" style="display: none;">
                             </div>
-                            
-                            <button class="btn-primary" onclick="addNewRoom()" style="width: 100%;">Save Room</button>
+                            <button class="btn-primary" onclick="addNewRoom()">Save Room</button>
                         </div>
                     </div>
-
                     <div class="admin-card">
                         <h3><i class="fa-solid fa-tasks"></i> Manage Rooms</h3>
                         <div id="admin-rooms-list" class="list-container"></div>
                     </div>
-
                     <div class="admin-card">
                         <h3><i class="fa-solid fa-calendar-plus"></i> Events Manager</h3>
                         <div id="admin-events-list" class="list-container"></div>
                         <div class="divider"></div>
                         <div class="admin-form">
                             <div style="display: flex; gap: 10px;">
-                                <input type="text" id="eventMonth" placeholder="Month (SEP)" class="admin-input" style="flex: 1;">
-                                <input type="number" id="eventDay" placeholder="Day" class="admin-input" style="flex: 1;">
+                                <input type="text" id="eventMonth" placeholder="Month (SEP)" class="admin-input">
+                                <input type="number" id="eventDay" placeholder="Day" class="admin-input">
                             </div>
                             <input type="text" id="eventTitle" placeholder="Event Title" class="admin-input">
-                            <button class="btn-primary" onclick="addNewEvent()" style="width: 100%;">Add New Event</button>
+                            <button class="btn-primary" onclick="addNewEvent()">Add New Event</button>
                         </div>
                     </div>
-
-                    <button class="btn-logout" onclick="logoutAdmin()" style="width: 100%; margin-top: 20px;">
-                        <i class="fa-solid fa-power-off"></i> Logout
-                    </button>
+                    <button class="btn-logout" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i> Logout</button>
                 </div>
             </div>
         </section>
