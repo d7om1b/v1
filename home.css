@@ -49,7 +49,7 @@
     height: auto;
     /* السماح للصورة بالظهور بشكلها الطبيعي */
     min-height: auto;
-    max-height: none;
+    max-height: 250px;  /* أقصى ارتفاع */
     object-fit: contain; /* الصورة كاملة بدون قص */
     object-position: top center;
     display: block;
