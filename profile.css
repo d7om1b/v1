@@ -7,30 +7,33 @@
     height: 100%;
 }
 
-/* ========== صورة الهيدر ========== */
+/* ========== صورة الهيدر - عرض كامل من اليمين لليسار ========== */
 .profile-header-container {
     width: 100%;
     position: relative;
     margin: 0;
     padding: 0;
+    left: 0;
+    right: 0;
 }
 
 .profile-header-img {
-    width: 100%;
-    height: 395px;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* ========== محتوى صفحة البروفايل - توسيط كامل ========== */
+/* ========== محتوى صفحة البروفايل - توسيط ========== */
 .profile-content {
     flex: 1;
     padding: 20px 25px 30px 25px;
     display: flex;
     flex-direction: column;
-    align-items: center;  /* 🔥 توسيط أفقي */
-    justify-content: center;  /* توسيط عمودي اختياري */
+    align-items: center;
 }
 
 /* عنوان الصفحة */
@@ -56,7 +59,7 @@
     margin: 0;
 }
 
-/* ========== الحقول - توسيط ========== */
+/* ========== الحقول ========== */
 .input-field {
     width: 280px;
     max-width: 100%;
@@ -69,7 +72,7 @@
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 6px;
     font-weight: 500;
-    text-align: left;  /* النص يبقى يسار */
+    text-align: left;
 }
 
 .input-field input {
@@ -95,7 +98,7 @@
     font-size: 12px;
 }
 
-/* ========== خط "Or login with" - توسيط ========== */
+/* ========== خط "Or login with" ========== */
 .divider {
     display: flex;
     align-items: center;
@@ -119,7 +122,7 @@
     letter-spacing: 0.5px;
 }
 
-/* ========== أيقونات التواصل الاجتماعي - توسيط ========== */
+/* ========== أيقونات التواصل الاجتماعي ========== */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -162,7 +165,7 @@
     transform: scale(0.94);
 }
 
-/* ========== أزرار - توسيط ========== */
+/* ========== الأزرار ========== */
 .signin-btn {
     width: 280px;
     max-width: 100%;
