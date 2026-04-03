@@ -1,4 +1,4 @@
-/* --- تنسيق الصفحة الرئيسية - تصميم متناسق وجميل --- */
+/* --- الصفحة الرئيسية - تصميم حديث وعصري --- */
 
 #home-page {
     background: transparent !important;
@@ -7,74 +7,52 @@
     height: 100%;
 }
 
-/* ========== القسم 1: الهيدر ========== */
+/* ========== القسم 1: الهيدر والترحيب ========== */
 .home-section-1 {
     flex-shrink: 0;
     background: transparent;
     position: relative;
+    padding: 0 20px;
+    margin-top: 10px;
 }
 
-/* ========== الهيدر - صورة بارتفاع كامل ========== */
+/* صورة الهيدر - تصميم دائري/بيضاوي حديث */
 .profile-header-container {
     width: 100%;
-    padding: 0;
     margin: 0;
+    padding: 0;
     position: relative;
 }
 
-/* 🔥 صورة الهيدر - الحل النهائي المستقر */
 .header-img { 
     width: 100% !important; 
     height: auto !important;
     min-height: auto !important;
-    max-height: 280px !important;
+    max-height: none !important;
     object-fit: contain !important;
     object-position: center !important;
     display: block !important;
-    opacity: 0.95;
+    border-radius: 30px;
 }
 
-/* طبقة تدرج فوق الصورة للجمال */
-.profile-header-container::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    pointer-events: none;
-}
-
-/* ========== القسم 2: الهيرو بوكس (Welcome) ========== */
+/* قسم الترحيب - مثل تصميم "Hi, David 👋" */
 .hero-section { 
-    background: rgba(0, 18, 35, 0.75);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    margin: 5px 16px 16px 16px;
-    padding: 12px 20px;
-    position: relative;
-    z-index: 10;
-    transition: all 0.3s ease;
-}
-
-.hero-section:hover {
-    transform: translateY(-2px);
-    border-color: rgba(239, 125, 0, 0.3);
+    margin: 20px 0 25px 0;
+    padding: 0;
 }
 
 .user-info p { 
-    font-size: 11px; 
-    opacity: 0.6; 
-    margin-bottom: 4px;
+    font-size: 14px; 
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 5px;
     letter-spacing: 0.3px;
 }
 
 .user-info h2 { 
-    font-size: 20px; 
+    font-size: 28px; 
     font-weight: 700; 
     background: linear-gradient(135deg, #ffffff, var(--pmu-orange-light)); 
     -webkit-background-clip: text;
@@ -83,26 +61,22 @@
 }
 
 .mini-logo { 
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
-    border: 1px solid rgba(239, 125, 0, 0.25);
+    border: 1px solid rgba(239, 125, 0, 0.3);
 }
 
-.mini-logo:active {
-    transform: scale(0.94);
-}
-
-/* ========== القسم 3: المحتوى القابل للتمرير ========== */
+/* ========== القسم 2: المحتوى القابل للتمرير ========== */
 .home-section-2 {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 5px 0 20px 0;
+    padding: 0 20px 20px 20px;
 }
 
 /* تخصيص شريط التمرير */
@@ -118,30 +92,181 @@
     border-radius: 10px;
 }
 
-/* ========== عنوان التقويم ========== */
-.section-title { 
-    color: white; 
-    font-size: 14px; 
-    margin: 8px 16px 12px 16px;
+/* ========== شريط الفئات (Popular places, Most Viewed, Reality, Latest) ========== */
+.categories-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-bottom: 25px;
+    padding-bottom: 5px;
+}
+
+.categories-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.category-item.active {
+    background: var(--pmu-orange);
+    color: white;
+    border-color: var(--pmu-orange);
+}
+
+.category-item:active {
+    transform: scale(0.95);
+}
+
+/* ========== بطاقات الأماكن (مثل Andes Mountain) ========== */
+.places-section {
+    margin-bottom: 25px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 15px;
+}
+
+.section-header h3 {
+    color: white;
+    font-size: 18px;
     font-weight: 600;
+}
+
+.section-header span {
+    color: var(--pmu-orange);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.place-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+}
+
+.place-card:active {
+    transform: scale(0.98);
+}
+
+.place-image {
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(135deg, var(--pmu-blue), var(--pmu-blue-light));
+    border-radius: 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.place-image span {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    color: white;
+}
+
+.place-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.place-location {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
 }
 
-.section-title i { 
-    color: var(--pmu-orange); 
+.place-price {
     font-size: 16px;
+    font-weight: 700;
+    color: var(--pmu-orange);
+    margin-bottom: 12px;
 }
 
-/* ========== بطاقات التقويم ========== */
-.event-card { 
+/* ========== تفاصيل البطاقة (مثل Overview, Details, الوقت, الحرارة, التقييم) ========== */
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 12px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.detail-item i {
+    color: var(--pmu-orange);
+    font-size: 14px;
+}
+
+/* ========== أزرار (مثل Book Now) ========== */
+.book-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+}
+
+.book-btn:active {
+    transform: scale(0.97);
+}
+
+/* ========== قسم التقويم الأكاديمي ========== */
+.calendar-section {
+    margin-top: 10px;
+}
+
+.event-card {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 12px;
-    border-radius: 18px;
-    margin: 0 16px 10px 16px;
+    padding: 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
@@ -151,66 +276,60 @@
     transform: scale(0.98);
 }
 
-.event-date { 
+.event-date {
     background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-dark));
     color: white;
-    padding: 6px 8px;
-    border-radius: 14px;
+    padding: 8px 10px;
+    border-radius: 16px;
     text-align: center;
     font-weight: 700;
-    min-width: 50px;
+    min-width: 55px;
     margin-right: 14px;
 }
 
-.event-date span { 
-    display: block; 
-    font-size: 14px; 
-    line-height: 1.2; 
+.event-date span {
+    display: block;
+    font-size: 16px;
+    line-height: 1.2;
 }
 
-.event-info h4 { 
-    color: #ffffff; 
-    font-size: 13px; 
-    font-weight: 600; 
-    margin-bottom: 2px; 
+.event-info h4 {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 
-.event-info p { 
-    color: rgba(255, 255, 255, 0.45); 
-    font-size: 10px; 
+.event-info p {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
 }
 
-/* رابط تحميل PDF */
-.calendar-link { 
-    color: var(--pmu-orange); 
-    text-decoration: none; 
-    font-weight: 500; 
-    font-size: 11px; 
+.calendar-link {
+    color: var(--pmu-orange);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
     text-align: center;
     display: inline-block;
-    margin: 5px 16px 15px 16px;
-    padding: 6px 16px;
+    margin: 10px 0;
+    padding: 8px 20px;
     background: rgba(239, 125, 0, 0.08);
     border-radius: 30px;
-    transition: all 0.2s ease;
     border: 1px solid rgba(239, 125, 0, 0.15);
-}
-
-.calendar-link:active {
-    transform: scale(0.96);
 }
 
 /* ========== قسم الأخبار ========== */
 .news-section {
-    margin-top: 8px;
-    padding-bottom: 15px;
+    margin-top: 15px;
+    padding-bottom: 20px;
 }
 
 .news-card {
     background: rgba(255, 255, 255, 0.03);
-    margin: 8px 16px;
-    padding: 12px;
-    border-radius: 18px;
+    margin-bottom: 12px;
+    padding: 14px;
+    border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.2s ease;
 }
@@ -222,30 +341,29 @@
 .news-header {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     position: relative;
 }
 
 .news-avatar {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: linear-gradient(135deg, #fff, #e0e0e0);
-    padding: 2px;
-    margin-right: 10px;
-    border: 1px solid rgba(239, 125, 0, 0.2);
+    padding: 3px;
+    margin-right: 12px;
 }
 
 .news-meta h4 {
     color: white;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     margin: 0;
 }
 
 .news-meta span {
     color: rgba(255, 255, 255, 0.45);
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .twitter-icon {
@@ -253,30 +371,12 @@
     right: 0;
     top: 0;
     color: #1DA1F2;
-    font-size: 14px;
-    opacity: 0.7;
+    font-size: 16px;
 }
 
 .news-content {
     color: rgba(255, 255, 255, 0.85);
-    font-size: 11px;
-    line-height: 1.4;
+    font-size: 12px;
+    line-height: 1.45;
     margin: 0;
-}
-
-/* ========== فاصل بين الأقسام ========== */
-.home-section-1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-    width: 90%;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(239, 125, 0, 0.3), 
-        rgba(255, 255, 255, 0.1),
-        rgba(239, 125, 0, 0.3),
-        transparent
-    );
 }
