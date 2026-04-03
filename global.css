@@ -625,3 +625,37 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         transform: translateX(-50%);
     }
 }
+
+
+
+
+
+
+
+/* ----------------------------------------
+   18. STRONG FIX FOR PWA
+   ---------------------------------------- */
+@media (display-mode: standalone) {
+    /* جعل شريط التنقل ثابت في القاع */
+    .bottom-nav {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: translateY(0) !important;
+    }
+    
+    /* التأكد من أن الحاوية الرئيسية تغطي الشاشة كاملة */
+    .app-container {
+        height: 100% !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+    
+    /* إزالة أي مسافات سفلية */
+    .screens-wrapper {
+        height: 100% !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+}
