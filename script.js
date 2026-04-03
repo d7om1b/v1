@@ -926,3 +926,35 @@ window.init = function() {
 document.addEventListener('DOMContentLoaded', () => {
     initMap();
 });
+
+
+// كشف أجهزة iOS وعرض رسالة مناسبة
+function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+if (isIOS()) {
+    // عرض رسالة خاصة لأجهزة iOS
+    setTimeout(() => {
+        const iosToast = document.createElement('div');
+        iosToast.id = 'ios-toast';
+        iosToast.innerHTML = `
+            <div class="ios-toast-content">
+                <i class="fa-brands fa-apple"></i>
+                <div>
+                    <strong>Install PMU Way</strong>
+                    <p>Tap <i class="fa-solid fa-square-arrow-up"></i> Share then <strong>Add to Home Screen</strong></p>
+                </div>
+                <button id="close-ios" class="close-ios"><i class="fa-solid fa-times"></i></button>
+            </div>
+        `;
+        document.body.appendChild(iosToast);
+        
+        setTimeout(() => iosToast.classList.add('show'), 500);
+        
+        document.getElementById('close-ios')?.addEventListener('click', () => {
+            iosToast.classList.remove('show');
+            setTimeout(() => iosToast.remove(), 300);
+        });
+    }, 2000);
+}
