@@ -179,14 +179,6 @@ input, textarea {
     }
 }
 
-/* PWA Mode (Saved to Home Screen) */
-@media (display-mode: standalone) {
-    .bottom-nav {
-        height: 55px !important;
-        padding-bottom: 0 !important;
-    }
-}
-
 /* Nav Items */
 .nav-item {
     color: rgba(255, 255, 255, 0.6);
@@ -223,19 +215,6 @@ input, textarea {
 
 .nav-item:active {
     transform: scale(0.94);
-}
-
-/* PWA Mode Nav Items */
-@media (display-mode: standalone) {
-    .nav-item i {
-        font-size: 18px !important;
-    }
-    .nav-item span {
-        font-size: 8px !important;
-    }
-    .nav-item {
-        padding: 4px 10px !important;
-    }
 }
 
 /* ----------------------------------------
@@ -626,36 +605,75 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     }
 }
 
-
-
-
-
-
-
 /* ----------------------------------------
-   18. STRONG FIX FOR PWA
+   17. PWA MODE FIX (Saved to Home Screen)
    ---------------------------------------- */
 @media (display-mode: standalone) {
-    /* جعل شريط التنقل ثابت في القاع */
+    /* تثبيت شريط التنقل في القاع */
     .bottom-nav {
         position: fixed !important;
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        transform: translateY(0) !important;
-    }
-    
-    /* التأكد من أن الحاوية الرئيسية تغطي الشاشة كاملة */
-    .app-container {
-        height: 100% !important;
-        position: relative !important;
-        overflow: hidden !important;
-    }
-    
-    /* إزالة أي مسافات سفلية */
-    .screens-wrapper {
-        height: 100% !important;
+        height: 55px !important;
+        background: rgba(0, 18, 35, 0.98) !important;
+        margin-top: 0 !important;
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
+        z-index: 9999 !important;
+    }
+    
+    /* تصغير حجم الأيقونات في وضع PWA */
+    .nav-item i {
+        font-size: 18px !important;
+    }
+    
+    .nav-item span {
+        font-size: 8px !important;
+    }
+    
+    .nav-item {
+        padding: 4px 10px !important;
+    }
+    
+    /* تعويض المسافة في المحتوى */
+    .screen {
+        padding-bottom: 70px !important;
+    }
+    
+    .page-content,
+    .home-section-2 {
+        padding-bottom: 80px !important;
+    }
+    
+    /* إزالة أي مسافات إضافية */
+    .app-container {
+        padding-bottom: 0 !important;
+    }
+    
+    .screens-wrapper {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+/* ----------------------------------------
+   18. iOS SAFE AREA SUPPORT FOR PWA
+   ---------------------------------------- */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    @media (display-mode: standalone) {
+        .bottom-nav {
+            padding-bottom: 0 !important;
+            height: 55px !important;
+        }
+        
+        .screen {
+            padding-bottom: calc(70px + env(safe-area-inset-bottom)) !important;
+        }
+        
+        .page-content,
+        .home-section-2 {
+            padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+        }
     }
 }
