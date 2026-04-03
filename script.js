@@ -1,3 +1,31 @@
+// ========================================
+// FIX FOR SPLASH SCREEN - EMERGENCY FIX
+// ========================================
+
+// تأكد من إخفاء شاشة التحميل بعد الوقت المحدد
+window.addEventListener('load', function() {
+    console.log('Page loaded, waiting for splash...');
+    
+    //强制执行 إخفاء شاشة التحميل بعد 3 ثواني كحد أقصى
+    setTimeout(function() {
+        const splash = document.getElementById('splash-screen');
+        const container = document.querySelector('.app-container');
+        
+        if (splash) {
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+            splash.classList.add('hidden');
+            console.log('Splash screen forced hidden');
+        }
+        
+        if (container) {
+            container.classList.remove('hidden');
+            console.log('App container shown');
+        }
+    }, 2500);
+});
+
+
 // حساب الـ vh الحقيقي للأجهزة المحمولة
 function setRealHeight() {
     let vh = window.innerHeight * 0.01;
