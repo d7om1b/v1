@@ -46,13 +46,8 @@
 
 .header-img { 
     width: 100%; 
-    height: auto;
-    min-height: 180px;
-    max-height: 3200px;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    background: transparent;
+    height: auto; 
+    display: block; 
 }
 
 /* قسم الترحيب - منفصل تماماً عن الصورة */
