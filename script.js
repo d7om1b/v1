@@ -1448,3 +1448,333 @@ function importData(event) {
             if (data.notifications) {
                 localStorage.setItem('pmu_notifications', JSON.stringify(data.notifications));
                 notifications
+// ========================================
+// ENHANCED ADMIN FUNCTIONS - ADD AT THE END
+// ========================================
+
+// ========== ADMIN TABS FUNCTION (IMPROVED) ==========
+function showAdminTab(tabName, event) {
+    // إخفاء كل التبويبات
+    document.querySelectorAll('.admin-tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+    });
+    
+    // إظهار التبويب المطلوب
+    const targetTab = document.getElementById(`admin-tab-${tabName}`);
+    if (targetTab) targetTab.classList.remove('hidden');
+    
+    // تحديث حالة الأزرار
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    if (event && event.target) {
+        const targetTabBtn = event.target.closest('.admin-tab');
+        if (targetTabBtn) targetTabBtn.classList.add('active');
+    }
+    
+    // تحديث البيانات عند فتح التبويب
+    if (tabName === 'dashboard') {
+        updateDashboardStats();
+        updateAdminStatsDisplay();
+    }
+    if (tabName === 'users') renderUsersList();
+    if (tabName === 'rooms') refreshAdminRooms();
+    if (tabName === 'events') refreshAdminEvents();
+    if (tabName === 'notifications') loadNotificationHistory();
+}
+
+// ========== UPDATE DASHBOARD STATS ==========
+function updateDashboardStats() {
+    const roomsCount = Object.keys({ ...defaultRooms, ...customRooms }).length;
+    const eventsCount = document.querySelectorAll('#home-page .event-card').length;
+    const remindersCount = reminders.length;
+    const favoritesCount = favorites.length;
+    
+    const statRooms = document.getElementById('stat-rooms-count');
+    const statEvents = document.getElementById('stat-events-count');
+    const statUsers = document.getElementById('stat-users-count');
+    const statReminders = document.getElementById('stat-reminders-count');
+    const statFavorites = document.getElementById('stat-favorites-count');
+    const statAppOpens = document.getElementById('stat-app-opens');
+    
+    if (statRooms) statRooms.innerText = roomsCount;
+    if (statEvents) statEvents.innerText = eventsCount;
+    if (statUsers) statUsers.innerText = users.length;
+    if (statReminders) statReminders.innerText = remindersCount;
+    if (statFavorites) statFavorites.innerText = favoritesCount;
+    if (statAppOpens) statAppOpens.innerText = appStats?.appOpens || 0;
+}
+
+// ========== LOAD NOTIFICATION HISTORY ==========
+function loadNotificationHistory() {
+    const container = document.getElementById('notification-history');
+    if (!container) return;
+    
+    const notifications = JSON.parse(localStorage.getItem('pmu_notifications')) || [];
+    
+    if (notifications.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.5); padding:20px;">No notifications sent yet</p>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    notifications.slice(0, 20).forEach(notif => {
+        const date = new Date(notif.date).toLocaleString();
+        const typeClass = notif.type || 'info';
+        container.innerHTML += `
+            <div class="notification-item ${typeClass}">
+                <div class="title">${escapeHtml(notif.title)}</div>
+                <div class="message">${escapeHtml(notif.message)}</div>
+                <div class="date">${date}</div>
+            </div>
+        `;
+    });
+}
+
+// ========== SEND NOTIFICATION (ENHANCED) ==========
+function sendNotification() {
+    const title = document.getElementById('notificationTitle')?.value;
+    const message = document.getElementById('notificationMessage')?.value;
+    const type = document.getElementById('notificationType')?.value;
+    
+    if (!title || !message) {
+        showToast('Please fill all fields', true);
+        return;
+    }
+    
+    // حفظ الإشعار
+    const notifications = JSON.parse(localStorage.getItem('pmu_notifications')) || [];
+    notifications.unshift({
+        id: Date.now(),
+        title: title,
+        message: message,
+        type: type || 'info',
+        date: new Date().toISOString()
+    });
+    localStorage.setItem('pmu_notifications', JSON.stringify(notifications));
+    
+    // عرض إشعار للمستخدم الحالي
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, { body: message, icon: './logo.png' });
+    }
+    
+    showToast('Notification sent successfully!');
+    
+    // تنظيف الحقول
+    document.getElementById('notificationTitle').value = '';
+    document.getElementById('notificationMessage').value = '';
+    
+    // تحديث معاينة الإشعار
+    updateNotificationPreview();
+    loadNotificationHistory();
+}
+
+// ========== UPDATE NOTIFICATION PREVIEW ==========
+function updateNotificationPreview() {
+    const title = document.getElementById('notificationTitle')?.value || 'Notification Title';
+    const message = document.getElementById('notificationMessage')?.value || 'Your message will appear here';
+    
+    const previewTitle = document.getElementById('previewTitle');
+    const previewMessage = document.getElementById('previewMessage');
+    
+    if (previewTitle) previewTitle.innerText = title;
+    if (previewMessage) previewMessage.innerText = message;
+}
+
+// ========== ADD USER MODAL ==========
+function showAddUserModal() {
+    const name = prompt('Enter user name:');
+    const email = prompt('Enter user email:');
+    if (name && email) {
+        const newUser = {
+            id: Date.now(),
+            name: name,
+            email: email,
+            role: 'user',
+            joinDate: new Date().toISOString().split('T')[0]
+        };
+        users.push(newUser);
+        localStorage.setItem('pmu_users', JSON.stringify(users));
+        renderUsersList();
+        updateDashboardStats();
+        showToast('User added successfully');
+    }
+}
+
+// ========== CHANGE PASSWORD MODAL ==========
+function showChangePasswordModal() {
+    const currentPass = prompt('Enter current password:');
+    if (currentPass !== 'admin') {
+        showToast('Current password is incorrect', true);
+        return;
+    }
+    const newPass = prompt('Enter new password:');
+    if (newPass && newPass.length >= 4) {
+        // في التطبيق الحقيقي، يتم حفظ كلمة المرور بشكل آمن
+        showToast('Password changed successfully (demo)');
+    } else {
+        showToast('Password must be at least 4 characters', true);
+    }
+}
+
+// ========== DELETE ALL CUSTOM ROOMS ==========
+function deleteAllCustomRooms() {
+    if (confirm('⚠️ WARNING: This will delete ALL custom rooms. System rooms will remain. Are you sure?')) {
+        customRooms = {};
+        localStorage.setItem('pmu_custom_rooms', JSON.stringify(customRooms));
+        refreshAdminRooms();
+        updateDashboardStats();
+        showToast('All custom rooms deleted');
+    }
+}
+
+// ========== EXPORT TO CSV ==========
+function exportToCSV() {
+    const rooms = { ...defaultRooms, ...customRooms };
+    const csvRows = [];
+    csvRows.push(['Room Number', 'Building', 'Floor', 'Description']);
+    
+    Object.entries(rooms).forEach(([number, room]) => {
+        csvRows.push([number, room.building, room.floor || 'N/A', room.desc || 'No description']);
+    });
+    
+    const csvContent = csvRows.map(row => row.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pmu-rooms-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Exported to CSV successfully');
+}
+
+// ========== UPDATE LAST BACKUP DATE ==========
+function updateLastBackupDate() {
+    const lastBackup = localStorage.getItem('lastBackupDate');
+    const lastBackupSpan = document.getElementById('lastBackupDate');
+    if (lastBackupSpan) {
+        if (lastBackup) {
+            lastBackupSpan.innerText = new Date(lastBackup).toLocaleString();
+        } else {
+            lastBackupSpan.innerText = 'Never';
+        }
+    }
+}
+
+// ========== INITIALIZE ADMIN DASHBOARD ==========
+function initAdminDashboard() {
+    updateDashboardStats();
+    renderUsersList();
+    refreshAdminRooms();
+    refreshAdminEvents();
+    loadNotificationHistory();
+    updateLastBackupDate();
+    
+    // إضافة مستمعي الأحداث للتبويبات
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            const tabName = tab.getAttribute('data-tab');
+            if (tabName) showAdminTab(tabName, e);
+        });
+    });
+    
+    // إضافة مستمع لمعاينة الإشعار
+    const notifTitle = document.getElementById('notificationTitle');
+    const notifMessage = document.getElementById('notificationMessage');
+    if (notifTitle) notifTitle.addEventListener('input', updateNotificationPreview);
+    if (notifMessage) notifMessage.addEventListener('input', updateNotificationPreview);
+    
+    // استعادة الوضع الليلي
+    const darkMode = localStorage.getItem('pmu_dark_mode') === 'true';
+    if (darkMode) document.body.classList.add('dark-mode');
+    
+    // استعادة لغة
+    const savedLang = localStorage.getItem('pmu_lang');
+    if (savedLang === 'ar') {
+        document.documentElement.dir = 'rtl';
+    }
+}
+
+// ========== DARK MODE TOGGLE UI ==========
+function initDarkModeToggle() {
+    const toggle = document.getElementById('darkModeToggle');
+    if (!toggle) return;
+    
+    const isDark = localStorage.getItem('pmu_dark_mode') === 'true';
+    if (isDark) toggle.classList.add('active');
+    
+    toggle.addEventListener('click', () => {
+        toggleDarkMode();
+        toggle.classList.toggle('active');
+    });
+}
+
+// ========== SESSION TIMEOUT ==========
+let sessionTimeout;
+function resetSessionTimeout() {
+    if (sessionTimeout) clearTimeout(sessionTimeout);
+    const timeoutMinutes = parseInt(document.getElementById('sessionTimeout')?.value || 15);
+    sessionTimeout = setTimeout(() => {
+        if (document.getElementById('admin-dashboard') && !document.getElementById('admin-dashboard').classList.contains('hidden')) {
+            showToast('Session expired. Please login again.');
+            logoutAdmin();
+        }
+    }, timeoutMinutes * 60 * 1000);
+}
+
+// تحديث المؤقت عند النشاط
+['click', 'mousemove', 'keypress'].forEach(event => {
+    document.addEventListener(event, () => {
+        if (document.getElementById('admin-dashboard') && !document.getElementById('admin-dashboard').classList.contains('hidden')) {
+            resetSessionTimeout();
+        }
+    });
+});
+
+// ========== OVERRIDE checkAdminLogin WITH REMEMBER ME ==========
+const originalCheckAdminLogin = checkAdminLogin;
+window.checkAdminLogin = function() {
+    const user = document.getElementById('adminUser').value.trim();
+    const pass = document.getElementById('adminPass').value.trim();
+    const remember = document.getElementById('rememberAdmin')?.checked;
+    
+    if (user === 'admin' && pass === 'admin') {
+        if (remember) {
+            localStorage.setItem('admin_remembered', 'true');
+            localStorage.setItem('admin_user', user);
+        }
+        showScreen('admin-dashboard');
+        setTimeout(() => {
+            initAdminDashboard();
+            resetSessionTimeout();
+        }, 100);
+        showToast("Welcome Admin!");
+    } else {
+        showToast("Wrong username or password!", true);
+    }
+};
+
+// ========== OVERRIDE logoutAdmin ==========
+const originalLogoutAdmin = logoutAdmin;
+window.logoutAdmin = function() {
+    if (sessionTimeout) clearTimeout(sessionTimeout);
+    localStorage.removeItem('admin_remembered');
+    originalLogoutAdmin();
+};
+
+// ========== CHECK REMEMBERED ADMIN ==========
+function checkRememberedAdmin() {
+    const remembered = localStorage.getItem('admin_remembered');
+    if (remembered === 'true' && document.getElementById('admin-dashboard')?.classList.contains('hidden')) {
+        // يمكن تسجيل الدخول تلقائياً إذا أردت
+        console.log('Admin remembered');
+    }
+}
+
+// تشغيل التهيئة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    checkRememberedAdmin();
+    initDarkModeToggle();
+    updateLastBackupDate();
+});
