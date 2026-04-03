@@ -677,3 +677,300 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         }
     }
 }
+
+
+
+/* ----------------------------------------
+   19. FULL RESPONSIVE FOR iPad & TABLETS
+   ---------------------------------------- */
+
+/* iPad Portrait & Landscape (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* تعديل حجم الخطوط والعناصر */
+    body {
+        font-size: 16px;
+    }
+    
+    /* شريط التنقل أكبر قليلاً للأيباد */
+    .bottom-nav {
+        height: 70px;
+    }
+    
+    .nav-item i {
+        font-size: 24px;
+    }
+    
+    .nav-item span {
+        font-size: 11px;
+    }
+    
+    /* المحتوى */
+    .page-content,
+    .home-section-2 {
+        padding: 25px;
+        padding-bottom: 90px;
+    }
+    
+    /* الهيرو */
+    .hero-wrapper {
+        padding: 40px 35px;
+        border-radius: 40px;
+    }
+    
+    .hero-header h1 {
+        font-size: 38px;
+    }
+    
+    .hero-header p {
+        font-size: 16px;
+    }
+    
+    /* بطاقات الإحصائيات */
+    .hero-stats {
+        gap: 20px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
+    }
+    
+    /* بطاقات الأماكن */
+    .place-card {
+        border-radius: 28px;
+    }
+    
+    .place-image {
+        height: 200px;
+    }
+    
+    .place-title {
+        font-size: 20px;
+    }
+    
+    /* الحقول في البروفايل */
+    .pmu-outlined-field .input-box {
+        height: 60px;
+    }
+    
+    .pmu-outlined-field input {
+        font-size: 16px;
+    }
+    
+    .pmu-outlined-field label {
+        font-size: 12px;
+        top: -13px;
+    }
+    
+    /* الأزرار */
+    .btn-primary,
+    .pmu-btn-signin {
+        padding: 16px 24px;
+        font-size: 16px;
+        max-width: 350px;
+    }
+    
+    /* بطاقات التقويم */
+    .event-card {
+        padding: 16px;
+    }
+    
+    .event-date {
+        min-width: 65px;
+        padding: 10px 12px;
+    }
+    
+    .event-date span {
+        font-size: 18px;
+    }
+    
+    .event-info h4 {
+        font-size: 16px;
+    }
+    
+    /* التذكيرات */
+    .reminder-card {
+        padding: 25px;
+    }
+    
+    .time-value {
+        font-size: 24px;
+    }
+}
+
+/* iPad Pro (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .hero-wrapper {
+        padding: 45px 40px;
+    }
+    
+    .hero-header h1 {
+        font-size: 42px;
+    }
+    
+    .place-image {
+        height: 220px;
+    }
+    
+    .page-content,
+    .home-section-2 {
+        padding: 30px;
+        padding-bottom: 100px;
+    }
+    
+    .bottom-nav {
+        height: 75px;
+    }
+    
+    .nav-item i {
+        font-size: 26px;
+    }
+    
+    .nav-item span {
+        font-size: 12px;
+    }
+}
+
+/* Small Tablets (600px - 768px) */
+@media (min-width: 600px) and (max-width: 767px) {
+    .hero-wrapper {
+        padding: 25px 20px;
+    }
+    
+    .hero-header h1 {
+        font-size: 28px;
+    }
+    
+    .place-image {
+        height: 150px;
+    }
+    
+    .page-content,
+    .home-section-2 {
+        padding: 15px;
+        padding-bottom: 80px;
+    }
+}
+
+/* Landscape Mode for Phones (调整横屏模式) */
+@media (max-width: 900px) and (orientation: landscape) {
+    .hero-wrapper {
+        padding: 15px 20px;
+    }
+    
+    .hero-header h1 {
+        font-size: 24px;
+    }
+    
+    .hero-stats {
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 8px;
+    }
+    
+    .stat-number {
+        font-size: 18px;
+    }
+    
+    .place-image {
+        height: 120px;
+    }
+    
+    .home-section-2 {
+        padding-bottom: 70px;
+    }
+    
+    .bottom-nav {
+        height: 50px;
+    }
+    
+    .nav-item i {
+        font-size: 16px;
+    }
+}
+
+/* ----------------------------------------
+   20. CENTERING FOR LARGER SCREENS (iPad & Desktop)
+   ---------------------------------------- */
+@media (min-width: 768px) {
+    /* توسيط التطبيق في منتصف الشاشة للأجهزة الكبيرة */
+    .app-container {
+        max-width: 500px;
+        margin: 0 auto;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
+    /* شريط التنقل يتم توسيطه أيضاً */
+    .bottom-nav {
+        max-width: 500px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    /* Toast يتم توسيطه */
+    #custom-toast {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* ----------------------------------------
+   21. iPAD SPECIFIC FIXES
+   ---------------------------------------- */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* إصلاح مشكلة الـ Safe Area في iPad */
+    .app-container {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    /* تحسين ظهور الصور */
+    .place-img,
+    .profile-header-img,
+    .result-image {
+        border-radius: 20px;
+    }
+    
+    /* تحسين المسافات في صفحة البحث */
+    .result-card {
+        max-width: 450px;
+    }
+    
+    .result-image {
+        height: 250px;
+    }
+    
+    /* تحسين صفحة الخريطة */
+    .map-wrapper {
+        border-radius: 30px;
+        margin: 15px;
+    }
+    
+    /* تحسين صفحة الأدمن */
+    .admin-card {
+        padding: 25px;
+        margin: 20px;
+    }
+    
+    .admin-stats-grid {
+        gap: 20px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-card span {
+        font-size: 28px;
+    }
+}
