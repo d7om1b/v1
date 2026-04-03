@@ -83,23 +83,21 @@ input, textarea, select, button {
     background: transparent;
 }
 
-/* --- شاشة التحميل - إزالة المستطيل الأزرق --- */
+/* --- شاشة التحميل --- */
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
     background: linear-gradient(135deg, var(--pmu-blue) 0%, var(--pmu-blue-dark) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10000;
     transition: opacity 0.6s ease;
-    margin: 0;
-    padding: 0;
+    padding-top: var(--sat, 0px);
+    padding-bottom: var(--sab, 0px);
 }
 
 .splash-content {
@@ -108,12 +106,6 @@ input, textarea, select, button {
     align-items: center;
     justify-content: center;
     animation: fadeInUp 0.8s ease;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    text-align: center;
 }
 
 .splash-logo { 
@@ -147,7 +139,7 @@ input, textarea, select, button {
     50% { transform: scale(1.05); }
 }
 
-/* --- شريط التنقل السفلي --- */
+/* --- شريط التنقل السفلي - الحل الجذري --- */
 .bottom-nav {
     position: fixed !important;
     bottom: 0 !important;
@@ -167,6 +159,7 @@ input, textarea, select, button {
     box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* دعم الأيفون */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .bottom-nav {
         padding-bottom: env(safe-area-inset-bottom);
@@ -174,6 +167,7 @@ input, textarea, select, button {
     }
 }
 
+/* إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية */
 @media (display-mode: standalone) {
     .bottom-nav {
         position: fixed !important;
@@ -221,7 +215,7 @@ input, textarea, select, button {
     transform: scale(0.94);
 }
 
-/* --- الشاشات --- */
+/* --- الشاشات - تعويض المسافة للشريط الثابت --- */
 .screen {
     position: absolute;
     top: 0;
@@ -256,6 +250,7 @@ input, textarea, select, button {
     flex-direction: column;
 }
 
+/* كلاس عام للمحتوى */
 .page-content {
     flex: 1;
     overflow-y: auto;
@@ -265,11 +260,8 @@ input, textarea, select, button {
 }
 
 /* إزالة أي عناصر وهمية تسبب المستطيل */
-#splash-screen::before,
-#splash-screen::after,
-.app-container::before,
-.app-container::after,
 .screens-wrapper::after,
+.app-container::after,
 .bottom-nav::before,
 .bottom-nav::after {
     display: none !important;
