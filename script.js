@@ -103,13 +103,18 @@ function searchRoom() {
     const roomData = allRooms[input];
 
     if (roomData) {
-        // عرض النتائج
+        // عرض الصورة
         document.getElementById('roomImage').src = roomData.image;
-        document.getElementById('roomTitleDisplay').innerHTML = `Room ${input}`;
-        document.getElementById('roomDesc').innerHTML = roomData.desc;
-        document.getElementById('roomTitle').innerHTML = `Room ${input}`;
+        document.getElementById('roomTitleDisplay').innerHTML = `ROOM ${input}`;
+        document.getElementById('roomDesc').innerHTML = roomData.desc || "When you enter through the gate, head to the right where your classroom is located.";
+        document.getElementById('roomDescAr').innerHTML = roomData.descAr || "عند دخولك من البوابة، اتجه إلى اليمين حيث يقع صفك الدراسي";
+        document.getElementById('roomTitle').innerHTML = `ROOM ${input}`;
         
-        // تخزين رقم الغرفة الحالي للمفضلة
+        // عرض الطوابق
+        document.getElementById('roomFloor1').innerHTML = roomData.floor1 || "Second floor";
+        document.getElementById('roomFloor2').innerHTML = roomData.floor2 || "First Floor";
+        document.getElementById('roomFloor3').innerHTML = roomData.floor3 || "ground floor";
+        
         window.currentRoomNumber = input;
         
         inputArea.classList.add('hidden');
