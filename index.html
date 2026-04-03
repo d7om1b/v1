@@ -142,51 +142,73 @@
 </main>
 
         <!-- ==================== SEARCH PAGE ==================== -->
-   <div id="search-results-area" class="hidden">
-    <div class="res-header">
-        <button class="back-btn" onclick="goBack()">
-            <i class="fa-solid fa-chevron-left"></i> Back
-        </button>
-        <h2 id="roomTitle" style="margin-left: 15px; font-size: 18px;">Location Info</h2>
-    </div>
-
-    <div class="result-card-container">
-        <!-- المربع الجديد بحواف برتقالية -->
-        <div class="result-card">
-            <!-- الصورة -->
-            <img id="roomImage" src="" alt="Room Map" class="result-image">
+ <section id="search-page" class="screen hidden">
+    <!-- القسم 1: المحتوى -->
+    <div class="page-content" style="padding: 0; display: flex; flex-direction: column; height: 100%;">
+        
+        <!-- منطقة البحث -->
+        <div id="search-input-area" style="padding: 20px;">
+            <div class="page-title">
+                <h2>Campus Navigator</h2>
+            </div>
             
-            <!-- المحتوى -->
-            <div class="result-content">
-                <!-- التذييل (الطوابق) -->
-                <div class="result-footer">
-                    <span class="floor-badge" id="roomFloor1">Second floor</span>
-                    <span class="floor-badge" id="roomFloor2">First Floor</span>
-                    <span class="floor-badge highlight" id="roomFloor3">ground floor</span>
-                </div>
-                
-                <!-- عنوان الغرفة -->
-                <h2 class="result-title" id="roomTitleDisplay">ROOM F101</h2>
-                
-                <!-- الوصف بالإنجليزية -->
-                <p class="result-description" id="roomDesc">When you enter through the gate, head to the right where your classroom is located.</p>
-                
-                <!-- الوصف بالعربية -->
-                <p class="result-description-ar" id="roomDescAr">عند دخولك من البوابة، اتجه إلى اليمين حيث يقع صفك الدراسي</p>
-                
-                <!-- أزرار الإجراءات -->
-                <div class="action-buttons">
-                    <button class="action-btn favorite" onclick="toggleFavorite()">
-                        <i class="fa-solid fa-heart"></i> Favorite
-                    </button>
-                    <button class="action-btn share" onclick="shareLocation()">
-                        <i class="fa-solid fa-share-nodes"></i> Share
-                    </button>
+            <div class="modern-input">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="roomInput" placeholder="Where are you going? (e.g. 101)">
+            </div>
+            
+            <button class="btn-primary" onclick="searchRoom()">
+                <i class="fa-solid fa-location-arrow"></i> Find Room
+            </button>
+
+            <div class="admin-card" style="margin-top: 25px; border-style: dashed; border-color: rgba(239, 125, 0, 0.3);">
+                <h3 style="font-size: 16px; margin-bottom: 15px;">
+                    <i class="fa-solid fa-heart" style="color: #ff4444;"></i> My Favorite Rooms
+                </h3>
+                <div id="favorites-list"></div>
+            </div>
+        </div>
+
+        <!-- منطقة النتائج -->
+        <div id="search-results-area" class="hidden" style="flex: 1; display: flex; flex-direction: column;">
+            <div class="res-header">
+                <button class="back-btn" onclick="goBack()">
+                    <i class="fa-solid fa-chevron-left"></i> Back
+                </button>
+                <h2 id="roomTitle" style="margin-left: 15px; font-size: 18px;">Location Info</h2>
+            </div>
+
+            <div class="result-card-container" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                <div class="result-card" style="width: 100%; max-width: 380px;">
+                    <img id="roomImage" src="" alt="Room Map" class="result-image" style="width: 100%; height: 200px; object-fit: cover;">
+                    
+                    <div class="result-content" style="padding: 20px;">
+                        <div class="result-footer" style="display: flex; gap: 12px; margin-bottom: 20px;">
+                            <span class="floor-badge" id="roomFloor1">Second floor</span>
+                            <span class="floor-badge" id="roomFloor2">First Floor</span>
+                            <span class="floor-badge highlight" id="roomFloor3">ground floor</span>
+                        </div>
+                        
+                        <h2 class="result-title" id="roomTitleDisplay" style="font-size: 28px; font-weight: 800; color: var(--pmu-orange); margin-bottom: 15px;">ROOM F101</h2>
+                        
+                        <p class="result-description" id="roomDesc" style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 20px;">When you enter through the gate, head to the right where your classroom is located.</p>
+                        
+                        <p class="result-description-ar" id="roomDescAr" style="font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.6); margin-bottom: 25px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">عند دخولك من البوابة، اتجه إلى اليمين حيث يقع صفك الدراسي</p>
+                        
+                        <div class="action-buttons" style="display: flex; gap: 12px;">
+                            <button class="action-btn favorite" onclick="toggleFavorite()" style="flex: 1; padding: 12px; border-radius: 40px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: white; cursor: pointer;">
+                                <i class="fa-solid fa-heart" style="color: #ff4444;"></i> Favorite
+                            </button>
+                            <button class="action-btn share" onclick="shareLocation()" style="flex: 1; padding: 12px; border-radius: 40px; background: rgba(239,125,0,0.12); border: 1px solid rgba(239,125,0,0.3); color: var(--pmu-orange); cursor: pointer;">
+                                <i class="fa-solid fa-share-nodes"></i> Share
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
         <!-- ==================== REMINDERS PAGE ==================== -->
         <section id="reminders-page" class="screen hidden">
