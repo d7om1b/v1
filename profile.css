@@ -45,37 +45,26 @@
 }
 
 /* 🔥 الحقل - الـ label يقطع الصندوق من الخارج */
-.pmu-outlined-field { 
-    position: relative; 
-    width: 280px;
-    max-width: 100%;
-    margin-bottom: 25px;
-}
+
+
+.pmu-outlined-field { position: relative; margin-bottom: 15px; }
 
 .pmu-outlined-field .input-box { 
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border: 1.2px solid white; 
     border-radius: 50px; 
-    height: 52px; 
+    height: 45px; 
     padding: 0 20px; 
-    position: relative;
-    background: transparent;
-    transition: all 0.2s ease;
+    position: relative; 
 }
 
-.pmu-outlined-field .input-box:focus-within {
-    border-color: var(--pmu-orange);
-}
-
-/* 🔥 الـ Label يقطع الصندوق من الخارج (لون أبيض، بدون خلفية) */
 .pmu-outlined-field label { 
     position: absolute; 
-    top: -12px;
-    left: 18px; 
-    background: transparent;
+    top: -10px; 
+    left: 22px; 
+    background-color: var(--dark-bg); 
     padding: 0 8px; 
-    color: white;
+    color: white; 
     font-size: 11px; 
-    font-weight: 500;
     z-index: 5; 
 }
 
@@ -88,12 +77,6 @@
     outline: none; 
     font-size: 14px; 
 }
-
-.pmu-outlined-field input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
-    font-size: 13px;
-}
-
 .login-with-text { 
     text-align: center; 
     color: rgba(255, 255, 255, 0.5); 
