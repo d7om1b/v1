@@ -1,8 +1,77 @@
 /* ----------------------------------------
    ADMIN PANEL - ENHANCED VERSION
-   ---------------------------------------- */
+   ======================================== */
 
-/* تبويبات الأدمن */
+/* ----------------------------------------
+   ADMIN DASHBOARD CONTAINER
+   ---------------------------------------- */
+.admin-dashboard-container {
+    padding: 20px;
+    padding-bottom: 30px;
+}
+
+/* ----------------------------------------
+   ADMIN HEADER
+   ---------------------------------------- */
+.admin-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.admin-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-header-left i {
+    font-size: 28px;
+    color: var(--pmu-orange);
+}
+
+.admin-header-left h2 {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.admin-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-badge {
+    background: rgba(243, 111, 38, 0.2);
+    color: var(--pmu-orange);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+    color: #ff4444;
+}
+
+/* ----------------------------------------
+   ADMIN TABS
+   ---------------------------------------- */
 .admin-tabs {
     display: flex;
     gap: 10px;
@@ -27,6 +96,13 @@
     transition: all 0.2s ease;
     white-space: nowrap;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-tab i {
+    font-size: 14px;
 }
 
 .admin-tab.active {
@@ -35,20 +111,44 @@
     border-color: transparent;
 }
 
-/* بطاقات الإحصائيات المتقدمة */
+/* ----------------------------------------
+   TAB CONTENT
+   ---------------------------------------- */
+.admin-tab-content {
+    animation: fadeIn 0.3s ease;
+}
+
+.admin-tab-content.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------
+   STATS GRID
+   ---------------------------------------- */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
     margin-bottom: 20px;
 }
 
 .stat-card-large {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
-    padding: 15px;
+    padding: 18px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.2s ease;
+}
+
+.stat-card-large:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .stat-card-large i {
@@ -69,9 +169,48 @@
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* قائمة المستخدمين */
+/* ----------------------------------------
+   ACTIVITY LIST
+   ---------------------------------------- */
+.activity-list {
+    margin-top: 10px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.activity-item i {
+    width: 32px;
+    height: 32px;
+    background: rgba(243, 111, 38, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pmu-orange);
+}
+
+.activity-item div strong {
+    display: block;
+    color: white;
+    font-size: 13px;
+}
+
+.activity-item div span {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 11px;
+}
+
+/* ----------------------------------------
+   USERS LIST
+   ---------------------------------------- */
 .users-list {
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
 }
 
@@ -84,6 +223,11 @@
     border-radius: 16px;
     margin-bottom: 8px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.user-item:hover {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .user-info {
@@ -93,8 +237,8 @@
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: rgba(243, 111, 38, 0.2);
     border-radius: 50%;
     display: flex;
@@ -130,9 +274,58 @@
     color: white;
     font-size: 11px;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* إرسال الإشعارات */
+.user-actions button:hover {
+    background: rgba(255, 68, 68, 0.2);
+    color: #ff4444;
+}
+
+/* ----------------------------------------
+   ROOMS & EVENTS LISTS
+   ---------------------------------------- */
+.rooms-list, .events-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.room-item, .event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.room-item-info, .event-item-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.room-item-info i, .event-item-info i {
+    font-size: 20px;
+    color: var(--pmu-orange);
+}
+
+.room-item-info strong, .event-item-info strong {
+    color: white;
+    font-size: 14px;
+}
+
+.room-item-info small, .event-item-info small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+/* ----------------------------------------
+   NOTIFICATION FORM
+   ---------------------------------------- */
 .notification-form {
     background: rgba(255, 255, 255, 0.04);
     border-radius: 20px;
@@ -162,53 +355,80 @@
     margin: 10px 0;
 }
 
-/* أزرار الإجراءات */
-.admin-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
+/* Notification Preview */
+.notification-preview {
+    background: rgba(0, 18, 35, 0.6);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 15px 0;
 }
 
-.admin-action-btn {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 40px;
-    padding: 12px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.preview-header {
+    background: rgba(243, 111, 38, 0.15);
+    padding: 10px 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
+    font-size: 12px;
+    color: var(--pmu-orange);
 }
 
-.admin-action-btn.danger {
-    border-color: rgba(255, 68, 68, 0.5);
-    color: #ff4444;
+.preview-content {
+    padding: 15px;
 }
 
-.admin-action-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+.preview-content strong {
+    display: block;
+    color: white;
+    margin-bottom: 5px;
 }
 
-/* وضع التحميل */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
+.preview-content p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin: 0;
 }
 
-/* إعدادات التطبيق */
+/* Notification History */
+.notification-history {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--pmu-orange);
+}
+
+.notification-item.info { border-left-color: #2196F3; }
+.notification-item.warning { border-left-color: #ff9800; }
+.notification-item.success { border-left-color: #4caf50; }
+.notification-item.event { border-left-color: var(--pmu-orange); }
+
+.notification-item .title {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.notification-item .message {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+}
+
+.notification-item .date {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+/* ----------------------------------------
+   SETTINGS
+   ---------------------------------------- */
 .setting-item {
     display: flex;
     justify-content: space-between;
@@ -233,7 +453,7 @@
     margin: 0;
 }
 
-/* مفتاح التبديل (Toggle Switch) */
+/* Toggle Switch */
 .toggle-switch {
     width: 50px;
     height: 28px;
@@ -264,72 +484,212 @@
     left: 23px;
 }
 
-/* الإحصائيات البيانية */
-.chart-container {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    padding: 15px;
-    margin-bottom: 20px;
+/* ----------------------------------------
+   BUTTONS
+   ---------------------------------------- */
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
-.chart-title {
+.admin-action-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 12px;
     color: white;
-    font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.admin-action-btn.danger {
+    border-color: rgba(255, 68, 68, 0.5);
+    color: #ff4444;
+}
+
+.admin-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-danger {
+    background: rgba(255, 68, 68, 0.15);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    color: #ff4444;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+    background: rgba(255, 68, 68, 0.25);
+}
+
+.btn-small {
+    background: rgba(243, 111, 38, 0.15);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: var(--pmu-orange);
+    font-size: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px;
+    border-radius: 40px;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+/* ----------------------------------------
+   BACKUP SECTION
+   ---------------------------------------- */
+.backup-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-bottom: 15px;
 }
 
-.bar-chart {
-    display: flex;
-    gap: 15px;
-    align-items: flex-end;
-    justify-content: center;
-    height: 150px;
-}
-
-.bar {
-    flex: 1;
-    background: linear-gradient(to top, var(--pmu-orange), var(--pmu-orange-light));
-    border-radius: 8px;
-    min-width: 30px;
-    transition: height 0.5s ease;
-}
-
-/* إدارة الأخبار */
-.news-item {
-    display: flex;
-    gap: 12px;
+.backup-info {
     background: rgba(255, 255, 255, 0.03);
     padding: 12px;
-    border-radius: 16px;
-    margin-bottom: 10px;
-}
-
-.news-item img {
-    width: 50px;
-    height: 50px;
     border-radius: 12px;
-    object-fit: cover;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-.news-item-content {
+/* Danger Zone */
+.danger-zone {
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    background: rgba(255, 68, 68, 0.05);
+}
+
+/* ----------------------------------------
+   FORM ELEMENTS
+   ---------------------------------------- */
+.form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.form-row .admin-input {
     flex: 1;
 }
 
-.news-item-content h4 {
-    color: white;
-    font-size: 13px;
-    margin: 0 0 4px;
-}
-
-.news-item-content p {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 11px;
-    margin: 0;
-}
-
-.news-item-actions {
+.admin-form {
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 15px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.admin-input:focus {
+    border-color: var(--pmu-orange);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.file-upload-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.file-upload-box:hover {
+    border-color: var(--pmu-orange);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.file-upload-box label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* ----------------------------------------
+   CARD COMPONENTS
+   ---------------------------------------- */
+.admin-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+}
+
+.admin-card:hover {
+    border-color: rgba(243, 111, 38, 0.2);
+}
+
+.admin-card h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* ----------------------------------------
+   RESPONSIVE
+   ---------------------------------------- */
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
