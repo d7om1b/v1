@@ -71,7 +71,7 @@ input, textarea, select, button {
     overflow: hidden;
     position: relative;
     padding-top: var(--sat, 0px);
-    padding-bottom: var(--sab, 0px);
+    padding-bottom: 0;
     padding-left: var(--sal, 0px);
     padding-right: var(--sar, 0px);
 }
@@ -139,10 +139,13 @@ input, textarea, select, button {
     50% { transform: scale(1.05); }
 }
 
-/* --- شريط التنقل السفلي - حل نهائي لـ PWA --- */
+/* --- شريط التنقل السفلي - الحل الجذري --- */
 .bottom-nav {
-    flex-shrink: 0;
-    width: 100%;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     height: 55px;
     background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
@@ -150,51 +153,28 @@ input, textarea, select, button {
     justify-content: space-around;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
-    z-index: 100;
-    margin-top: auto;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    z-index: 1000 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
     box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 /* دعم الأيفون */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .bottom-nav {
-        padding-bottom: 0;
-        height: 55px;
+        padding-bottom: env(safe-area-inset-bottom);
+        height: calc(55px + env(safe-area-inset-bottom));
     }
 }
 
-/* 🔥 إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية */
+/* إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية */
 @media (display-mode: standalone) {
     .bottom-nav {
         position: fixed !important;
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-        height: 55px !important;
-    }
-    
-    .app-container {
-        padding-bottom: 0 !important;
-    }
-    
-    .screen {
-        padding-bottom: 70px !important;
-    }
-    
-    .home-section-2, .page-content {
-        padding-bottom: 80px !important;
-    }
-    
-    body, .app-container, .screens-wrapper {
-        padding-bottom: 0 !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
         margin-bottom: 0 !important;
     }
 }
@@ -235,7 +215,7 @@ input, textarea, select, button {
     transform: scale(0.94);
 }
 
-/* --- الشاشات --- */
+/* --- الشاشات - تعويض المسافة للشريط الثابت --- */
 .screen {
     position: absolute;
     top: 0;
@@ -246,12 +226,18 @@ input, textarea, select, button {
     -webkit-overflow-scrolling: touch;
     background: transparent !important;
     padding: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 75px !important;
 }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .screen {
-        padding-bottom: calc(10px + env(safe-area-inset-bottom));
+        padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+    }
+}
+
+@media (display-mode: standalone) {
+    .screen {
+        padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px)) !important;
     }
 }
 
@@ -264,6 +250,7 @@ input, textarea, select, button {
     flex-direction: column;
 }
 
+/* كلاس عام للمحتوى */
 .page-content {
     flex: 1;
     overflow-y: auto;
@@ -272,7 +259,16 @@ input, textarea, select, button {
     padding-bottom: 5px;
 }
 
-/* شريط التمرير */
+/* إزالة أي عناصر وهمية تسبب المستطيل */
+.screens-wrapper::after,
+.app-container::after,
+.bottom-nav::before,
+.bottom-nav::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* تخصيص شريط التمرير */
 .screen::-webkit-scrollbar,
 .page-content::-webkit-scrollbar,
 .home-section-2::-webkit-scrollbar {
@@ -565,4 +561,23 @@ input, textarea, select, button {
 
 .btn-add-now:active {
     transform: scale(0.97);
+}
+
+/* --- الصفحة الرئيسية - تقليل الهبوط --- */
+.home-section-2 {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 0 5px 0;
+    margin-bottom: 0;
+}
+
+.calendar-section {
+    margin-bottom: 5px;
+    padding-bottom: 0;
+}
+
+.news-section {
+    margin-bottom: 0;
+    padding-bottom: 5px;
 }
