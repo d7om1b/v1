@@ -86,7 +86,7 @@ const defaultRooms = {
     "101": {
         floor: "Floor 1",
         building: "Building A",
-             image: "./room101.jpg",
+             image: "./room1.png",
         desc: "Located near the North Elevator. Perfect for group studies and lectures.",
         nearby: { cafe: "1m", print: "30s" }
     }
