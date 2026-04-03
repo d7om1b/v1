@@ -154,22 +154,68 @@ input, textarea, select, button {
 
 /* --- شريط التنقل السفلي --- */
 /* للشاشة العادية (Safari) */
+/* --- شريط التنقل السفلي - ثابت في الفوتر --- */
+
 .bottom-nav {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
-    height: 55px;
+    height: 60px;
     background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 9999;
     padding-bottom: 0;
     margin-bottom: 0;
+}
+
+/* عناصر شريط التنقل */
+.nav-item {
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 25px;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 3px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-item span {
+    font-size: 9px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-item.active {
+    color: var(--pmu-orange);
+}
+
+.nav-item.active i {
+    color: var(--pmu-orange);
+    transform: translateY(-2px);
+}
+
+.nav-item.active span {
+    color: var(--pmu-orange);
+}
+
+.nav-item:active {
+    transform: scale(0.94);
 }
 
 /* 🔥 إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية (PWA) */
@@ -180,83 +226,53 @@ input, textarea, select, button {
         left: 0 !important;
         right: 0 !important;
         width: 100% !important;
-        height: 50px !important;
+        height: 55px !important;
         background: rgba(0, 18, 35, 0.98) !important;
         padding-bottom: 0 !important;
         margin-bottom: 0 !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        z-index: 9999 !important;
     }
     
-    /* تصغير الأيقونات في وضع PWA */
     .nav-item i {
-        font-size: 16px !important;
+        font-size: 18px !important;
+        color: rgba(255, 255, 255, 0.7) !important;
     }
     
     .nav-item span {
-        font-size: 8px !important;
+        font-size: 9px !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    .nav-item.active i,
+    .nav-item.active span {
+        color: var(--pmu-orange) !important;
     }
     
     .nav-item {
-        padding: 2px 8px !important;
+        padding: 4px 10px !important;
     }
     
     /* إضافة مسافة أسفل المحتوى ليتناسب مع الشريط */
     .screen {
-        padding-bottom: 65px !important;
+        padding-bottom: 70px !important;
     }
 }
 
-/* دعم الأيفون مع شريط سفلي (Dynamic Island) */
+/* دعم الأيفون مع شريط سفلي */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .bottom-nav {
         padding-bottom: env(safe-area-inset-bottom);
+        height: calc(60px + env(safe-area-inset-bottom));
     }
     
     @media (display-mode: standalone) {
         .bottom-nav {
             padding-bottom: 0 !important;
+            height: 55px !important;
         }
     }
 }
-
-/* وضع التطبيق المحفوظ (PWA) */
-@media (display-mode: standalone) {
-    .bottom-nav {
-        position: fixed !important;
-        bottom: 0 !important;
-        height: 50px !important;
-        padding-bottom: 0 !important;
-        background: rgba(0, 18, 35, 0.98) !important;
-    }
-    
-    .nav-item i {
-        font-size: 16px !important;
-    }
-    
-    .nav-item span {
-        font-size: 8px !important;
-    }
-    
-    .nav-item {
-        padding: 2px 8px !important;
-    }
-}
-
-/* دعم الأيباد */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .bottom-nav {
-        height: 65px;
-    }
-    
-    .nav-item i {
-        font-size: 22px;
-    }
-    
-    .nav-item span {
-        font-size: 11px;
-    }
-}
-
 /* --- الشاشات --- */
 .screen {
     position: absolute;
