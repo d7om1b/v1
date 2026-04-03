@@ -1212,3 +1212,239 @@ function showAdminTab(tabName) {
     if (tabName === 'dashboard') updateAdminStatsDisplay();
     if (tabName === 'users') renderUsersList();
 }
+
+// ========================================
+// ENHANCED ADMIN FUNCTIONS
+// ========================================
+
+// بيانات المستخدمين
+let users = JSON.parse(localStorage.getItem('pmu_users')) || [
+    { id: 1, name: "Hadeel", email: "hadeel@pmu.edu.sa", role: "admin", joinDate: "2024-01-15" },
+    { id: 2, name: "Ahmed", email: "ahmed@pmu.edu.sa", role: "user", joinDate: "2024-02-20" },
+    { id: 3, name: "Sarah", email: "sarah@pmu.edu.sa", role: "user", joinDate: "2024-03-10" }
+];
+
+// إحصائيات التطبيق
+let appStats = JSON.parse(localStorage.getItem('pmu_stats')) || {
+    appOpens: 0,
+    totalReminders: 0,
+    totalSearches: 0
+};
+
+// تحديث إحصائيات فتح التطبيق
+function updateAppOpenStats() {
+    appStats.appOpens++;
+    localStorage.setItem('pmu_stats', JSON.stringify(appStats));
+    updateDashboardStats();
+}
+
+// تحديث إحصائيات البحث
+function updateSearchStats() {
+    appStats.totalSearches++;
+    localStorage.setItem('pmu_stats', JSON.stringify(appStats));
+}
+
+// تحديث إحصائيات لوحة التحكم
+function updateDashboardStats() {
+    const roomsCount = Object.keys({ ...defaultRooms, ...customRooms }).length;
+    const eventsCount = document.querySelectorAll('#home-page .event-card').length;
+    const remindersCount = reminders.length;
+    const favoritesCount = favorites.length;
+    
+    document.getElementById('stat-rooms-count') && (document.getElementById('stat-rooms-count').innerText = roomsCount);
+    document.getElementById('stat-events-count') && (document.getElementById('stat-events-count').innerText = eventsCount);
+    document.getElementById('stat-users-count') && (document.getElementById('stat-users-count').innerText = users.length);
+    document.getElementById('stat-reminders-count') && (document.getElementById('stat-reminders-count').innerText = remindersCount);
+    document.getElementById('stat-favorites-count') && (document.getElementById('stat-favorites-count').innerText = favoritesCount);
+    document.getElementById('stat-app-opens') && (document.getElementById('stat-app-opens').innerText = appStats.appOpens);
+}
+
+// عرض قائمة المستخدمين
+function renderUsersList() {
+    const container = document.getElementById('users-list-container');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    users.forEach(user => {
+        container.innerHTML += `
+            <div class="user-item">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>${escapeHtml(user.name)}</h4>
+                        <p>${escapeHtml(user.email)}</p>
+                        <small style="color: rgba(255,255,255,0.3); font-size: 10px;">Joined: ${user.joinDate}</small>
+                    </div>
+                </div>
+                <div class="user-actions">
+                    ${user.role !== 'admin' ? `<button onclick="deleteUser(${user.id})" style="color:#ff4444;"><i class="fa-solid fa-trash"></i></button>` : '<i class="fa-solid fa-crown" style="color:var(--pmu-orange);"></i>'}
+                </div>
+            </div>
+        `;
+    });
+}
+
+// حذف مستخدم
+function deleteUser(userId) {
+    if (confirm('Delete this user?')) {
+        users = users.filter(u => u.id !== userId);
+        localStorage.setItem('pmu_users', JSON.stringify(users));
+        renderUsersList();
+        updateDashboardStats();
+        showToast('User deleted successfully');
+    }
+}
+
+// إضافة مستخدم
+function showAddUserModal() {
+    const name = prompt('Enter user name:');
+    const email = prompt('Enter user email:');
+    if (name && email) {
+        const newUser = {
+            id: Date.now(),
+            name: name,
+            email: email,
+            role: 'user',
+            joinDate: new Date().toISOString().split('T')[0]
+        };
+        users.push(newUser);
+        localStorage.setItem('pmu_users', JSON.stringify(users));
+        renderUsersList();
+        updateDashboardStats();
+        showToast('User added successfully');
+    }
+}
+
+// إرسال إشعار
+let notifications = JSON.parse(localStorage.getItem('pmu_notifications')) || [];
+
+function sendNotification() {
+    const title = document.getElementById('notificationTitle')?.value;
+    const message = document.getElementById('notificationMessage')?.value;
+    const type = document.getElementById('notificationType')?.value;
+    
+    if (!title || !message) {
+        showToast('Please fill all fields', true);
+        return;
+    }
+    
+    const notification = {
+        id: Date.now(),
+        title: title,
+        message: message,
+        type: type,
+        date: new Date().toISOString()
+    };
+    
+    notifications.unshift(notification);
+    localStorage.setItem('pmu_notifications', JSON.stringify(notifications));
+    
+    // عرض إشعار للمستخدم الحالي
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, { body: message });
+    }
+    
+    showToast('Notification sent!');
+    document.getElementById('notificationTitle').value = '';
+    document.getElementById('notificationMessage').value = '';
+    loadNotificationHistory();
+}
+
+// تحميل سجل الإشعارات
+function loadNotificationHistory() {
+    const container = document.getElementById('notification-history');
+    if (!container) return;
+    
+    if (notifications.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:rgba(255,255,255,0.5); padding:20px;">No notifications sent yet</p>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    notifications.forEach(notif => {
+        const date = new Date(notif.date).toLocaleString();
+        container.innerHTML += `
+            <div class="notification-item ${notif.type}">
+                <div class="title">${escapeHtml(notif.title)}</div>
+                <div class="message">${escapeHtml(notif.message)}</div>
+                <div class="date">${date}</div>
+            </div>
+        `;
+    });
+}
+
+// طلب إذن الإشعارات
+function requestNotificationPermission() {
+    if ('Notification' in window) {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                showToast('Notifications enabled!');
+            }
+        });
+    }
+}
+
+// تصدير البيانات
+function exportData() {
+    const data = {
+        users: users,
+        rooms: { ...defaultRooms, ...customRooms },
+        reminders: reminders,
+        favorites: favorites,
+        events: JSON.parse(localStorage.getItem('pmu_calendar_events')) || [],
+        stats: appStats,
+        notifications: notifications,
+        exportDate: new Date().toISOString()
+    };
+    
+    const dataStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `pmu-way-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Data exported successfully!');
+    localStorage.setItem('lastBackupDate', new Date().toISOString());
+    document.getElementById('lastBackupDate') && (document.getElementById('lastBackupDate').innerText = new Date().toLocaleString());
+}
+
+// استيراد البيانات
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.users) {
+                localStorage.setItem('pmu_users', JSON.stringify(data.users));
+                users = data.users;
+            }
+            if (data.rooms) {
+                const importedRooms = {};
+                Object.entries(data.rooms).forEach(([key, value]) => {
+                    if (!defaultRooms[key]) {
+                        importedRooms[key] = value;
+                    }
+                });
+                localStorage.setItem('pmu_custom_rooms', JSON.stringify(importedRooms));
+                customRooms = importedRooms;
+            }
+            if (data.reminders) {
+                localStorage.setItem('pmu_reminders', JSON.stringify(data.reminders));
+                reminders = data.reminders;
+                renderReminders();
+            }
+            if (data.favorites) {
+                localStorage.setItem('pmu_favorites', JSON.stringify(data.favorites));
+                favorites = data.favorites;
+                renderFavorites();
+            }
+            if (data.notifications) {
+                localStorage.setItem('pmu_notifications', JSON.stringify(data.notifications));
+                notifications
