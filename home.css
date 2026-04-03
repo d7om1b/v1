@@ -14,14 +14,7 @@
     position: relative;
 }
 
-/* حاوية الصورة */
-.profile-header-container {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    background: linear-gradient(135deg, var(--pmu-blue), var(--pmu-blue-dark));
-}
+
 
 /* 🔥 صورة الهيدر - حل نهائي */
 .header-img { 
@@ -41,7 +34,6 @@
     left: 0;
     right: 0;
     height: 80px;
-    background: linear-gradient(to top, var(--pmu-blue-dark), transparent);
     pointer-events: none;
 }
 
@@ -54,7 +46,7 @@
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    margin: -25px 16px 16px 16px;
+    margin: 5px 16px 16px 16px;
     padding: 12px 20px;
     position: relative;
     z-index: 10;
