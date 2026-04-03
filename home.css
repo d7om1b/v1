@@ -1,4 +1,4 @@
-/* --- الصفحة الرئيسية - تصميم حديث بدون صورة هيدر --- */
+/* --- الصفحة الرئيسية - تصميم حديث --- */
 
 #home-page {
     background: transparent !important;
@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-/* ========== القسم 1: الهيدر والهيرو (تصميم حديث) ========== */
+/* ========== القسم 1 ========== */
 .home-section-1 {
     flex-shrink: 0;
     background: transparent;
@@ -15,7 +15,7 @@
     padding: 20px 20px 0 20px;
 }
 
-/* حاوية الهيرو - تصميم عصري */
+/* حاوية الهيرو */
 .hero-wrapper {
     background: linear-gradient(135deg, rgba(17, 42, 78, 0.8), rgba(17, 42, 78, 0.9));
     backdrop-filter: blur(20px);
@@ -27,7 +27,6 @@
     overflow: hidden;
 }
 
-/* تأثير خلفية للهيرو */
 .hero-wrapper::before {
     content: '';
     position: absolute;
@@ -56,7 +55,6 @@
     pointer-events: none;
 }
 
-/* الترحيب */
 .hero-header {
     text-align: left;
     margin-bottom: 20px;
@@ -81,7 +79,7 @@
     line-height: 1.2;
 }
 
-/* بطاقات إحصائيات سريعة */
+/* بطاقات إحصائيات */
 .hero-stats {
     display: flex;
     gap: 15px;
@@ -102,12 +100,6 @@
     transition: all 0.2s ease;
 }
 
-.stat-card:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(243, 111, 38, 0.3);
-}
-
 .stat-number {
     font-size: 24px;
     font-weight: 800;
@@ -122,7 +114,7 @@
     letter-spacing: 0.5px;
 }
 
-/* أيقونة الإعدادات (admin) */
+/* أيقونة الإعدادات */
 .settings-icon {
     position: absolute;
     top: 20px;
@@ -145,11 +137,7 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
-.settings-icon:active {
-    transform: scale(0.94);
-}
-
-/* ========== القسم 2: المحتوى القابل للتمرير ========== */
+/* ========== القسم 2 ========== */
 .home-section-2 {
     flex: 1;
     overflow-y: auto;
@@ -157,20 +145,7 @@
     padding: 20px 20px 20px 20px;
 }
 
-/* تخصيص شريط التمرير */
-.home-section-2::-webkit-scrollbar {
-    width: 3px;
-}
-.home-section-2::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-.home-section-2::-webkit-scrollbar-thumb {
-    background: var(--pmu-orange);
-    border-radius: 10px;
-}
-
-/* ========== شريط الفئات ========== */
+/* شريط الفئات */
 .categories-scroll {
     display: flex;
     gap: 12px;
@@ -203,11 +178,7 @@
     border-color: transparent;
 }
 
-.category-item:active {
-    transform: scale(0.95);
-}
-
-/* ========== بطاقات الأماكن ========== */
+/* بطاقات الأماكن */
 .places-section {
     margin-bottom: 25px;
 }
@@ -231,7 +202,6 @@
     cursor: pointer;
 }
 
-/* 🔥 بطاقة المكان مع الصورة المضبوطة */
 .place-card {
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(10px);
@@ -242,11 +212,6 @@
     transition: all 0.2s ease;
 }
 
-.place-card:active {
-    transform: scale(0.98);
-}
-
-/* حاوية الصورة */
 .place-image {
     width: 100%;
     height: 160px;
@@ -257,18 +222,14 @@
     display: block;
 }
 
-/* الصورة نفسها */
 .place-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    margin: 0;
-    padding: 0;
 }
 
-/* تقييم الصورة */
 .rating-badge {
     position: absolute;
     bottom: 12px;
@@ -283,7 +244,6 @@
     z-index: 5;
 }
 
-/* محتوى البطاقة */
 .place-title {
     font-size: 18px;
     font-weight: 700;
@@ -336,11 +296,7 @@
     transition: all 0.2s ease;
 }
 
-.book-btn:active {
-    transform: scale(0.97);
-}
-
-/* ========== قسم التقويم الأكاديمي ========== */
+/* التقويم */
 .calendar-section {
     margin-top: 10px;
 }
@@ -355,10 +311,6 @@
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
-}
-
-.event-card:active {
-    transform: scale(0.98);
 }
 
 .event-date {
@@ -404,7 +356,7 @@
     border: 1px solid rgba(243, 111, 38, 0.15);
 }
 
-/* ========== قسم الأخبار ========== */
+/* الأخبار */
 .news-section {
     margin-top: 15px;
     padding-bottom: 20px;
@@ -417,10 +369,6 @@
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.2s ease;
-}
-
-.news-card:active {
-    transform: scale(0.98);
 }
 
 .news-header {
@@ -466,11 +414,7 @@
     margin: 0;
 }
 
-/* ========================================
-   RESPONSIVE FOR iPAD & TABLETS
-   ======================================== */
-
-/* iPad Portrait & Landscape */
+/* iPad Responsive */
 @media (min-width: 768px) and (max-width: 1024px) {
     .home-section-1 {
         padding: 25px 25px 0 25px;
@@ -485,32 +429,12 @@
         font-size: 38px;
     }
     
-    .hero-header p {
-        font-size: 16px;
-    }
-    
-    .hero-stats {
-        gap: 20px;
-    }
-    
-    .stat-card {
-        padding: 15px;
-    }
-    
     .stat-number {
         font-size: 28px;
     }
     
-    .stat-label {
-        font-size: 11px;
-    }
-    
     .home-section-2 {
         padding: 25px;
-    }
-    
-    .place-card {
-        border-radius: 28px;
     }
     
     .place-image {
@@ -520,31 +444,9 @@
     .place-title {
         font-size: 20px;
     }
-    
-    .event-card {
-        padding: 16px;
-    }
-    
-    .event-date {
-        min-width: 65px;
-        padding: 10px 12px;
-    }
-    
-    .event-date span {
-        font-size: 18px;
-    }
-    
-    .event-info h4 {
-        font-size: 16px;
-    }
 }
 
-/* iPad Pro */
 @media (min-width: 1024px) and (max-width: 1366px) {
-    .hero-wrapper {
-        padding: 45px 40px;
-    }
-    
     .hero-header h1 {
         font-size: 42px;
     }
@@ -552,18 +454,9 @@
     .place-image {
         height: 220px;
     }
-    
-    .home-section-2 {
-        padding: 30px;
-    }
 }
 
-/* Small Tablets */
 @media (min-width: 600px) and (max-width: 767px) {
-    .hero-wrapper {
-        padding: 25px 20px;
-    }
-    
     .hero-header h1 {
         font-size: 28px;
     }
@@ -573,7 +466,6 @@
     }
 }
 
-/* Landscape Mode for Phones */
 @media (max-width: 900px) and (orientation: landscape) {
     .hero-wrapper {
         padding: 15px 20px;
@@ -581,10 +473,6 @@
     
     .hero-header h1 {
         font-size: 24px;
-    }
-    
-    .hero-stats {
-        gap: 10px;
     }
     
     .stat-card {
