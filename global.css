@@ -1,43 +1,44 @@
-/* --- الإعدادات العامة والجذرية --- */
+/* ========================================
+   PMU WAY - MAIN STYLESHEET
+   Version: 2.0 - Clean & Modern
+   ======================================== */
+
+/* ----------------------------------------
+   1. ROOT VARIABLES
+   ---------------------------------------- */
 :root {
+    /* PMU Brand Colors */
     --pmu-blue: #002d56;
     --pmu-orange: #ef7d00;
     --pmu-orange-light: #ff9d33;
     --pmu-orange-dark: #d46900;
-    --dark-bg: #001e3c;
     --pmu-blue-dark: #001223;
     --pmu-blue-light: #004080;
+    --dark-bg: #001e3c;
+    
+    /* UI Effects */
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.08);
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.3s ease;
     
-    --sat: env(safe-area-inset-top);
-    --sar: env(safe-area-inset-right);
-    --sab: env(safe-area-inset-bottom);
-    --sal: env(safe-area-inset-left);
+    /* iOS Safe Areas */
+    --safe-top: env(safe-area-inset-top);
+    --safe-bottom: env(safe-area-inset-bottom);
+    --safe-left: env(safe-area-inset-left);
+    --safe-right: env(safe-area-inset-right);
 }
 
-/* إعادة تعيين الهوامش */
-* { 
-    box-sizing: border-box; 
-    -webkit-tap-highlight-color: transparent; 
-    margin: 0; 
-    padding: 0; 
+/* ----------------------------------------
+   2. RESET & BASE
+   ---------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* الاتجاه من اليسار إلى اليمين */
-body, .app-container, .screen, .bottom-nav, .nav-item {
-    direction: ltr;
-    text-align: left;
-}
-
-/* منع الزوم والتكبير */
 html, body {
     width: 100%;
     height: 100%;
@@ -47,23 +48,36 @@ html, body {
     left: 0;
     right: 0;
     bottom: 0;
-    touch-action: pan-x pan-y;
-    -webkit-text-size-adjust: 100%;
-    background-color: var(--pmu-blue-dark);
+    background: var(--pmu-blue-dark);
 }
 
 body {
-    display: flex;
-    flex-direction: column;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    direction: ltr;
+    text-align: left;
 }
 
+/* Prevent unwanted zoom on inputs */
 input, textarea, select, button {
     font-size: 16px;
     touch-action: manipulation;
 }
 
-/* --- الحاوية الرئيسية --- */
+/* Disable text selection except inputs */
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+input, textarea {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+/* ----------------------------------------
+   3. APP LAYOUT
+   ---------------------------------------- */
 .app-container {
     display: flex;
     flex-direction: column;
@@ -72,13 +86,13 @@ input, textarea, select, button {
     background: linear-gradient(145deg, var(--pmu-blue) 0%, var(--pmu-blue-dark) 100%);
     overflow: hidden;
     position: relative;
-    padding-top: var(--sat, 0px);
+    padding-top: var(--safe-top);
     padding-bottom: 0;
-    padding-left: var(--sal, 0px);
-    padding-right: var(--sar, 0px);
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
 }
 
-/* حاوية الشاشات */
+/* Screens Wrapper */
 .screens-wrapper {
     flex: 1;
     position: relative;
@@ -86,7 +100,9 @@ input, textarea, select, button {
     background: transparent;
 }
 
-/* --- شاشة التحميل --- */
+/* ----------------------------------------
+   4. SPLASH SCREEN
+   ---------------------------------------- */
 #splash-screen {
     position: fixed;
     top: 0;
@@ -100,9 +116,7 @@ input, textarea, select, button {
     justify-content: center;
     align-items: center;
     z-index: 10000;
-    transition: opacity 0.6s ease;
-    margin: 0;
-    padding: 0;
+    transition: opacity 0.5s ease;
 }
 
 .splash-content {
@@ -110,39 +124,28 @@ input, textarea, select, button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: fadeInUp 0.8s ease;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
     text-align: center;
 }
 
-.splash-logo { 
+.splash-logo {
     width: 140px;
     height: auto;
     margin-bottom: 30px;
     animation: pulse 1.5s infinite;
 }
 
-.loader { 
-    width: 45px; 
-    height: 45px; 
-    border: 3px solid rgba(255,255,255,0.1); 
-    border-top: 3px solid var(--pmu-orange); 
+.loader {
+    width: 45px;
+    height: 45px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid var(--pmu-orange);
     border-right: 3px solid var(--pmu-orange-light);
-    border-radius: 50%; 
-    animation: spin 0.8s linear infinite; 
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin { 
-    100% { transform: rotate(360deg); } 
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes spin {
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes pulse {
@@ -150,25 +153,39 @@ input, textarea, select, button {
     50% { transform: scale(1.05); }
 }
 
-/* --- شريط التنقل السفلي --- */
+/* ----------------------------------------
+   5. BOTTOM NAVIGATION BAR
+   ---------------------------------------- */
 .bottom-nav {
-    position: relative;
     flex-shrink: 0;
     width: 100%;
-    height: 55px;
+    height: 60px;
     background: rgba(0, 18, 35, 0.95);
     backdrop-filter: blur(20px);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 100;
-    margin-top: auto;
-    margin-bottom: 0;
-    padding-bottom: 0;
 }
 
-/* عناصر شريط التنقل */
+/* iOS Safe Area Support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+        height: calc(60px + env(safe-area-inset-bottom));
+    }
+}
+
+/* PWA Mode (Saved to Home Screen) */
+@media (display-mode: standalone) {
+    .bottom-nav {
+        height: 55px !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+/* Nav Items */
 .nav-item {
     color: rgba(255, 255, 255, 0.6);
     display: flex;
@@ -179,20 +196,18 @@ input, textarea, select, button {
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 25px;
-    transition: all 0.2s ease;
-    background: transparent;
+    transition: var(--transition);
 }
 
 .nav-item i {
     font-size: 20px;
     margin-bottom: 3px;
-    color: rgba(255, 255, 255, 0.6);
+    transition: var(--transition);
 }
 
 .nav-item span {
     font-size: 9px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
 }
 
 .nav-item.active {
@@ -200,11 +215,7 @@ input, textarea, select, button {
 }
 
 .nav-item.active i {
-    color: var(--pmu-orange);
     transform: translateY(-2px);
-}
-
-.nav-item.active span {
     color: var(--pmu-orange);
 }
 
@@ -212,31 +223,22 @@ input, textarea, select, button {
     transform: scale(0.94);
 }
 
-/* دعم الأيفون */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .bottom-nav {
-        padding-bottom: env(safe-area-inset-bottom);
-        height: calc(55px + env(safe-area-inset-bottom));
-    }
-}
-
-/* وضع التطبيق المحفوظ (PWA) */
+/* PWA Mode Nav Items */
 @media (display-mode: standalone) {
-    .bottom-nav {
-        height: 50px !important;
-        padding-bottom: 0 !important;
-    }
-    
     .nav-item i {
         font-size: 18px !important;
     }
-    
     .nav-item span {
         font-size: 8px !important;
     }
+    .nav-item {
+        padding: 4px 10px !important;
+    }
 }
 
-/* --- الشاشات - بدون أي padding سفلي --- */
+/* ----------------------------------------
+   6. SCREENS
+   ---------------------------------------- */
 .screen {
     position: absolute;
     top: 0;
@@ -245,8 +247,8 @@ input, textarea, select, button {
     bottom: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: transparent !important;
-    padding: 0 !important;
+    background: transparent;
+    padding: 0;
 }
 
 .screen.hidden {
@@ -258,73 +260,48 @@ input, textarea, select, button {
     flex-direction: column;
 }
 
-/* المحتوى الداخلي - المسافة المناسبة هنا فقط */
+/* Content Area for Screens */
 .page-content {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 75px;
+    padding-bottom: 20px;
 }
 
-/* الصفحة الرئيسية */
+/* Home Page Content */
 .home-section-2 {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 75px;
+    padding-bottom: 20px;
 }
 
-/* دعم الأيفون للمحتوى الداخلي */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .page-content,
-    .home-section-2 {
-        padding-bottom: calc(75px + env(safe-area-inset-bottom));
-    }
-}
-
-@media (display-mode: standalone) {
-    .page-content,
-    .home-section-2 {
-        padding-bottom: 70px !important;
-    }
-}
-
-/* إزالة أي عناصر وهمية */
-#splash-screen::before,
-#splash-screen::after,
-.app-container::before,
-.app-container::after,
-.screens-wrapper::after,
-.bottom-nav::before,
-.bottom-nav::after {
-    display: none !important;
-    content: none !important;
-}
-
-/* تخصيص شريط التمرير */
-.screen::-webkit-scrollbar,
+/* Custom Scrollbar */
 .page-content::-webkit-scrollbar,
 .home-section-2::-webkit-scrollbar {
     width: 4px;
 }
-.screen::-webkit-scrollbar-track,
+
 .page-content::-webkit-scrollbar-track,
 .home-section-2::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
-.screen::-webkit-scrollbar-thumb,
+
 .page-content::-webkit-scrollbar-thumb,
 .home-section-2::-webkit-scrollbar-thumb {
     background: var(--pmu-orange);
     border-radius: 10px;
 }
 
-/* --- كروت عامة --- */
+/* ----------------------------------------
+   7. CARDS & COMPONENTS
+   ---------------------------------------- */
+/* Admin Card */
 .admin-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
@@ -332,7 +309,7 @@ input, textarea, select, button {
     margin: 15px;
     text-align: center;
     box-shadow: var(--card-shadow);
-    transition: var(--transition-smooth);
+    transition: var(--transition);
 }
 
 .admin-card:hover {
@@ -340,22 +317,21 @@ input, textarea, select, button {
     border-color: rgba(239, 125, 0, 0.3);
 }
 
-/* --- عداد التذكيرات --- */
+/* Reminder Card */
 .reminder-card {
     background: rgba(0, 18, 35, 0.6);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     padding: 20px;
     margin: 15px;
-    transition: var(--transition-smooth);
-    animation: fadeInUp 0.4s ease;
+    transition: var(--transition);
 }
 
 .reminder-card:hover {
     transform: translateY(-5px);
     border-color: var(--pmu-orange);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow);
 }
 
 .reminder-header {
@@ -368,12 +344,13 @@ input, textarea, select, button {
 .reminder-title {
     font-size: 16px;
     font-weight: 700;
-    color: #fff;
+    color: white;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+/* Countdown Timer */
 .modern-countdown {
     display: flex;
     justify-content: center;
@@ -390,12 +367,7 @@ input, textarea, select, button {
     border: 1px solid rgba(239, 125, 0, 0.15);
     padding: 12px 5px;
     border-radius: 16px;
-    transition: var(--transition-smooth);
-}
-
-.time-box:hover {
-    background: rgba(239, 125, 0, 0.15);
-    transform: scale(1.02);
+    transition: var(--transition);
 }
 
 .time-value {
@@ -411,7 +383,6 @@ input, textarea, select, button {
     color: rgba(255, 255, 255, 0.6);
     margin-top: 4px;
     font-weight: 600;
-    letter-spacing: 0.5px;
 }
 
 .delete-rem-btn {
@@ -422,7 +393,7 @@ input, textarea, select, button {
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    transition: var(--transition-smooth);
+    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -434,7 +405,9 @@ input, textarea, select, button {
     transform: scale(1.05);
 }
 
-/* --- أزرار --- */
+/* ----------------------------------------
+   8. BUTTONS
+   ---------------------------------------- */
 .btn-primary {
     background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
     color: white;
@@ -448,35 +421,35 @@ input, textarea, select, button {
     width: 85%;
     max-width: 300px;
     cursor: pointer;
-    transition: var(--transition-smooth);
+    transition: var(--transition);
     box-shadow: 0 6px 20px rgba(239, 125, 0, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.btn-primary:active::before {
-    width: 300px;
-    height: 300px;
 }
 
 .btn-primary:active {
     transform: scale(0.97);
 }
 
-/* --- بادجات --- */
+.btn-add-now {
+    width: 100%;
+    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
+}
+
+.btn-add-now:active {
+    transform: scale(0.97);
+}
+
+/* ----------------------------------------
+   9. BADGES
+   ---------------------------------------- */
 .badge {
     background: rgba(255, 255, 255, 0.08);
     padding: 6px 14px;
@@ -494,17 +467,55 @@ input, textarea, select, button {
     background: rgba(239, 125, 0, 0.1);
 }
 
-/* --- حركات --- */
-@keyframes pageReveal {
-    0% { opacity: 0; transform: translateY(20px); filter: blur(5px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+/* ----------------------------------------
+   10. FORMS & INPUTS
+   ---------------------------------------- */
+.add-reminder-form {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 25px 20px;
+    margin: 15px auto;
+    width: calc(100% - 30px);
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    backdrop-filter: blur(15px);
+    transition: var(--transition);
 }
 
-.screen:not(.hidden) {
-    animation: pageReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.modern-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 14px 20px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: var(--transition);
 }
 
-/* --- Toast --- */
+.modern-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--pmu-orange);
+    box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.1);
+}
+
+.modern-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Date Picker Icon Color */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
+    cursor: pointer;
+}
+
+/* ----------------------------------------
+   11. TOAST NOTIFICATION
+   ---------------------------------------- */
 #custom-toast {
     position: fixed;
     bottom: 80px;
@@ -523,7 +534,6 @@ input, textarea, select, button {
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     opacity: 0;
     pointer-events: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
 }
 
@@ -537,77 +547,69 @@ input, textarea, select, button {
     transform: translateX(-50%) translateY(0);
 }
 
-/* --- نماذج --- */
-.add-reminder-form {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 28px;
-    padding: 25px 20px;
-    margin: 15px auto;
-    width: calc(100% - 30px);
-    max-width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    backdrop-filter: blur(15px);
-    transition: var(--transition-smooth);
+/* ----------------------------------------
+   12. ANIMATIONS
+   ---------------------------------------- */
+@keyframes pageReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.add-reminder-form:hover {
-    border-color: rgba(239, 125, 0, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+.screen:not(.hidden) {
+    animation: pageReveal 0.4s ease-out forwards;
 }
 
-.modern-input {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    padding: 14px 20px;
-    color: white;
-    font-size: 15px;
-    outline: none;
-    transition: var(--transition-smooth);
+/* ----------------------------------------
+   13. BACKGROUND EFFECTS (Optional)
+   ---------------------------------------- */
+.bg-glow-1,
+.bg-glow-2 {
+    display: none;
 }
 
-.modern-input:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--pmu-orange);
-    box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.1);
+/* ----------------------------------------
+   14. UTILITY CLASSES
+   ---------------------------------------- */
+.hidden {
+    display: none !important;
 }
 
-.modern-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+.text-center {
+    text-align: center;
 }
 
-.btn-add-now {
-    width: 100%;
-    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
-}
+.mt-1 { margin-top: 5px; }
+.mt-2 { margin-top: 10px; }
+.mt-3 { margin-top: 15px; }
+.mb-1 { margin-bottom: 5px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 15px; }
 
-.btn-add-now:active {
-    transform: scale(0.97);
-}
-
-/* --- دعم الأيباد --- */
+/* ----------------------------------------
+   15. RESPONSIVE (iPad Support)
+   ---------------------------------------- */
 @media (min-width: 768px) and (max-width: 1024px) {
     .page-content,
     .home-section-2 {
         padding: 20px;
-        padding-bottom: 85px;
+    }
+    
+    .btn-primary,
+    .btn-add-now {
+        padding: 16px 32px;
+        font-size: 16px;
     }
 }
 
-/* --- دعم الشاشات الكبيرة --- */
+/* ----------------------------------------
+   16. LARGE SCREENS (Desktop)
+   ---------------------------------------- */
 @media (min-width: 1025px) {
     .app-container {
         max-width: 500px;
