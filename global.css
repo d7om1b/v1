@@ -1,6 +1,6 @@
 /* ========================================
    PMU WAY - MAIN STYLESHEET
-   Version: 2.0 - Clean & Modern
+   Version: 3.0 - Full iOS/iPad Compatible
    ======================================== */
 
 /* ----------------------------------------
@@ -262,7 +262,7 @@ input, textarea {
 /* Custom Scrollbar */
 .page-content::-webkit-scrollbar,
 .home-section-2::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
 }
 
 .page-content::-webkit-scrollbar-track,
@@ -280,7 +280,6 @@ input, textarea {
 /* ----------------------------------------
    7. CARDS & COMPONENTS
    ---------------------------------------- */
-/* Admin Card */
 .admin-card {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -293,12 +292,6 @@ input, textarea {
     transition: var(--transition);
 }
 
-.admin-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(239, 125, 0, 0.3);
-}
-
-/* Reminder Card */
 .reminder-card {
     background: rgba(0, 18, 35, 0.6);
     backdrop-filter: blur(15px);
@@ -307,12 +300,6 @@ input, textarea {
     padding: 20px;
     margin: 15px;
     transition: var(--transition);
-}
-
-.reminder-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--pmu-orange);
-    box-shadow: var(--card-shadow);
 }
 
 .reminder-header {
@@ -331,7 +318,6 @@ input, textarea {
     gap: 8px;
 }
 
-/* Countdown Timer */
 .modern-countdown {
     display: flex;
     justify-content: center;
@@ -344,8 +330,8 @@ input, textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(239, 125, 0, 0.08);
-    border: 1px solid rgba(239, 125, 0, 0.15);
+    background: rgba(243, 111, 38, 0.08);
+    border: 1px solid rgba(243, 111, 38, 0.15);
     padding: 12px 5px;
     border-radius: 16px;
     transition: var(--transition);
@@ -380,12 +366,6 @@ input, textarea {
     justify-content: center;
 }
 
-.delete-rem-btn:hover {
-    background: #ff4444;
-    color: white;
-    transform: scale(1.05);
-}
-
 /* ----------------------------------------
    8. BUTTONS
    ---------------------------------------- */
@@ -403,7 +383,7 @@ input, textarea {
     max-width: 300px;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 6px 20px rgba(239, 125, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(243, 111, 38, 0.3);
 }
 
 .btn-primary:active {
@@ -421,7 +401,7 @@ input, textarea {
     font-size: 15px;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(243, 111, 38, 0.3);
 }
 
 .btn-add-now:active {
@@ -445,7 +425,7 @@ input, textarea {
 .badge.highlight {
     border-color: var(--pmu-orange);
     color: var(--pmu-orange);
-    background: rgba(239, 125, 0, 0.1);
+    background: rgba(243, 111, 38, 0.1);
 }
 
 /* ----------------------------------------
@@ -481,7 +461,7 @@ input, textarea {
 .modern-input:focus {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--pmu-orange);
-    box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.1);
+    box-shadow: 0 0 0 3px rgba(243, 111, 38, 0.1);
 }
 
 .modern-input::placeholder {
@@ -507,7 +487,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     color: white;
     padding: 12px 24px;
     border-radius: 50px;
-    border: 1px solid rgba(239, 125, 0, 0.4);
+    border: 1px solid rgba(243, 111, 38, 0.4);
     z-index: 20000;
     display: flex;
     align-items: center;
@@ -547,7 +527,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 /* ----------------------------------------
-   13. BACKGROUND EFFECTS (Optional)
+   13. BACKGROUND EFFECTS
    ---------------------------------------- */
 .bg-glow-1,
 .bg-glow-2 {
@@ -565,51 +545,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     text-align: center;
 }
 
-.mt-1 { margin-top: 5px; }
-.mt-2 { margin-top: 10px; }
-.mt-3 { margin-top: 15px; }
-.mb-1 { margin-bottom: 5px; }
-.mb-2 { margin-bottom: 10px; }
-.mb-3 { margin-bottom: 15px; }
-
 /* ----------------------------------------
-   15. RESPONSIVE (iPad Support)
-   ---------------------------------------- */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .page-content,
-    .home-section-2 {
-        padding: 20px;
-        padding-bottom: 85px;
-    }
-    
-    .btn-primary,
-    .btn-add-now {
-        padding: 16px 32px;
-        font-size: 16px;
-    }
-}
-
-/* ----------------------------------------
-   16. LARGE SCREENS (Desktop)
-   ---------------------------------------- */
-@media (min-width: 1025px) {
-    .app-container {
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    
-    .bottom-nav {
-        max-width: 500px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* ----------------------------------------
-   17. PWA MODE FIX (Saved to Home Screen)
+   15. PWA MODE FIX (Saved to Home Screen)
    ---------------------------------------- */
 @media (display-mode: standalone) {
-    /* تثبيت شريط التنقل في القاع */
     .bottom-nav {
         position: fixed !important;
         bottom: 0 !important;
@@ -618,12 +557,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         height: 55px !important;
         background: rgba(0, 18, 35, 0.98) !important;
         margin-top: 0 !important;
-        margin-bottom: 0 !important;
         padding-bottom: 0 !important;
         z-index: 9999 !important;
     }
     
-    /* تصغير حجم الأيقونات في وضع PWA */
     .nav-item i {
         font-size: 18px !important;
     }
@@ -632,11 +569,6 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         font-size: 8px !important;
     }
     
-    .nav-item {
-        padding: 4px 10px !important;
-    }
-    
-    /* تعويض المسافة في المحتوى */
     .screen {
         padding-bottom: 70px !important;
     }
@@ -645,20 +577,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     .home-section-2 {
         padding-bottom: 80px !important;
     }
-    
-    /* إزالة أي مسافات إضافية */
-    .app-container {
-        padding-bottom: 0 !important;
-    }
-    
-    .screens-wrapper {
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-    }
 }
 
 /* ----------------------------------------
-   18. iOS SAFE AREA SUPPORT FOR PWA
+   16. iOS SAFE AREA SUPPORT
    ---------------------------------------- */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     @media (display-mode: standalone) {
@@ -678,20 +600,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     }
 }
 
-
-
 /* ----------------------------------------
-   19. FULL RESPONSIVE FOR iPad & TABLETS
+   17. IPAD & TABLET RESPONSIVE
    ---------------------------------------- */
-
-/* iPad Portrait & Landscape (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
-    /* تعديل حجم الخطوط والعناصر */
-    body {
-        font-size: 16px;
-    }
-    
-    /* شريط التنقل أكبر قليلاً للأيباد */
     .bottom-nav {
         height: 70px;
     }
@@ -704,14 +616,12 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         font-size: 11px;
     }
     
-    /* المحتوى */
     .page-content,
     .home-section-2 {
         padding: 25px;
         padding-bottom: 90px;
     }
     
-    /* الهيرو */
     .hero-wrapper {
         padding: 40px 35px;
         border-radius: 40px;
@@ -721,96 +631,23 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         font-size: 38px;
     }
     
-    .hero-header p {
-        font-size: 16px;
-    }
-    
-    /* بطاقات الإحصائيات */
-    .hero-stats {
-        gap: 20px;
-    }
-    
-    .stat-card {
-        padding: 15px;
-    }
-    
     .stat-number {
         font-size: 28px;
-    }
-    
-    .stat-label {
-        font-size: 11px;
-    }
-    
-    /* بطاقات الأماكن */
-    .place-card {
-        border-radius: 28px;
     }
     
     .place-image {
         height: 200px;
     }
     
-    .place-title {
-        font-size: 20px;
-    }
-    
-    /* الحقول في البروفايل */
-    .pmu-outlined-field .input-box {
-        height: 60px;
-    }
-    
-    .pmu-outlined-field input {
-        font-size: 16px;
-    }
-    
-    .pmu-outlined-field label {
-        font-size: 12px;
-        top: -13px;
-    }
-    
-    /* الأزرار */
     .btn-primary,
     .pmu-btn-signin {
         padding: 16px 24px;
         font-size: 16px;
-        max-width: 350px;
-    }
-    
-    /* بطاقات التقويم */
-    .event-card {
-        padding: 16px;
-    }
-    
-    .event-date {
-        min-width: 65px;
-        padding: 10px 12px;
-    }
-    
-    .event-date span {
-        font-size: 18px;
-    }
-    
-    .event-info h4 {
-        font-size: 16px;
-    }
-    
-    /* التذكيرات */
-    .reminder-card {
-        padding: 25px;
-    }
-    
-    .time-value {
-        font-size: 24px;
     }
 }
 
-/* iPad Pro (1024px - 1366px) */
+/* iPad Pro */
 @media (min-width: 1024px) and (max-width: 1366px) {
-    .hero-wrapper {
-        padding: 45px 40px;
-    }
-    
     .hero-header h1 {
         font-size: 42px;
     }
@@ -824,26 +661,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         padding: 30px;
         padding-bottom: 100px;
     }
-    
-    .bottom-nav {
-        height: 75px;
-    }
-    
-    .nav-item i {
-        font-size: 26px;
-    }
-    
-    .nav-item span {
-        font-size: 12px;
-    }
 }
 
-/* Small Tablets (600px - 768px) */
+/* Small Tablets */
 @media (min-width: 600px) and (max-width: 767px) {
-    .hero-wrapper {
-        padding: 25px 20px;
-    }
-    
     .hero-header h1 {
         font-size: 28px;
     }
@@ -851,15 +672,9 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     .place-image {
         height: 150px;
     }
-    
-    .page-content,
-    .home-section-2 {
-        padding: 15px;
-        padding-bottom: 80px;
-    }
 }
 
-/* Landscape Mode for Phones (调整横屏模式) */
+/* Landscape Mode */
 @media (max-width: 900px) and (orientation: landscape) {
     .hero-wrapper {
         padding: 15px 20px;
@@ -867,10 +682,6 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     
     .hero-header h1 {
         font-size: 24px;
-    }
-    
-    .hero-stats {
-        gap: 10px;
     }
     
     .stat-card {
@@ -885,162 +696,21 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         height: 120px;
     }
     
-    .home-section-2 {
-        padding-bottom: 70px;
-    }
-    
     .bottom-nav {
         height: 50px;
     }
-    
-    .nav-item i {
-        font-size: 16px;
-    }
 }
 
-/* ----------------------------------------
-   20. CENTERING FOR LARGER SCREENS (iPad & Desktop)
-   ---------------------------------------- */
-@media (min-width: 768px) {
-    /* توسيط التطبيق في منتصف الشاشة للأجهزة الكبيرة */
+/* Desktop */
+@media (min-width: 1025px) {
     .app-container {
         max-width: 500px;
         margin: 0 auto;
-        border-radius: 0;
-        box-shadow: none;
     }
     
-    /* شريط التنقل يتم توسيطه أيضاً */
     .bottom-nav {
         max-width: 500px;
         left: 50%;
         transform: translateX(-50%);
     }
-    
-    /* Toast يتم توسيطه */
-    #custom-toast {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* ----------------------------------------
-   21. iPAD SPECIFIC FIXES
-   ---------------------------------------- */
-@media (min-width: 768px) and (max-width: 1024px) {
-    /* إصلاح مشكلة الـ Safe Area في iPad */
-    .app-container {
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-    }
-    
-    /* تحسين ظهور الصور */
-    .place-img,
-    .profile-header-img,
-    .result-image {
-        border-radius: 20px;
-    }
-    
-    /* تحسين المسافات في صفحة البحث */
-    .result-card {
-        max-width: 450px;
-    }
-    
-    .result-image {
-        height: 250px;
-    }
-    
-    /* تحسين صفحة الخريطة */
-    .map-wrapper {
-        border-radius: 30px;
-        margin: 15px;
-    }
-    
-    /* تحسين صفحة الأدمن */
-    .admin-card {
-        padding: 25px;
-        margin: 20px;
-    }
-    
-    .admin-stats-grid {
-        gap: 20px;
-    }
-    
-    .stat-card {
-        padding: 20px;
-    }
-    
-    .stat-card span {
-        font-size: 28px;
-    }
-}
-
-
-/* ----------------------------------------
-   iOS SPECIAL INSTALL MESSAGE
-   ---------------------------------------- */
-#ios-toast {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    background: rgba(17, 42, 78, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    border: 1px solid rgba(243, 111, 38, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    z-index: 20002;
-    transform: translateY(-100px);
-    transition: transform 0.3s ease;
-}
-
-#ios-toast.show {
-    transform: translateY(0);
-}
-
-.ios-toast-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-}
-
-.ios-toast-content i:first-child {
-    font-size: 32px;
-    color: white;
-}
-
-.ios-toast-content div {
-    flex: 1;
-}
-
-.ios-toast-content strong {
-    display: block;
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.ios-toast-content p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 12px;
-    margin: 5px 0 0 0;
-}
-
-.ios-toast-content p i {
-    font-size: 14px;
-    color: var(--pmu-orange);
-}
-
-.close-ios {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: white;
 }
