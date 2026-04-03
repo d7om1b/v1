@@ -321,63 +321,301 @@
         </section>
 
         <!-- ==================== ADMIN DASHBOARD ==================== -->
+            <!-- ==================== ADMIN DASHBOARD - ENHANCED ==================== -->
         <section id="admin-dashboard" class="screen hidden">
-            <div class="page-content">
-                <div class="admin-main-wrapper">
-                    <div class="res-header">
-                        <h2>Admin Dashboard</h2>
-                    </div>
-                    <div class="admin-stats-grid">
-                        <div class="stat-card">
-                            <i class="fa-solid fa-door-closed"></i>
-                            <span id="stat-rooms-count">0</span>
-                            <p>Rooms</p>
+            <div class="page-content" style="padding: 0;">
+                <div class="admin-dashboard-container">
+                    
+                    <!-- Header -->
+                    <div class="admin-dashboard-header">
+                        <div class="admin-header-left">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <h2>Admin Dashboard</h2>
                         </div>
-                        <div class="stat-card highlight">
-                            <i class="fa-solid fa-calendar-check"></i>
-                            <span id="stat-events-count">0</span>
-                            <p>Events</p>
-                        </div>
-                    </div>
-                    <div class="admin-card">
-                        <h3><i class="fa-solid fa-palette"></i> App Appearance</h3>
-                        <div class="color-picker-wrapper">
-                            <p>Primary Theme Color</p>
-                            <input type="color" id="colorPicker" value="#ef7d00" onchange="updateThemeColor(this.value)">
+                        <div class="admin-header-right">
+                            <span class="admin-badge">Super Admin</span>
+                            <button class="logout-btn" onclick="logoutAdmin()">
+                                <i class="fa-solid fa-sign-out-alt"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="admin-card">
-                        <h3><i class="fa-solid fa-plus-circle"></i> Add New Room</h3>
-                        <div class="admin-form">
-                            <input type="text" id="newRoomNumber" placeholder="Room Number" class="admin-input">
-                            <input type="text" id="newRoomBuilding" placeholder="Building Name" class="admin-input">
-                            <input type="text" id="newRoomFloor" placeholder="Floor Level" class="admin-input">
-                            <textarea id="newRoomDesc" placeholder="Room Description" class="admin-input"></textarea>
-                            <div class="file-upload-box">
-                                <label for="newRoomImage"><i class="fa-solid fa-image"></i> Upload Room Image</label>
-                                <input type="file" id="newRoomImage" accept="image/*" style="display: none;">
+                    
+                    <!-- Tabs Navigation -->
+                    <div class="admin-tabs">
+                        <div class="admin-tab active" data-tab="dashboard">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Dashboard</span>
+                        </div>
+                        <div class="admin-tab" data-tab="users">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Users</span>
+                        </div>
+                        <div class="admin-tab" data-tab="rooms">
+                            <i class="fa-solid fa-door-open"></i>
+                            <span>Rooms</span>
+                        </div>
+                        <div class="admin-tab" data-tab="events">
+                            <i class="fa-solid fa-calendar"></i>
+                            <span>Events</span>
+                        </div>
+                        <div class="admin-tab" data-tab="notifications">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Alerts</span>
+                        </div>
+                        <div class="admin-tab" data-tab="appearance">
+                            <i class="fa-solid fa-palette"></i>
+                            <span>Appearance</span>
+                        </div>
+                        <div class="admin-tab" data-tab="backup">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Backup</span>
+                        </div>
+                    </div>
+                    
+                    <!-- ===== TAB 1: DASHBOARD ===== -->
+                    <div id="admin-tab-dashboard" class="admin-tab-content active">
+                        <!-- Stats Cards -->
+                        <div class="stats-grid">
+                            <div class="stat-card-large">
+                                <i class="fa-solid fa-door-closed"></i>
+                                <span class="stat-value" id="stat-rooms-count">0</span>
+                                <span class="stat-label">Total Rooms</span>
                             </div>
-                            <button class="btn-primary" onclick="addNewRoom()">Save Room</button>
-                        </div>
-                    </div>
-                    <div class="admin-card">
-                        <h3><i class="fa-solid fa-tasks"></i> Manage Rooms</h3>
-                        <div id="admin-rooms-list" class="list-container"></div>
-                    </div>
-                    <div class="admin-card">
-                        <h3><i class="fa-solid fa-calendar-plus"></i> Events Manager</h3>
-                        <div id="admin-events-list" class="list-container"></div>
-                        <div class="divider"></div>
-                        <div class="admin-form">
-                            <div style="display: flex; gap: 10px;">
-                                <input type="text" id="eventMonth" placeholder="Month (SEP)" class="admin-input">
-                                <input type="number" id="eventDay" placeholder="Day" class="admin-input">
+                            <div class="stat-card-large">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                <span class="stat-value" id="stat-events-count">0</span>
+                                <span class="stat-label">Total Events</span>
                             </div>
-                            <input type="text" id="eventTitle" placeholder="Event Title" class="admin-input">
-                            <button class="btn-primary" onclick="addNewEvent()">Add New Event</button>
+                            <div class="stat-card-large">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="stat-value" id="stat-users-count">0</span>
+                                <span class="stat-label">Total Users</span>
+                            </div>
+                            <div class="stat-card-large">
+                                <i class="fa-solid fa-bell"></i>
+                                <span class="stat-value" id="stat-reminders-count">0</span>
+                                <span class="stat-label">Reminders</span>
+                            </div>
+                            <div class="stat-card-large">
+                                <i class="fa-solid fa-heart"></i>
+                                <span class="stat-value" id="stat-favorites-count">0</span>
+                                <span class="stat-label">Favorites</span>
+                            </div>
+                            <div class="stat-card-large">
+                                <i class="fa-solid fa-chart-line"></i>
+                                <span class="stat-value" id="stat-app-opens">0</span>
+                                <span class="stat-label">App Opens</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity -->
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-clock"></i> Recent Activity</h3>
+                            <div id="recent-activity-list" class="activity-list">
+                                <div class="activity-item">
+                                    <i class="fa-solid fa-user-check"></i>
+                                    <div>
+                                        <strong>Admin logged in</strong>
+                                        <span>Just now</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button class="btn-logout" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i> Logout</button>
+                    
+                    <!-- ===== TAB 2: USERS MANAGEMENT ===== -->
+                    <div id="admin-tab-users" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-users"></i> Manage Users</h3>
+                                <button class="btn-small" onclick="showAddUserModal()">
+                                    <i class="fa-solid fa-plus"></i> Add User
+                                </button>
+                            </div>
+                            <div id="users-list-container" class="users-list"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- ===== TAB 3: ROOMS MANAGEMENT ===== -->
+                    <div id="admin-tab-rooms" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-plus-circle"></i> Add New Room</h3>
+                            <div class="admin-form">
+                                <input type="text" id="newRoomNumber" placeholder="Room Number (e.g. 101)" class="admin-input">
+                                <input type="text" id="newRoomBuilding" placeholder="Building Name" class="admin-input">
+                                <input type="text" id="newRoomFloor" placeholder="Floor Level" class="admin-input">
+                                <textarea id="newRoomDesc" placeholder="Room Description (English)" class="admin-input" rows="2"></textarea>
+                                <textarea id="newRoomDescAr" placeholder="وصف الغرفة (Arabic)" class="admin-input" rows="2"></textarea>
+                                <div class="file-upload-box">
+                                    <label for="newRoomImage">
+                                        <i class="fa-solid fa-image"></i> Upload Room Image
+                                    </label>
+                                    <input type="file" id="newRoomImage" accept="image/*" style="display: none;">
+                                </div>
+                                <button class="btn-primary" onclick="addNewRoom()">Save Room</button>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-list"></i> All Rooms</h3>
+                            <div id="admin-rooms-list" class="rooms-list"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- ===== TAB 4: EVENTS MANAGEMENT ===== -->
+                    <div id="admin-tab-events" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-calendar-plus"></i> Add New Event</h3>
+                            <div class="admin-form">
+                                <div class="form-row">
+                                    <input type="text" id="eventMonth" placeholder="Month (e.g. SEP)" class="admin-input">
+                                    <input type="number" id="eventDay" placeholder="Day" class="admin-input">
+                                </div>
+                                <input type="text" id="eventTitle" placeholder="Event Title" class="admin-input">
+                                <button class="btn-primary" onclick="addNewEvent()">Add Event</button>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-list"></i> All Events</h3>
+                            <div id="admin-events-list" class="events-list"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- ===== TAB 5: NOTIFICATIONS ===== -->
+                    <div id="admin-tab-notifications" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-bell"></i> Send Notification</h3>
+                            <div class="notification-form">
+                                <input type="text" id="notificationTitle" placeholder="Notification Title" class="admin-input">
+                                <textarea id="notificationMessage" placeholder="Notification Message..." class="admin-input" rows="3"></textarea>
+                                <select id="notificationType" class="admin-input">
+                                    <option value="info">📢 Info</option>
+                                    <option value="warning">⚠️ Warning</option>
+                                    <option value="success">✅ Success</option>
+                                    <option value="event">🎉 Event</option>
+                                </select>
+                                <div class="notification-preview" id="notificationPreview">
+                                    <div class="preview-header">
+                                        <i class="fa-regular fa-bell"></i>
+                                        <span>Preview</span>
+                                    </div>
+                                    <div class="preview-content">
+                                        <strong id="previewTitle">Notification Title</strong>
+                                        <p id="previewMessage">Your message will appear here</p>
+                                    </div>
+                                </div>
+                                <button class="btn-primary" onclick="sendNotification()">
+                                    <i class="fa-solid fa-paper-plane"></i> Send Notification
+                                </button>
+                                <button class="btn-secondary" onclick="requestNotificationPermission()">
+                                    <i class="fa-solid fa-bell"></i> Enable Notifications
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-history"></i> Notification History</h3>
+                            <div id="notification-history" class="notification-history"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- ===== TAB 6: APPEARANCE ===== -->
+                    <div id="admin-tab-appearance" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-palette"></i> App Appearance</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Primary Theme Color</h4>
+                                    <p>Customize the app's primary color</p>
+                                </div>
+                                <input type="color" id="colorPicker" value="#f36f26" onchange="updateThemeColor(this.value)" style="width: 60px; height: 40px; border-radius: 12px; cursor: pointer;">
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Dark Mode</h4>
+                                    <p>Switch between light and dark theme</p>
+                                </div>
+                                <div class="toggle-switch" id="darkModeToggle" onclick="toggleDarkMode()"></div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Language</h4>
+                                    <p>Switch between English and Arabic</p>
+                                </div>
+                                <button class="btn-small" onclick="toggleLanguage()">
+                                    <i class="fa-solid fa-globe"></i> Switch Language
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-shield"></i> Security</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Change Admin Password</h4>
+                                    <p>Update your admin credentials</p>
+                                </div>
+                                <button class="btn-small" onclick="showChangePasswordModal()">
+                                    <i class="fa-solid fa-key"></i> Change Password
+                                </button>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Session Timeout</h4>
+                                    <p>Auto logout after inactivity</p>
+                                </div>
+                                <select id="sessionTimeout" class="admin-input" style="width: 100px;">
+                                    <option value="5">5 min</option>
+                                    <option value="15" selected>15 min</option>
+                                    <option value="30">30 min</option>
+                                    <option value="60">60 min</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ===== TAB 7: BACKUP & RESTORE ===== -->
+                    <div id="admin-tab-backup" class="admin-tab-content hidden">
+                        <div class="admin-card">
+                            <h3><i class="fa-solid fa-database"></i> Backup & Restore</h3>
+                            <div class="backup-actions">
+                                <button class="admin-action-btn" onclick="exportData()">
+                                    <i class="fa-solid fa-download"></i> Export All Data
+                                </button>
+                                <label class="admin-action-btn">
+                                    <i class="fa-solid fa-upload"></i> Import Data
+                                    <input type="file" accept=".json" onchange="importData(event)" style="display: none;">
+                                </label>
+                            </div>
+                            <div class="backup-info">
+                                <p><i class="fa-solid fa-circle-info"></i> Last backup: <span id="lastBackupDate">Never</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card danger-zone">
+                            <h3><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Reset All Data</h4>
+                                    <p>This will permanently delete all app data</p>
+                                </div>
+                                <button class="btn-danger" onclick="resetApp()">
+                                    <i class="fa-solid fa-trash-can"></i> Reset Everything
+                                </button>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <h4>Delete All Custom Rooms</h4>
+                                    <p>Remove all custom rooms (system rooms will remain)</p>
+                                </div>
+                                <button class="btn-danger" onclick="deleteAllCustomRooms()">
+                                    <i class="fa-solid fa-trash"></i> Delete All Rooms
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </section>
