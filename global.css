@@ -11,6 +11,12 @@
     --glass-border: rgba(255, 255, 255, 0.08);
     --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* متغيرات الأمان لأجهزة iOS */
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
 }
 
 .hidden {
@@ -58,7 +64,7 @@ input, textarea, select, button {
     touch-action: manipulation;
 }
 
-/* --- الحاوية الرئيسية --- */
+/* --- الحاوية الرئيسية مع دعم الأيفون --- */
 .app-container {
     display: flex;
     flex-direction: column;
@@ -67,6 +73,11 @@ input, textarea, select, button {
     background: linear-gradient(145deg, var(--pmu-blue) 0%, var(--pmu-blue-dark) 100%);
     overflow: hidden;
     position: relative;
+    /* دعم المسافات الآمنة */
+    padding-top: var(--sat, 0px);
+    padding-bottom: var(--sab, 0px);
+    padding-left: var(--sal, 0px);
+    padding-right: var(--sar, 0px);
 }
 
 /* --- حاوية الشاشات --- */
@@ -90,6 +101,8 @@ input, textarea, select, button {
     align-items: center;
     z-index: 10000;
     transition: opacity 0.6s ease;
+    padding-top: var(--sat, 0px);
+    padding-bottom: var(--sab, 0px);
 }
 
 .splash-content {
@@ -137,12 +150,11 @@ input, textarea, select, button {
     50% { transform: scale(1.05); }
 }
 
-/* --- شريط التنقل السفلي - ناعم وصغير --- */
-/* --- شريط التنقل السفلي - تصغير الارتفاع نهائياً --- */
+/* --- شريط التنقل السفلي - تصغير الارتفاع --- */
 .bottom-nav {
     flex-shrink: 0;
     width: 100%;
-    height: 50px !important;  /* تصغير إجباري */
+    height: 50px !important;
     min-height: 50px !important;
     max-height: 50px !important;
     background: rgba(0, 18, 35, 0.95);
@@ -152,7 +164,7 @@ input, textarea, select, button {
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     z-index: 100;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: var(--sab, 0px);
     box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -166,13 +178,13 @@ input, textarea, select, button {
     cursor: pointer;
     padding: 4px 10px;
     border-radius: 25px;
-    transition: all 0.2s ease;
+    transition: var(--transition-smooth);
 }
 
 .nav-item i {
     font-size: 16px;
     margin-bottom: 2px;
-    transition: all 0.2s ease;
+    transition: var(--transition-smooth);
 }
 
 .nav-item span {
@@ -193,7 +205,7 @@ input, textarea, select, button {
     transform: scale(0.94);
 }
 
-/* --- الشاشات - مسافة مناسبة للشريط الصغير --- */
+/* --- الشاشات --- */
 .screen {
     position: absolute;
     top: 0;
@@ -203,6 +215,8 @@ input, textarea, select, button {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: transparent !important;
+    padding-top: calc(15px + var(--sat, 0px));
+    padding-bottom: calc(15px + var(--sab, 0px));
 }
 
 .screen.hidden {
@@ -214,20 +228,35 @@ input, textarea, select, button {
     flex-direction: column;
 }
 
+/* كلاس عام للمحتوى */
+.page-content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 15px;
+    padding-bottom: 20px;
+}
+
 /* تخصيص شريط التمرير */
-.screen::-webkit-scrollbar {
+.screen::-webkit-scrollbar,
+.page-content::-webkit-scrollbar,
+.home-section-2::-webkit-scrollbar {
     width: 4px;
 }
-.screen::-webkit-scrollbar-track {
+.screen::-webkit-scrollbar-track,
+.page-content::-webkit-scrollbar-track,
+.home-section-2::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
-.screen::-webkit-scrollbar-thumb {
+.screen::-webkit-scrollbar-thumb,
+.page-content::-webkit-scrollbar-thumb,
+.home-section-2::-webkit-scrollbar-thumb {
     background: var(--pmu-orange);
     border-radius: 10px;
 }
 
-/* --- كروت محسنة --- */
+/* --- كروت عامة --- */
 .admin-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
@@ -508,111 +537,4 @@ input, textarea, select, button {
 }
 
 .btn-add-now:active {
-    transform: scale(0.97);
-}
-
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-/* --- كلاس عام للمحتوى --- */
-.page-content {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 15px;
-    padding-bottom: 25px;
-}
-
-.page-content::-webkit-scrollbar {
-    width: 4px;
-}
-.page-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-.page-content::-webkit-scrollbar-thumb {
-    background: var(--pmu-orange);
-    border-radius: 10px;
-}
-
-/* --- تأثيرات إضافية --- */
-.screen {
-    animation: none;
-}
-
-.glass-effect {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* --- تحسينات عامة --- */
-button, a, .nav-item {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-}
-
-* {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-input, textarea {
-    -webkit-user-select: text;
-    user-select: text;
-}
-
-/* --- تعديل المسافات للشريط الصغير --- */
-.page-content {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 15px;
-    padding-bottom: 20px;
-}
-
-/* تحسين ظهور المحتوى تحت الشريط */
-.screen:last-child {
-    margin-bottom: 0;
-}
-
-/* --- دعم كامل لأجهزة iOS (Dynamic Island / Notch) --- */
-
-/* إضافة مسافة آمنة في أعلى التطبيق */
-.app-container {
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-/* تعديل شاشة التحميل لتناسب الأيفون */
-#splash-screen {
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-
-/* تعديل الشاشات لتجنب التداخل مع الكاميرا */
-.screen {
-    padding-top: calc(15px + env(safe-area-inset-top, 0px));
-    padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px));
-}
-
-/* تعديل الصفحة الرئيسية تحديداً */
-#home-page .home-section-1 {
-    padding-top: env(safe-area-inset-top, 0px);
-}
-
-/* تعديل شريط التنقل ليكون فوق المسافة الآمنة */
-.bottom-nav {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    padding-top: 5px;
-    height: calc(50px + env(safe-area-inset-bottom, 0px));
-}
-
-/* تعديل الهيدر العلوي */
-.main-header, .home-header, header {
-    padding-top: calc(15px + env(safe-area-inset-top, 0px)) !important;
-}
+    transform: scale(0.97
