@@ -1,251 +1,335 @@
-/* --- تنسيقات الإدارة (Admin Specific) --- */
+/* ----------------------------------------
+   ADMIN PANEL - ENHANCED VERSION
+   ---------------------------------------- */
 
-.login-container {
-    padding: 60px 30px;
+/* تبويبات الأدمن */
+.admin-tabs {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.admin-icon {
-    font-size: 50px;
-    color: var(--pmu-orange);
+    gap: 10px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 10px rgba(239, 125, 0, 0.3));
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 5px;
 }
 
-.login-title {
-    color: white;
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 5px;
+.admin-tabs::-webkit-scrollbar {
+    display: none;
 }
 
-.admin-input {
-    width: 100%;
+.admin-tab {
+    padding: 10px 20px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 12px 15px;
-    color: white;
-    margin-bottom: 12px;
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
-}
-
-.admin-input:focus {
-    border-color: var(--pmu-orange);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.file-upload-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.file-upload-box label {
-    color: #ddd;
+    border-radius: 30px;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.admin-stats-grid {
+.admin-tab.active {
+    background: var(--pmu-orange);
+    color: white;
+    border-color: transparent;
+}
+
+/* بطاقات الإحصائيات المتقدمة */
+.stats-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-bottom: 20px;
 }
 
-.stat-card {
+.stat-card-large {
     background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
     padding: 15px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.stat-card i { 
-    color: var(--pmu-orange); 
-    margin-bottom: 8px; 
-    font-size: 18px; 
+.stat-card-large i {
+    font-size: 32px;
+    color: var(--pmu-orange);
+    margin-bottom: 10px;
 }
 
-.stat-card span { 
-    display: block; 
-    font-size: 22px; 
-    font-weight: 800; 
-    color: white; 
+.stat-card-large .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    display: block;
 }
 
-.stat-card p { 
-    font-size: 11px; 
-    color: #aaa; 
-    text-transform: uppercase; 
-    margin-top: 4px; 
+.stat-card-large .stat-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.btn-logout {
-    background: rgba(255, 68, 68, 0.15);
-    color: #ff4444;
-    border: 1px solid rgba(255, 68, 68, 0.3);
-    width: 100%;
-    padding: 15px;
-    border-radius: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.cancel-link {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.4);
-    margin-top: 15px;
-    font-size: 13px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 20px 0;
-}
-
-/* --- تعديل صفحات الإدارة لتتناسب مع الهيكل الجديد --- */
-
-#admin-login-page.screen, 
-#admin-dashboard.screen {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0;
-    background: var(--dark-bg);
-    overflow-y: auto;
-    z-index: 1000;
-}
-
-/* حاوية المحتوى داخل الإدارة */
-.admin-scroll-area {
-    padding: 20px;
-    padding-bottom: 100px;
-}
-
-/* تنسيق خاص لصفحة الدخول */
-#admin-login-page .login-container {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-}
-
-/* تنسيق شاشة الداشبورد */
-.admin-main-wrapper {
-    min-height: 100%;
-    padding: 15px;
-    padding-bottom: 30px;
-}
-
-.admin-padding {
-    padding: 0 10px;
-}
-
-/* تنسيق قائمة الغرف في لوحة الإدارة */
-.list-container {
-    margin-top: 15px;
+/* قائمة المستخدمين */
+.users-list {
     max-height: 300px;
     overflow-y: auto;
 }
 
-.list-container .room-item {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 8px;
+.user-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 16px;
+    margin-bottom: 8px;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.list-container .room-item span {
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: rgba(243, 111, 38, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pmu-orange);
+    font-size: 18px;
+}
+
+.user-details h4 {
     color: white;
     font-size: 14px;
+    font-weight: 600;
+    margin: 0;
 }
 
-.list-container .room-item button {
-    background: rgba(255, 68, 68, 0.2);
+.user-details p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    margin: 2px 0 0;
+}
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.user-actions button {
+    background: rgba(255, 255, 255, 0.08);
     border: none;
-    color: #ff4444;
     padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.list-container .room-item button:hover {
-    background: #ff4444;
+    border-radius: 20px;
     color: white;
+    font-size: 11px;
+    cursor: pointer;
 }
 
-/* تنسيق قائمة الأحداث */
-#admin-events-list .event-item {
-    background: rgba(255, 255, 255, 0.03);
+/* إرسال الإشعارات */
+.notification-form {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.notification-form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     padding: 12px;
-    border-radius: 12px;
-    margin-bottom: 8px;
+    color: white;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.notification-form select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 12px;
+    color: white;
+    margin: 10px 0;
+}
+
+/* أزرار الإجراءات */
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.admin-action-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.admin-action-btn.danger {
+    border-color: rgba(255, 68, 68, 0.5);
+    color: #ff4444;
+}
+
+.admin-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* وضع التحميل */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+/* إعدادات التطبيق */
+.setting-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-#admin-events-list .event-item .event-info {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+.setting-item:last-child {
+    border-bottom: none;
 }
 
-#admin-events-list .event-item .event-date-badge {
-    background: var(--pmu-orange);
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: bold;
-    color: white;
-}
-
-#admin-events-list .event-item .event-title {
+.setting-label h4 {
     color: white;
     font-size: 14px;
+    margin: 0 0 4px;
 }
 
-#admin-events-list .event-item button {
-    background: rgba(255, 68, 68, 0.2);
-    border: none;
-    color: #ff4444;
-    padding: 6px 12px;
-    border-radius: 8px;
+.setting-label p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    margin: 0;
+}
+
+/* مفتاح التبديل (Toggle Switch) */
+.toggle-switch {
+    width: 50px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    position: relative;
     cursor: pointer;
-    font-size: 12px;
+    transition: all 0.2s ease;
 }
 
-/* تحسينات إضافية */
-.admin-form {
+.toggle-switch.active {
+    background: var(--pmu-orange);
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 3px;
+    transition: all 0.2s ease;
+}
+
+.toggle-switch.active::after {
+    left: 23px;
+}
+
+/* الإحصائيات البيانية */
+.chart-container {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.chart-title {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.bar-chart {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    align-items: flex-end;
+    justify-content: center;
+    height: 150px;
 }
 
-textarea.admin-input {
-    resize: vertical;
-    min-height: 80px;
+.bar {
+    flex: 1;
+    background: linear-gradient(to top, var(--pmu-orange), var(--pmu-orange-light));
+    border-radius: 8px;
+    min-width: 30px;
+    transition: height 0.5s ease;
+}
+
+/* إدارة الأخبار */
+.news-item {
+    display: flex;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+
+.news-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.news-item-content {
+    flex: 1;
+}
+
+.news-item-content h4 {
+    color: white;
+    font-size: 13px;
+    margin: 0 0 4px;
+}
+
+.news-item-content p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    margin: 0;
+}
+
+.news-item-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
