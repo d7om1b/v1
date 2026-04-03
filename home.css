@@ -350,6 +350,7 @@
 /* ========== قسم التقويم الأكاديمي ========== */
 .calendar-section {
     margin-top: 10px;
+        color: white; 
 }
 
 .event-card {
@@ -415,6 +416,7 @@
 .news-section {
     margin-top: 15px;
     padding-bottom: 20px;
+        color: white; 
 }
 
 .news-card {
