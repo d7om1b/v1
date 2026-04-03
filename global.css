@@ -75,6 +75,7 @@ input, textarea, select, button {
     overflow: hidden;
     position: relative;
     padding-top: var(--sat, 0px);
+    padding-bottom: 0;
     padding-left: var(--sal, 0px);
     padding-right: var(--sar, 0px);
 }
@@ -166,8 +167,8 @@ input, textarea, select, button {
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     z-index: 1000;
-    padding-bottom: 1px;
-    margin-bottom: -5px;
+    padding-bottom: 0;
+    margin-bottom: 0;
     box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -226,7 +227,18 @@ input, textarea, select, button {
         background: rgba(0, 18, 35, 0.98) !important;
     }
     
-
+    .nav-item i {
+        font-size: 16px !important;
+    }
+    
+    .nav-item span {
+        font-size: 8px !important;
+    }
+    
+    .nav-item {
+        padding: 2px 8px !important;
+    }
+}
 
 /* دعم الأيباد */
 @media (min-width: 768px) and (max-width: 1024px) {
