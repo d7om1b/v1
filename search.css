@@ -1,4 +1,4 @@
-/* --- صفحة البحث المحسنة --- */
+/* --- صفحة البحث والنتائج - تصميم جديد مثل الصورة --- */
 
 #search-page {
     background: transparent !important;
@@ -11,183 +11,258 @@
     color: white; 
     text-align: center; 
     padding: 20px 20px 10px; 
-    font-size: 24px; 
-    font-weight: 800;
-    background: linear-gradient(135deg, #fff, var(--pmu-orange-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 22px; 
+    font-weight: 700;
 }
 
-/* مربع البحث المحسن */
+/* ========== مربع البحث ========== */
 .modern-input { 
     background: rgba(255, 255, 255, 0.06); 
     backdrop-filter: blur(20px);
-    margin: 20px auto; 
+    margin: 15px auto; 
     padding: 8px 20px; 
-    border-radius: 60px; 
+    border-radius: 50px; 
     display: flex; 
     align-items: center; 
     border: 1px solid rgba(255, 255, 255, 0.1); 
     width: calc(100% - 40px); 
-    max-width: 360px;
-    transition: var(--transition-smooth);
-}
-
-.modern-input:hover {
-    border-color: rgba(239, 125, 0, 0.3);
-    background: rgba(255, 255, 255, 0.08);
+    max-width: 350px;
+    transition: all 0.2s ease;
 }
 
 .modern-input i {
     margin-right: 12px;
     color: var(--pmu-orange);
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .modern-input input { 
     border: none; 
     background: transparent; 
-    padding: 14px 0; 
+    padding: 12px 0; 
     width: 100%; 
     outline: none; 
     color: white; 
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .modern-input input::placeholder {
     color: rgba(255, 255, 255, 0.4);
 }
 
-/* رأس النتائج */
+/* ========== زر الرجوع ========== */
 .res-header {
     display: flex;
     align-items: center;
     padding: 15px 20px;
     background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .back-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    padding: 10px 20px;
-    border-radius: 40px;
+    padding: 8px 18px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: var(--transition-smooth);
+    transition: all 0.2s ease;
 }
 
-.back-btn:hover {
-    background: var(--pmu-orange);
-    border-color: var(--pmu-orange);
-    transform: translateX(-3px);
+.back-btn i {
+    font-size: 12px;
 }
 
-/* بطاقة النتيجة المحسنة */
+.back-btn:active {
+    transform: scale(0.95);
+}
+
+/* ========== 🔥 تصميم بطاقة النتيجة الجديد (مثل الصورة) ========== */
 .result-card-container {
     padding: 20px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    min-height: 80%;
 }
 
-.search-result-img {
+/* المربع الرئيسي - حواف برتقالية */
+.result-card {
     width: 100%;
-    max-width: 360px;
-    height: 220px;
-    border-radius: 28px; 
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 380px;
+    background: rgba(0, 18, 35, 0.75);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--pmu-orange);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+/* الصورة داخل المربع */
+.result-image {
+    width: 100%;
+    height: 200px;
     object-fit: cover;
-    transition: var(--transition-smooth);
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.search-result-img:hover {
-    transform: scale(1.02);
+/* محتوى المربع */
+.result-content {
+    padding: 20px;
 }
 
-.result-description-box {
-    width: 100%; 
-    max-width: 360px;
-    background: rgba(0, 18, 35, 0.7);
-    backdrop-filter: blur(25px); 
+/* تذييل المربع (Floor info) */
+.result-footer {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.floor-badge {
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 32px;
-    padding: 28px;
-    text-align: left;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
-    transition: var(--transition-smooth);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: capitalize;
 }
 
-.result-description-box:hover {
-    transform: translateY(-3px);
-    border-color: rgba(239, 125, 0, 0.3);
+.floor-badge.highlight {
+    border-color: var(--pmu-orange);
+    color: var(--pmu-orange);
 }
 
-.result-description-box h3 { 
-    color: var(--pmu-orange); 
-    margin-bottom: 12px; 
-    font-size: 22px;
+/* عنوان الغرفة */
+.result-title {
+    font-size: 28px;
     font-weight: 800;
+    color: var(--pmu-orange);
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
 }
 
-.result-description-box p { 
-    font-size: 14px; 
-    opacity: 0.9; 
+/* وصف الغرفة */
+.result-description {
+    font-size: 13px;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 20px;
+}
+
+/* الوصف بالعربية */
+.result-description-ar {
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 25px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* أزرار الإجراءات */
 .action-buttons {
-    display: flex; 
-    gap: 12px; 
-    margin-top: 24px;
+    display: flex;
+    gap: 12px;
 }
 
-.action-buttons button {
-    flex: 1; 
-    padding: 12px; 
-    font-size: 13px; 
-    font-weight: 700;
+.action-btn {
+    flex: 1;
+    padding: 12px;
     border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    border: none;
-    transition: var(--transition-smooth);
+    transition: all 0.2s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-.action-buttons button:active {
+.action-btn.favorite {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.action-btn.favorite i {
+    color: #ff4444;
+}
+
+.action-btn.share {
+    background: rgba(239, 125, 0, 0.12);
+    border: 1px solid rgba(239, 125, 0, 0.3);
+    color: var(--pmu-orange);
+}
+
+.action-btn:active {
     transform: scale(0.96);
 }
 
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.08);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
+/* ========== منطقة البحث (قبل النتائج) ========== */
+#search-input-area {
+    padding: 20px;
 }
 
 /* قائمة المفضلات */
+.admin-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px);
+    border: 1px dashed rgba(239, 125, 0, 0.3);
+    border-radius: 24px;
+    padding: 20px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.admin-card h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: white;
+}
+
 #favorites-list {
     margin-top: 10px;
 }
 
 .fav-item-card {
-    transition: var(--transition-smooth);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .fav-item-card:hover {
-    background: rgba(239, 125, 0, 0.15) !important;
-    border-color: var(--pmu-orange) !important;
-    transform: translateX(5px);
+    background: rgba(239, 125, 0, 0.15);
+    border-color: var(--pmu-orange);
+}
+
+.fav-item-card span {
+    color: white;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fav-item-card button {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 5px;
 }
