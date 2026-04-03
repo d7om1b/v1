@@ -287,11 +287,7 @@ input, textarea, select, button {
     padding-bottom: 70px !important;
 }
 
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .screen {
-        padding-bottom: calc(70px + env(safe-area-inset-bottom)) !important;
-    }
-}
+
 
 @media (display-mode: standalone) {
     .screen {
