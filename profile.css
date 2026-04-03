@@ -1,4 +1,4 @@
-/* --- صفحة الملف الشخصي - تصميم صغير ومتوسط مثل الصورة --- */
+/* --- صفحة الملف الشخصي - تصميم صغير ومتوسط ومتوسطة --- */
 
 #profile-page { 
     background: transparent !important;
@@ -17,25 +17,27 @@
 
 .profile-header-img {
     width: 100%;
-    height: 316px;
+    height: 160px;
     object-fit: cover;
     object-position: center;
     display: block;
 }
 
-/* ========== محتوى صفحة البروفايل ========== */
+/* ========== محتوى صفحة البروفايل - توسيط كامل ========== */
 .profile-content {
     flex: 1;
     padding: 20px 25px 30px 25px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;  /* 🔥 توسيط أفقي */
+    justify-content: center;  /* توسيط عمودي اختياري */
 }
 
 /* عنوان الصفحة */
 .profile-title {
     text-align: center;
     margin-bottom: 25px;
+    width: 100%;
 }
 
 .profile-title h1 {
@@ -54,7 +56,7 @@
     margin: 0;
 }
 
-/* ========== الحقول - مصغرة ومتوسطة ========== */
+/* ========== الحقول - توسيط ========== */
 .input-field {
     width: 280px;
     max-width: 100%;
@@ -67,6 +69,7 @@
     color: rgba(255, 255, 255, 0.6);
     margin-bottom: 6px;
     font-weight: 500;
+    text-align: left;  /* النص يبقى يسار */
 }
 
 .input-field input {
@@ -92,7 +95,7 @@
     font-size: 12px;
 }
 
-/* ========== خط "Or login with" - مصغر ========== */
+/* ========== خط "Or login with" - توسيط ========== */
 .divider {
     display: flex;
     align-items: center;
@@ -116,12 +119,13 @@
     letter-spacing: 0.5px;
 }
 
-/* ========== أيقونات التواصل الاجتماعي - مصغرة ========== */
+/* ========== أيقونات التواصل الاجتماعي - توسيط ========== */
 .social-icons {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-bottom: 25px;
+    width: 100%;
 }
 
 .social-icon {
@@ -158,7 +162,7 @@
     transform: scale(0.94);
 }
 
-/* ========== أزرار - مصغرة ومتوسطة ========== */
+/* ========== أزرار - توسيط ========== */
 .signin-btn {
     width: 280px;
     max-width: 100%;
@@ -181,6 +185,7 @@
 
 .signup-link {
     text-align: center;
+    width: 100%;
 }
 
 .signup-link a {
