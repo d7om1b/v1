@@ -974,3 +974,73 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         font-size: 28px;
     }
 }
+
+
+/* ----------------------------------------
+   iOS SPECIAL INSTALL MESSAGE
+   ---------------------------------------- */
+#ios-toast {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(17, 42, 78, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(243, 111, 38, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 20002;
+    transform: translateY(-100px);
+    transition: transform 0.3s ease;
+}
+
+#ios-toast.show {
+    transform: translateY(0);
+}
+
+.ios-toast-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.ios-toast-content i:first-child {
+    font-size: 32px;
+    color: white;
+}
+
+.ios-toast-content div {
+    flex: 1;
+}
+
+.ios-toast-content strong {
+    display: block;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.ios-toast-content p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin: 5px 0 0 0;
+}
+
+.ios-toast-content p i {
+    font-size: 14px;
+    color: var(--pmu-orange);
+}
+
+.close-ios {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+}
