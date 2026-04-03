@@ -1,228 +1,196 @@
-/* --- صفحة الملف الشخصي المحسنة --- */
+/* --- صفحة الملف الشخصي - تصميم حديث مثل الصورة --- */
 
 #profile-page { 
-    background: transparent !important; 
-    min-height: 100%;
+    background: transparent !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.page-content {
+/* ========== صورة الهيدر ========== */
+.profile-header-container {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-header-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* ========== محتوى صفحة البروفايل ========== */
+.profile-content {
     flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 15px;
-    padding-bottom: 25px;
+    padding: 25px 25px 30px 25px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* عنوان الصفحة */
-.login-title {
-    color: white;
+.profile-title {
     text-align: center;
-    margin-bottom: 25px;
-    margin-top: 10px;
-    font-size: 28px;
-    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.profile-title h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 5px 0;
     background: linear-gradient(135deg, #ffffff, var(--pmu-orange-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* حاوية المحتوى */
-.login-overlay-content { 
-    flex: 1; 
-    padding: 10px 20px 30px 20px; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 8px; 
+.profile-title p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
 }
 
-/* الحقول المنسقة */
-.pmu-outlined-field { 
-    position: relative; 
-    margin-bottom: 22px; 
+/* ========== الحقول ========== */
+.input-field {
+    margin-bottom: 20px;
+    position: relative;
 }
 
-.pmu-outlined-field .input-box { 
-    border: 1.5px solid rgba(255, 255, 255, 0.25);
-    border-radius: 60px; 
-    height: 54px; 
-    padding: 0 24px; 
-    position: relative; 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: rgba(255, 255, 255, 0.03);
+.input-field label {
+    display: block;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
-.pmu-outlined-field .input-box:hover {
-    border-color: rgba(239, 125, 0, 0.5);
-    background: rgba(255, 255, 255, 0.05);
+.input-field input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 14px 20px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
 }
 
-.pmu-outlined-field .input-box:focus-within {
+.input-field input:focus {
     border-color: var(--pmu-orange);
+    background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.1);
 }
 
-.pmu-outlined-field label { 
-    position: absolute; 
-    top: -12px; 
-    left: 22px; 
-    background: linear-gradient(160deg, var(--pmu-blue), var(--pmu-blue-dark));
-    padding: 0 10px; 
-    color: var(--pmu-orange); 
-    font-size: 11px; 
-    font-weight: 600;
-    z-index: 5; 
-    border-radius: 20px;
-    letter-spacing: 0.3px;
+.input-field input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
 }
 
-.pmu-outlined-field input { 
-    background: transparent; 
-    border: none; 
-    width: 100%; 
-    height: 100%; 
-    color: white; 
-    outline: none; 
-    font-size: 15px; 
-    font-weight: 500;
+/* ========== خط "Or login with" ========== */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0 25px 0;
 }
 
-.pmu-outlined-field input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
-    font-weight: 400;
-}
-
-/* نص "أو تسجيل الدخول بـ" */
-.login-with-text { 
-    text-align: center; 
-    color: rgba(255, 255, 255, 0.6); 
-    font-size: 12px; 
-    margin: 20px 0 18px; 
-    position: relative;
-    font-weight: 500;
-}
-
-.login-with-text::before,
-.login-with-text::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 28%;
+.divider-line {
+    flex: 1;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
-.login-with-text::before {
-    left: 0;
-}
-
-.login-with-text::after {
-    right: 0;
-}
-
-/* أيقونات التواصل الاجتماعي */
-.social-login-icons { 
-    display: flex; 
-    justify-content: center; 
-    gap: 35px; 
-    margin-bottom: 30px; 
-}
-
-.social-login-icons a { 
-    color: white; 
-    font-size: 24px; 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-    opacity: 0.8;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-decoration: none;
-}
-
-.social-login-icons a:hover { 
-    color: var(--pmu-orange); 
-    opacity: 1;
-    transform: translateY(-4px);
-    border-color: var(--pmu-orange);
-    background: rgba(239, 125, 0, 0.1);
-}
-
-.social-login-icons a:active {
-    transform: scale(0.94);
-}
-
-/* 🔥 زر تسجيل الدخول - باللون البرتقالي */
-.pmu-btn-signin { 
-    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-dark));
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 60px;
-    font-weight: 700;
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 20px rgba(239, 125, 0, 0.3);
-    width: 100%;
+.divider-text {
+    padding: 0 15px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.pmu-btn-signin:hover {
+/* ========== أيقونات التواصل الاجتماعي ========== */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.social-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.social-icon i {
+    font-size: 20px;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.social-icon:hover {
+    background: rgba(239, 125, 0, 0.15);
+    border-color: var(--pmu-orange);
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(239, 125, 0, 0.4);
 }
 
-.pmu-btn-signin:active {
-    transform: scale(0.97);
-    box-shadow: 0 4px 15px rgba(239, 125, 0, 0.3);
-}
-
-/* رابط إنشاء حساب */
-.pmu-signup-link { 
-    text-align: center; 
-    color: rgba(255, 255, 255, 0.7); 
-    font-size: 14px; 
-    font-weight: 500;
-    text-decoration: none; 
-    border-bottom: 1px solid rgba(239, 125, 0, 0.4);
-    align-self: center; 
-    margin-top: 8px;
-    padding-bottom: 4px;
-    transition: all 0.25s ease;
-}
-
-.pmu-signup-link:hover {
+.social-icon:hover i {
     color: var(--pmu-orange);
-    border-bottom-color: var(--pmu-orange);
 }
 
-/* تنسيق صورة الهيدر في صفحة البروفايل */
-.profile-header-container {
+.social-icon:active {
+    transform: scale(0.94);
+}
+
+/* ========== أزرار ========== */
+.signin-btn {
     width: 100%;
-    margin: 0;
-    padding: 0;
+    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 20px rgba(239, 125, 0, 0.3);
 }
 
-.header-img {
-    width: 100%;
-    height: auto;
-    min-height: 140px;
-    max-height: 180px;
-    object-fit: cover;
-    display: block;
+.signin-btn:active {
+    transform: scale(0.97);
 }
 
-/* تحسينات إضافية */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-    transition: background-color 600000s 0s, color 600000s 0s;
+.signup-link {
+    text-align: center;
 }
-input:-webkit-autofill {
-    -webkit-text-fill-color: white !important;
+
+.signup-link a {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.signup-link a:hover {
+    color: var(--pmu-orange);
+}
+
+/* ========== دعم الأيفون ========== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .profile-content {
+        padding-bottom: calc(30px + env(safe-area-inset-bottom));
+    }
 }
