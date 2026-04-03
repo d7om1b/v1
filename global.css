@@ -173,7 +173,8 @@ input, textarea, select, button {
 
 /* --- إصلاح شريط التنقل في وضع PWA --- */
 
-/* للشاشة العادية (Safari) */
+/* --- شريط التنقل السفلي - كامل بعد التعديل --- */
+
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -190,6 +191,55 @@ input, textarea, select, button {
     z-index: 1000;
     padding-bottom: 0;
     margin-bottom: 0;
+    box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* عناصر شريط التنقل */
+.nav-item {
+    color: rgba(255, 255, 255, 0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 25px;
+    transition: all 0.2s ease;
+}
+
+.nav-item i {
+    font-size: 18px;
+    margin-bottom: 2px;
+    transition: all 0.2s ease;
+}
+
+.nav-item span {
+    font-size: 9px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* الحالة النشطة */
+.nav-item.active {
+    color: var(--pmu-orange);
+    background: rgba(239, 125, 0, 0.08);
+}
+
+.nav-item.active i {
+    transform: translateY(-2px);
+}
+
+.nav-item:active {
+    transform: scale(0.94);
+}
+
+/* دعم الأيفون (شريط أسفل الشاشة) */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+        height: calc(55px + env(safe-area-inset-bottom));
+    }
 }
 
 /* 🔥 إصلاح خاص للتطبيق عند حفظه على الشاشة الرئيسية (PWA) */
@@ -205,30 +255,40 @@ input, textarea, select, button {
         background: rgba(0, 18, 35, 0.98) !important;
     }
     
-    /* تصغير حجم الأيقونات والنصوص في وضع PWA */
+    /* تصغير الأيقونات في وضع PWA */
     .nav-item i {
         font-size: 16px !important;
+        margin-bottom: 1px !important;
     }
     
+    /* تصغير النص في وضع PWA */
     .nav-item span {
         font-size: 8px !important;
     }
     
+    /* تقليل المسافات */
     .nav-item {
         padding: 2px 8px !important;
     }
+    
+    /* إزالة أي مسافات إضافية */
+    .bottom-nav {
+        box-shadow: none !important;
+    }
 }
 
-/* دعم الأيفون مع شريط سفلي (Dynamic Island) */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
+/* دعم إضافي لأجهزة iOS ذات الشاشة الكبيرة */
+@media (display-mode: standalone) and (min-height: 800px) {
     .bottom-nav {
-        padding-bottom: env(safe-area-inset-bottom);
+        height: 55px !important;
     }
     
-    @media (display-mode: standalone) {
-        .bottom-nav {
-            padding-bottom: 0 !important;
-        }
+    .nav-item i {
+        font-size: 18px !important;
+    }
+    
+    .nav-item span {
+        font-size: 9px !important;
     }
 }
 /* --- الشاشات - تعويض المسافة للشريط الثابت --- */
