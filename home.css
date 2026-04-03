@@ -17,7 +17,7 @@
 
 /* حاوية الهيرو - تصميم عصري */
 .hero-wrapper {
-    background: linear-gradient(135deg, rgba(0, 45, 86, 0.8), rgba(0, 18, 35, 0.9));
+    background: linear-gradient(135deg, rgba(17, 42, 78, 0.8), rgba(17, 42, 78, 0.9));
     backdrop-filter: blur(20px);
     border-radius: 32px;
     padding: 30px 24px;
@@ -105,7 +105,7 @@
 .stat-card:hover {
     transform: translateY(-3px);
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(239, 125, 0, 0.3);
+    border-color: rgba(243, 111, 38, 0.3);
 }
 
 .stat-number {
@@ -300,13 +300,6 @@
     gap: 4px;
 }
 
-.place-price {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--pmu-orange);
-    margin: 0 16px 12px 16px;
-}
-
 .card-details {
     display: flex;
     justify-content: space-between;
@@ -350,7 +343,6 @@
 /* ========== قسم التقويم الأكاديمي ========== */
 .calendar-section {
     margin-top: 10px;
-        color: white; 
 }
 
 .event-card {
@@ -407,16 +399,15 @@
     display: inline-block;
     margin: 10px 0;
     padding: 8px 20px;
-    background: rgba(239, 125, 0, 0.08);
+    background: rgba(243, 111, 38, 0.08);
     border-radius: 30px;
-    border: 1px solid rgba(239, 125, 0, 0.15);
+    border: 1px solid rgba(243, 111, 38, 0.15);
 }
 
 /* ========== قسم الأخبار ========== */
 .news-section {
     margin-top: 15px;
     padding-bottom: 20px;
-        color: white; 
 }
 
 .news-card {
@@ -473,4 +464,138 @@
     font-size: 12px;
     line-height: 1.45;
     margin: 0;
+}
+
+/* ========================================
+   RESPONSIVE FOR iPAD & TABLETS
+   ======================================== */
+
+/* iPad Portrait & Landscape */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .home-section-1 {
+        padding: 25px 25px 0 25px;
+    }
+    
+    .hero-wrapper {
+        padding: 40px 35px;
+        border-radius: 40px;
+    }
+    
+    .hero-header h1 {
+        font-size: 38px;
+    }
+    
+    .hero-header p {
+        font-size: 16px;
+    }
+    
+    .hero-stats {
+        gap: 20px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
+    }
+    
+    .home-section-2 {
+        padding: 25px;
+    }
+    
+    .place-card {
+        border-radius: 28px;
+    }
+    
+    .place-image {
+        height: 200px;
+    }
+    
+    .place-title {
+        font-size: 20px;
+    }
+    
+    .event-card {
+        padding: 16px;
+    }
+    
+    .event-date {
+        min-width: 65px;
+        padding: 10px 12px;
+    }
+    
+    .event-date span {
+        font-size: 18px;
+    }
+    
+    .event-info h4 {
+        font-size: 16px;
+    }
+}
+
+/* iPad Pro */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .hero-wrapper {
+        padding: 45px 40px;
+    }
+    
+    .hero-header h1 {
+        font-size: 42px;
+    }
+    
+    .place-image {
+        height: 220px;
+    }
+    
+    .home-section-2 {
+        padding: 30px;
+    }
+}
+
+/* Small Tablets */
+@media (min-width: 600px) and (max-width: 767px) {
+    .hero-wrapper {
+        padding: 25px 20px;
+    }
+    
+    .hero-header h1 {
+        font-size: 28px;
+    }
+    
+    .place-image {
+        height: 150px;
+    }
+}
+
+/* Landscape Mode for Phones */
+@media (max-width: 900px) and (orientation: landscape) {
+    .hero-wrapper {
+        padding: 15px 20px;
+    }
+    
+    .hero-header h1 {
+        font-size: 24px;
+    }
+    
+    .hero-stats {
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 8px;
+    }
+    
+    .stat-number {
+        font-size: 18px;
+    }
+    
+    .place-image {
+        height: 120px;
+    }
 }
