@@ -640,6 +640,27 @@
     </div>
 </div>
 
-<script src="script.js" defer></script>
+<script src="script.js"></script>
+
+    <script>
+    // إصلاح سريع لشاشة التحميل - يضمن اختفائها حتى لو لم يعمل script.js
+    (function() {
+        // محاولة إخفاء شاشة التحميل فوراً
+        var splash = document.getElementById('splash-screen');
+        var container = document.querySelector('.app-container');
+        
+        if (splash && container) {
+            // إخفاء بعد 2 ثانية كحد أقصى
+            setTimeout(function() {
+                splash.style.opacity = '0';
+                splash.style.transition = 'opacity 0.5s ease';
+                setTimeout(function() {
+                    splash.classList.add('hidden');
+                    container.classList.remove('hidden');
+                }, 500);
+            }, 2000);
+        }
+    })();
+</script>
 </body>
 </html>
