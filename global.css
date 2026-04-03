@@ -1,6 +1,6 @@
 /* ========================================
    PMU WAY - MAIN STYLESHEET
-   Version: 3.0 - Full iOS/iPad Compatible
+   Version: 3.2 - Final Navigation & Header Fix
    ======================================== */
 
 /* ----------------------------------------
@@ -44,11 +44,8 @@ html, body {
     height: 100%;
     overflow: hidden;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--pmu-blue-dark);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #112a4e !important;
 }
 
 body {
@@ -83,13 +80,11 @@ input, textarea {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background: linear-gradient(145deg, var(--pmu-blue) 0%, var(--pmu-blue-dark) 100%);
+    background: #112a4e !important;
     overflow: hidden;
     position: relative;
     padding-top: var(--safe-top);
     padding-bottom: 0;
-    padding-left: var(--safe-left);
-    padding-right: var(--safe-right);
 }
 
 /* Screens Wrapper */
@@ -101,56 +96,21 @@ input, textarea {
 }
 
 /* ----------------------------------------
-   4. SPLASH SCREEN
+   4. HEADER FIX (لظهور الصورة كاملة)
    ---------------------------------------- */
-#splash-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.profile-header-container {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--pmu-blue) 0%, var(--pmu-blue-dark) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    transition: opacity 0.5s ease;
-}
-
-.splash-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.splash-logo {
-    width: 140px;
     height: auto;
-    margin-bottom: 30px;
-    animation: pulse 1.5s infinite;
+    line-height: 0;
+    position: relative;
+    background: #112a4e;
 }
 
-.loader {
-    width: 45px;
-    height: 45px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top: 3px solid var(--pmu-orange);
-    border-right: 3px solid var(--pmu-orange-light);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+.header-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
 }
 
 /* ----------------------------------------
@@ -160,14 +120,12 @@ input, textarea {
     flex-shrink: 0;
     width: 100%;
     height: 60px;
-    background: rgba(0, 18, 35, 0.95);
-    backdrop-filter: blur(20px);
+    background: #112a4e !important; /* كحلي صلب لمنع الخطوط */
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    z-index: 100;
-    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 9999;
     position: relative;
 }
 
@@ -179,7 +137,6 @@ input, textarea {
     }
 }
 
-/* Nav Items */
 .nav-item {
     color: rgba(255, 255, 255, 0.6);
     display: flex;
@@ -189,140 +146,46 @@ input, textarea {
     font-size: 10px;
     cursor: pointer;
     padding: 6px 12px;
-    border-radius: 25px;
     transition: var(--transition);
 }
 
-.nav-item i {
-    font-size: 20px;
-    margin-bottom: 3px;
-    transition: var(--transition);
-}
-
-.nav-item span {
-    font-size: 9px;
-    font-weight: 500;
-}
-
-.nav-item.active {
-    color: var(--pmu-orange);
-}
-
-.nav-item.active i {
-    transform: translateY(-2px);
-    color: var(--pmu-orange);
-}
-
-.nav-item:active {
-    transform: scale(0.94);
-}
+.nav-item i { font-size: 20px; margin-bottom: 3px; }
+.nav-item span { font-size: 9px; font-weight: 500; }
+.nav-item.active { color: var(--pmu-orange); }
 
 /* ----------------------------------------
    6. SCREENS
    ---------------------------------------- */
 .screen {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: transparent;
-    padding: 0;
 }
 
-.screen.hidden {
-    display: none !important;
-}
+#home-page.screen { padding-top: 0 !important; }
+.screen.hidden { display: none !important; }
+.screen:not(.hidden) { display: flex; flex-direction: column; }
 
-.screen:not(.hidden) {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Content Area for Screens */
-.page-content {
+.page-content, .home-section-2 {
     flex: 1;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     padding: 15px;
-    padding-bottom: 75px;
-}
-
-/* Home Page Content */
-.home-section-2 {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 15px;
-    padding-bottom: 75px;
-}
-
-/* Custom Scrollbar */
-.page-content::-webkit-scrollbar,
-.home-section-2::-webkit-scrollbar {
-    width: 3px;
-}
-
-.page-content::-webkit-scrollbar-track,
-.home-section-2::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-
-.page-content::-webkit-scrollbar-thumb,
-.home-section-2::-webkit-scrollbar-thumb {
-    background: var(--pmu-orange);
-    border-radius: 10px;
+    padding-bottom: 85px; /* مسافة لعدم تغطية المحتوى بالشريط */
 }
 
 /* ----------------------------------------
-   7. CARDS & COMPONENTS
+   7. CARDS & UI COMPONENTS
    ---------------------------------------- */
-.admin-card {
+.admin-card, .reminder-card {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     padding: 20px;
     margin: 15px;
-    text-align: center;
     box-shadow: var(--card-shadow);
-    transition: var(--transition);
-}
-
-.reminder-card {
-    background: rgba(0, 18, 35, 0.6);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 20px;
-    margin: 15px;
-    transition: var(--transition);
-}
-
-.reminder-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-}
-
-.reminder-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.modern-countdown {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
 }
 
 .time-box {
@@ -334,40 +197,12 @@ input, textarea {
     border: 1px solid rgba(243, 111, 38, 0.15);
     padding: 12px 5px;
     border-radius: 16px;
-    transition: var(--transition);
 }
 
-.time-value {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--pmu-orange);
-    line-height: 1;
-}
-
-.time-label {
-    font-size: 9px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 4px;
-    font-weight: 600;
-}
-
-.delete-rem-btn {
-    background: rgba(255, 68, 68, 0.1);
-    color: #ff5555;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.time-value { font-size: 22px; font-weight: 900; color: var(--pmu-orange); }
 
 /* ----------------------------------------
-   8. BUTTONS
+   8. BUTTONS & FORMS
    ---------------------------------------- */
 .btn-primary {
     background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
@@ -376,74 +211,9 @@ input, textarea {
     padding: 14px 28px;
     border-radius: 40px;
     font-weight: 700;
-    font-size: 15px;
-    display: block;
-    margin: 20px auto;
     width: 85%;
-    max-width: 300px;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 6px 20px rgba(243, 111, 38, 0.3);
-}
-
-.btn-primary:active {
-    transform: scale(0.97);
-}
-
-.btn-add-now {
-    width: 100%;
-    background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-light));
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(243, 111, 38, 0.3);
-}
-
-.btn-add-now:active {
-    transform: scale(0.97);
-}
-
-/* ----------------------------------------
-   9. BADGES
-   ---------------------------------------- */
-.badge {
-    background: rgba(255, 255, 255, 0.08);
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #eee;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(5px);
-}
-
-.badge.highlight {
-    border-color: var(--pmu-orange);
-    color: var(--pmu-orange);
-    background: rgba(243, 111, 38, 0.1);
-}
-
-/* ----------------------------------------
-   10. FORMS & INPUTS
-   ---------------------------------------- */
-.add-reminder-form {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--glass-border);
-    border-radius: 28px;
-    padding: 25px 20px;
-    margin: 15px auto;
-    width: calc(100% - 30px);
-    max-width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    backdrop-filter: blur(15px);
-    transition: var(--transition);
+    margin: 20px auto;
+    display: block;
 }
 
 .modern-input {
@@ -453,181 +223,27 @@ input, textarea {
     border-radius: 50px;
     padding: 14px 20px;
     color: white;
-    font-size: 15px;
-    outline: none;
-    transition: var(--transition);
-}
-
-.modern-input:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--pmu-orange);
-    box-shadow: 0 0 0 3px rgba(243, 111, 38, 0.1);
-}
-
-.modern-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-/* Date Picker Icon Color */
-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    filter: invert(1) sepia(1) saturate(5) hue-rotate(175deg);
-    cursor: pointer;
 }
 
 /* ----------------------------------------
-   11. TOAST NOTIFICATION
-   ---------------------------------------- */
-#custom-toast {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: rgba(0, 18, 35, 0.95);
-    backdrop-filter: blur(15px);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    border: 1px solid rgba(243, 111, 38, 0.4);
-    z-index: 20000;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    opacity: 0;
-    pointer-events: none;
-    white-space: nowrap;
-}
-
-#custom-toast i {
-    color: var(--pmu-orange);
-    font-size: 18px;
-}
-
-#custom-toast.toast-show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* ----------------------------------------
-   12. ANIMATIONS
-   ---------------------------------------- */
-@keyframes pageReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.screen:not(.hidden) {
-    animation: pageReveal 0.4s ease-out forwards;
-}
-
-/* ----------------------------------------
-   13. BACKGROUND EFFECTS
-   ---------------------------------------- */
-.bg-glow-1,
-.bg-glow-2 {
-    display: none;
-}
-
-/* ----------------------------------------
-   14. UTILITY CLASSES
-   ---------------------------------------- */
-.hidden {
-    display: none !important;
-}
-
-.text-center {
-    text-align: center;
-}
-
-/* ----------------------------------------
-   15. PWA MODE FIX - الحل النهائي
+   15. PWA MODE FIX - الحل النهائي لظهور الشريط
    ---------------------------------------- */
 @media (display-mode: standalone) {
-    /* تثبيت شريط التنقل في القاع */
     .bottom-nav {
+        background: #112a4e !important;
         position: fixed !important;
         bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-        height: 55px !important;
-        background: #112a4e !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        border-top: 1px solid #f36f26 !important;
-        z-index: 999999 !important;
-        box-shadow: none !important;
+        display: flex !important; /* التأكد من عدم الاختفاء */
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: 60px !important;
     }
     
-    /* إزالة أي تأثيرات زجاجية */
-    .bottom-nav,
-    .bottom-nav * {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-    }
-    
-    /* إزالة أي عناصر وهمية */
-    .bottom-nav::before,
-    .bottom-nav::after {
-        display: none !important;
-    }
-    
-    /* أيقونات شريط التنقل */
-    .nav-item {
-        color: rgba(255, 255, 255, 0.6) !important;
-        background: transparent !important;
-    }
-    
-    .nav-item i {
-        font-size: 18px !important;
-    }
-    
-    .nav-item span {
-        font-size: 9px !important;
-    }
-    
-    .nav-item.active {
-        color: #f36f26 !important;
-    }
-    
-    /* إزالة المسافات الإضافية */
-    .app-container {
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-        background: #112a4e !important;
-    }
-    
-    .screens-wrapper {
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-        height: 100% !important;
-    }
-    
-    /* تعويض المسافة في المحتوى */
     .screen {
-        padding-bottom: 65px !important;
-        margin-bottom: 0 !important;
+        padding-bottom: calc(70px + env(safe-area-inset-bottom)) !important;
     }
-    
-    .page-content,
-    .home-section-2 {
-        padding-bottom: 75px !important;
-    }
-    
-    /* توحيد الخلفية */
-    body,
-    .app-container,
-    .screens-wrapper {
-        background: #112a4e !important;
-    }
+
+    body, .app-container { background: #112a4e !important; }
 }
 
 /* ----------------------------------------
@@ -636,17 +252,8 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
     @media (display-mode: standalone) {
         .bottom-nav {
-            padding-bottom: 0 !important;
-            height: 55px !important;
-        }
-        
-        .screen {
-            padding-bottom: calc(65px + env(safe-area-inset-bottom)) !important;
-        }
-        
-        .page-content,
-        .home-section-2 {
-            padding-bottom: calc(75px + env(safe-area-inset-bottom)) !important;
+            padding-bottom: env(safe-area-inset-bottom) !important;
+            height: calc(60px + env(safe-area-inset-bottom)) !important;
         }
     }
 }
@@ -654,114 +261,15 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 /* ----------------------------------------
    17. IPAD & TABLET RESPONSIVE
    ---------------------------------------- */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .bottom-nav {
-        height: 70px;
-    }
-    
-    .nav-item i {
-        font-size: 24px;
-    }
-    
-    .nav-item span {
-        font-size: 11px;
-    }
-    
-    .page-content,
-    .home-section-2 {
-        padding: 25px;
-        padding-bottom: 90px;
-    }
-    
-    .hero-wrapper {
-        padding: 40px 35px;
-        border-radius: 40px;
-    }
-    
-    .hero-header h1 {
-        font-size: 38px;
-    }
-    
-    .stat-number {
-        font-size: 28px;
-    }
-    
-    .place-image {
-        height: 200px;
-    }
-    
-    .btn-primary,
-    .pmu-btn-signin {
-        padding: 16px 24px;
-        font-size: 16px;
-    }
-}
-
-/* iPad Pro */
-@media (min-width: 1024px) and (max-width: 1366px) {
-    .hero-header h1 {
-        font-size: 42px;
-    }
-    
-    .place-image {
-        height: 220px;
-    }
-    
-    .page-content,
-    .home-section-2 {
-        padding: 30px;
-        padding-bottom: 100px;
-    }
-}
-
-/* Small Tablets */
-@media (min-width: 600px) and (max-width: 767px) {
-    .hero-header h1 {
-        font-size: 28px;
-    }
-    
-    .place-image {
-        height: 150px;
-    }
-}
-
-/* Landscape Mode */
-@media (max-width: 900px) and (orientation: landscape) {
-    .hero-wrapper {
-        padding: 15px 20px;
-    }
-    
-    .hero-header h1 {
-        font-size: 24px;
-    }
-    
-    .stat-card {
-        padding: 8px;
-    }
-    
-    .stat-number {
-        font-size: 18px;
-    }
-    
-    .place-image {
-        height: 120px;
-    }
-    
-    .bottom-nav {
-        height: 50px;
-    }
-}
-
-/* Desktop */
 @media (min-width: 1025px) {
-    .app-container {
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    
-    .bottom-nav {
-        max-width: 500px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+    .app-container { max-width: 500px; margin: 0 auto; }
+    .bottom-nav { max-width: 500px; left: 50%; transform: translateX(-50%); }
 }
+
+/* Animations */
+@keyframes pageReveal {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.screen:not(.hidden) { animation: pageReveal 0.4s ease-out forwards; }
