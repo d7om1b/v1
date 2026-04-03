@@ -1,11 +1,15 @@
 {
   "name": "PMU Way",
   "short_name": "PMU Way",
-  "start_url": "/v1/",
-  "scope": "/v1/",
+  "start_url": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
   "background_color": "#002d56",
   "theme_color": "#ef7d00",
+  "description": "PMU Campus Navigator and Academic Tracker",
+  "scope": "/",
+  "lang": "en",
   "icons": [
     {
       "src": "/v1/logo.png",
