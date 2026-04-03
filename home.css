@@ -1,4 +1,4 @@
-/* --- تنسيق الصفحة الرئيسية --- */
+/* --- تنسيق الصفحة الرئيسية - تصميم متناسق وجميل --- */
 
 #home-page {
     background: transparent !important;
@@ -7,101 +7,89 @@
     height: 100%;
 }
 
-/* القسم 1: الهيدر والهيرو */
+/* ========== القسم 1: الهيدر ========== */
 .home-section-1 {
     flex-shrink: 0;
     background: transparent;
-    z-index: 10;
     position: relative;
 }
 
-/* فاصل حديث بين القسمين */
-.home-section-1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-    width: 90%;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(239, 125, 0, 0.3), 
-        rgba(255, 255, 255, 0.1),
-        rgba(239, 125, 0, 0.3),
-        transparent
-    );
-    border-radius: 2px;
-}
-
-/* حاوية الهيدر */
+/* حاوية الصورة */
 .profile-header-container {
     width: 100%;
     padding: 0;
     margin: 0;
-    background: transparent;
     position: relative;
+    background: linear-gradient(135deg, var(--pmu-blue), var(--pmu-blue-dark));
 }
 
-/* 🔥 صورة الهيدر - تظهر كاملة بدون قص */
+/* 🔥 صورة الهيدر - حل نهائي */
 .header-img { 
     width: 100%; 
-    height: auto;
-    min-height: auto;
-    max-height: none;
-    object-fit: contain;
-    object-position: center center;
+    height: 200px;
+    object-fit: cover;
+    object-position: center 30%;
     display: block;
-    background: transparent;
-    margin: 0;
+    opacity: 0.92;
 }
 
-/* قسم الترحيب */
+/* طبقة تدرج فوق الصورة للجمال */
+.profile-header-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--pmu-blue-dark), transparent);
+    pointer-events: none;
+}
+
+/* ========== القسم 2: الهيرو بوكس (Welcome) ========== */
 .hero-section { 
     background: rgba(0, 18, 35, 0.75);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
+    border-radius: 24px;
     display: flex; 
     justify-content: space-between; 
     align-items: center;
-    margin: 15px 16px 20px 16px;
-    padding: 14px 22px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    margin: -25px 16px 16px 16px;
+    padding: 12px 20px;
+    position: relative;
+    z-index: 10;
     transition: all 0.3s ease;
 }
 
 .hero-section:hover {
-    background: rgba(0, 18, 35, 0.85);
-    border-color: rgba(239, 125, 0, 0.25);
     transform: translateY(-2px);
+    border-color: rgba(239, 125, 0, 0.3);
 }
 
 .user-info p { 
     font-size: 11px; 
-    opacity: 0.65; 
-    margin-bottom: 3px;
+    opacity: 0.6; 
+    margin-bottom: 4px;
     letter-spacing: 0.3px;
-    font-weight: 500;
 }
 
 .user-info h2 { 
-    font-size: 22px; 
+    font-size: 20px; 
     font-weight: 700; 
     background: linear-gradient(135deg, #ffffff, var(--pmu-orange-light)); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0;
-    letter-spacing: -0.3px;
 }
 
 .mini-logo { 
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
-    padding: 9px;
+    padding: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     border: 1px solid rgba(239, 125, 0, 0.25);
 }
 
@@ -109,22 +97,32 @@
     transform: scale(0.94);
 }
 
-/* القسم 2: المحتوى القابل للتمرير */
+/* ========== القسم 3: المحتوى القابل للتمرير ========== */
 .home-section-2 {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0 0 5px 0;
-    margin-bottom: 0;
+    padding: 5px 0 20px 0;
 }
 
-/* عناوين الأقسام */
+/* تخصيص شريط التمرير */
+.home-section-2::-webkit-scrollbar {
+    width: 3px;
+}
+.home-section-2::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+.home-section-2::-webkit-scrollbar-thumb {
+    background: var(--pmu-orange);
+    border-radius: 10px;
+}
+
+/* ========== عنوان التقويم ========== */
 .section-title { 
     color: white; 
-    font-size: 15px; 
-    margin-bottom: 14px; 
-    margin-top: 10px;
-    margin-left: 16px;
+    font-size: 14px; 
+    margin: 8px 16px 12px 16px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -133,20 +131,20 @@
 
 .section-title i { 
     color: var(--pmu-orange); 
-    font-size: 18px;
+    font-size: 16px;
 }
 
-/* بطاقات الأحداث */
+/* ========== بطاقات التقويم ========== */
 .event-card { 
-    background: rgba(255, 255, 255, 0.04); 
+    background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.06); 
-    padding: 14px; 
-    border-radius: 22px; 
-    margin: 0 16px 12px 16px;
-    display: flex; 
-    align-items: center; 
-    transition: all 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px;
+    border-radius: 18px;
+    margin: 0 16px 10px 16px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
 }
 
 .event-card:active {
@@ -155,27 +153,26 @@
 
 .event-date { 
     background: linear-gradient(135deg, var(--pmu-orange), var(--pmu-orange-dark));
-    color: white; 
-    padding: 8px 10px;
-    border-radius: 16px; 
-    text-align: center; 
-    font-weight: 700; 
-    min-width: 55px; 
-    margin-right: 15px;
-    box-shadow: 0 4px 12px rgba(239, 125, 0, 0.2);
+    color: white;
+    padding: 6px 8px;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: 700;
+    min-width: 50px;
+    margin-right: 14px;
 }
 
 .event-date span { 
     display: block; 
-    font-size: 16px; 
+    font-size: 14px; 
     line-height: 1.2; 
 }
 
 .event-info h4 { 
     color: #ffffff; 
-    font-size: 14px; 
+    font-size: 13px; 
     font-weight: 600; 
-    margin-bottom: 3px; 
+    margin-bottom: 2px; 
 }
 
 .event-info p { 
@@ -183,18 +180,19 @@
     font-size: 10px; 
 }
 
+/* رابط تحميل PDF */
 .calendar-link { 
     color: var(--pmu-orange); 
     text-decoration: none; 
     font-weight: 500; 
-    font-size: 12px; 
+    font-size: 11px; 
     text-align: center;
     display: inline-block;
-    margin: 8px 16px 16px 16px;
-    padding: 8px 20px;
+    margin: 5px 16px 15px 16px;
+    padding: 6px 16px;
     background: rgba(239, 125, 0, 0.08);
-    border-radius: 40px;
-    transition: all 0.25s ease;
+    border-radius: 30px;
+    transition: all 0.2s ease;
     border: 1px solid rgba(239, 125, 0, 0.15);
 }
 
@@ -202,19 +200,19 @@
     transform: scale(0.96);
 }
 
-/* قسم الأخبار */
+/* ========== قسم الأخبار ========== */
 .news-section {
-    margin-top: 12px;
-    padding-bottom: 20px;
+    margin-top: 8px;
+    padding-bottom: 15px;
 }
 
 .news-card {
     background: rgba(255, 255, 255, 0.03);
-    margin: 10px 16px;
-    padding: 14px;
-    border-radius: 22px;
+    margin: 8px 16px;
+    padding: 12px;
+    border-radius: 18px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .news-card:active {
@@ -224,23 +222,23 @@
 .news-header {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     position: relative;
 }
 
 .news-avatar {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: linear-gradient(135deg, #fff, #e0e0e0);
-    padding: 3px;
-    margin-right: 12px;
+    padding: 2px;
+    margin-right: 10px;
     border: 1px solid rgba(239, 125, 0, 0.2);
 }
 
 .news-meta h4 {
     color: white;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     margin: 0;
 }
@@ -255,13 +253,30 @@
     right: 0;
     top: 0;
     color: #1DA1F2;
-    font-size: 16px;
+    font-size: 14px;
     opacity: 0.7;
 }
 
 .news-content {
     color: rgba(255, 255, 255, 0.85);
-    font-size: 12px;
-    line-height: 1.45;
+    font-size: 11px;
+    line-height: 1.4;
     margin: 0;
+}
+
+/* ========== فاصل بين الأقسام ========== */
+.home-section-1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 90%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(239, 125, 0, 0.3), 
+        rgba(255, 255, 255, 0.1),
+        rgba(239, 125, 0, 0.3),
+        transparent
+    );
 }
